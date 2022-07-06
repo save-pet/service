@@ -6,10 +6,26 @@ function Header() {
   return (
     <div
       className="header-container"
-      style={{ backgroundColor: '#FFD149', height: '200px' }}
+      style={{
+        backgroundColor: '#FFD149',
+        height: '200px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+      }}
     >
-      <Link to="/">≡</Link>
-      <Link to="/">
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Link to="/">≡</Link>
+        <div>
+          <button type="button" component={Link} to="/">
+            회원가입
+          </button>
+          <button type="button" component={Link} to="/">
+            로그인
+          </button>
+        </div>
+      </div>
+      <Link to="/" style={{ display: 'flex', justifyContent: 'center' }}>
         <img
           className="main-logo"
           src={Logo}
@@ -17,12 +33,6 @@ function Header() {
           style={{ width: '100px' }}
         />
       </Link>
-      <button type="button" component={Link} to="/">
-        회원가입
-      </button>
-      <button type="button" component={Link} to="/">
-        로그인
-      </button>
     </div>
   );
 }
