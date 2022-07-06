@@ -1,3 +1,4 @@
+/*eslint-disable */
 // 키워드 장소로 검색하기
 // https://react-kakao-maps-sdk.jaeseokim.dev/docs/sample/library/keywordBasic
 import React, { useEffect, useState } from 'react';
@@ -14,25 +15,41 @@ function Maps() {
     if (!map) return;
     const ps = new kakao.maps.services.Places();
 
-    ps.keywordSearch('상주시청', (data, status) => {
+    ps.keywordSearch('가화리', (data, status) => {
       if (status === kakao.maps.services.Status.OK) {
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
         // LatLngBounds 객체에 좌표를 추가합니다
+        // console.log(data);
+        const lat =
+          data.reduce((prev, e) => prev + Number(e.y), 0) / data.length;
+        const lng =
+          data.reduce((prev, e) => prev + Number(e.x), 0) / data.length;
+        // console.log(lat, lng);
         const bounds = new kakao.maps.LatLngBounds();
+        const markers = [
+          {
+            position: {
+              lat,
+              lng,
+            },
+            content: data[0].place_name,
+          },
+        ];
         // const markers = [];
 
-        for (let i = 0; i < data.length; i += 1) {
-          // @ts-ignore
-          markers.push({
-            position: {
-              lat: data[i].y,
-              lng: data[i].x,
-            },
-            content: data[i].place_name,
-          });
-          // @ts-ignore
-          bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
-        }
+        // for (let i = 0; i < data.length; i += 1) {
+        //   // @ts-ignore
+        //   markers.push({
+        //     position: {
+        //       lat: data[i].y,
+        //       lng: data[i].x,
+        //     },
+        //     content: data[i].place_name,
+        //   });
+        //   // @ts-ignore
+        //   bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+        // }
+        bounds.extend(new kakao.maps.LatLng(lat, lng));
         setMarkers(markers);
 
         // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
