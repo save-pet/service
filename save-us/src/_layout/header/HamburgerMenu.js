@@ -21,7 +21,7 @@ export default function HamburgerMenu() {
       background: '#c67100',
     },
     bmMenuWrap: {
-      width: '28%',
+      width: '270px',
       top: '200px',
     },
     bmMenu: {
