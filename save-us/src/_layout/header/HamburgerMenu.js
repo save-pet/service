@@ -63,7 +63,7 @@ export default function HamburgerMenu() {
       <Link className="menu-item" to="/">
         목격 및 구조 리스트
       </Link>
-      <Link className="menu-item" to="/">
+      <Link className="menu-item" to="/lostMap">
         목격 및 구조 지도
       </Link>
       <br />

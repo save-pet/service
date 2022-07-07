@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import HamburgerMenu from './HamburgerMenu';
 import LOGO from './MainLogo.png';
 
 function Header() {
@@ -16,7 +15,6 @@ function Header() {
       }}
     >
       <div>
-        <HamburgerMenu />
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <button type="button" component={Link} to="/">
             회원가입
