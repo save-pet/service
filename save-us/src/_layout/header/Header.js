@@ -32,7 +32,7 @@ function Header() {
           className="main-LOGO"
           src={LOGO}
           alt="Main LOGO that has a cat and a dog in a box"
-          style={{ width: '100px' }}
+          style={{ width: '150px' }}
         />
       </Link>
     </div>

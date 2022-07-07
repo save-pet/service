@@ -12,15 +12,17 @@ export default function HamburgerMenu() {
       left: '36px',
       top: '36px',
     },
-    bmBurgerBars: {
-      background: '#FFD149',
-    },
+
     bmCrossButton: {
       height: '24px',
       width: '24px',
     },
     bmCross: {
-      background: '#bdc3c7',
+      background: '#c67100',
+    },
+    bmMenuWrap: {
+      width: '28%',
+      top: '200px',
     },
     bmMenu: {
       background: '#FFD149',
@@ -31,11 +33,16 @@ export default function HamburgerMenu() {
       fill: '#373a47',
     },
     bmItemList: {
-      color: '#b8b7ad',
       padding: '0.8em',
+      height: '80%',
+    },
+    bmItem: {
+      textDecoration: 'none',
+      color: 'black',
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)',
+      top: '200px',
     },
   };
   return (
