@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Logo from './MainLogo.png';
+import HamburgerMenu from './HamburgerMenu';
+import LOGO from './MainLogo.png';
 
 function Header() {
   return (
@@ -14,9 +15,9 @@ function Header() {
         justifyContent: 'space-around',
       }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Link to="/">≡</Link>
-        <div>
+      <div>
+        <HamburgerMenu />
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <button type="button" component={Link} to="/">
             회원가입
           </button>
@@ -25,12 +26,13 @@ function Header() {
           </button>
         </div>
       </div>
+
       <Link to="/" style={{ display: 'flex', justifyContent: 'center' }}>
         <img
-          className="main-logo"
-          src={Logo}
-          alt="Mang logo that has a cat and a dog in a box"
-          style={{ width: '100px' }}
+          className="main-LOGO"
+          src={LOGO}
+          alt="Main LOGO that has a cat and a dog in a box"
+          style={{ width: '150px' }}
         />
       </Link>
     </div>
