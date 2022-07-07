@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import { request, Router } from 'express';
 import is from '@sindresorhus/is';
 
-import { loginRequired } from '../middlewares/login-required.js';
-import { userService } from '../services/user-service.js';
+import { loginRequired } from '../middlewares/LoginRequired.js';
+import { userService } from '../services/UserService.js';
 
 const userRouter = Router();
 

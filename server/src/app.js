@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import {
   userRouter
-} from './routers/user-router.js';
-import { errorHandler } from './middlewares/error-handler.js';
+} from './routers/UserRouter.js';
+import { errorHandler } from './middlewares/ErrorHandler.js';
 
 const app = express();
 
