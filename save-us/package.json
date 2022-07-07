@@ -8,10 +8,14 @@
     "@testing-library/user-event": "^13.5.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
+    "react-burger-menu": "^3.0.8",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-kakao-maps-sdk": "^1.1.1",
+<<<<<<< HEAD
     "react-modal": "^3.15.1",
+=======
+>>>>>>> f9d145e9162f26be5bb0a5f54a98656a10a3145e
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "sass": "^1.53.0",

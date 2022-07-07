@@ -19,6 +19,18 @@
   "rules": {
     "import/no-unresolved": "off",
     "import/extensions": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies" : "off",
+    "import/order": "off",
+    "prefer-destructuring": "off",
+    "prefer-arrow-callback" : "off",
+    "object-shorthand" :"off",
+    "class-methods-use-this": "off",
+    "no-unused-vars":"off",
+    "no-shadow":"off",
+    "no-underscore-dangle":"off",
+    "no-param-reassign":"off",
+    "no-console":"off"
+
   }
 }
