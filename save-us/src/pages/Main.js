@@ -1,5 +1,5 @@
 import React from 'react';
-import Header from '../_layout/Header';
+import Header from '../_layout/header/Header';
 
 function Main() {
   return <Header />;
