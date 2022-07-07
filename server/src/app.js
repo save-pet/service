@@ -1,8 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import {
-  userRouter
-} from './routers/user-router.js';
+import { userRouter, lostRouter } from './routers/index.js';
 import { errorHandler } from './middlewares/error-handler.js';
 
 const app = express();
@@ -24,6 +22,7 @@ app.listen(5000, () => {
 });
 
 app.use('/api/user', userRouter);
+app.use('/api/lost', lostRouter);
 
 app.use(errorHandler);
 
