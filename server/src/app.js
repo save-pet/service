@@ -11,10 +11,8 @@ app.use(cors());
 // Content-Type: application/json 형태의 데이터를 인식하고 핸들링할 수 있게 함.
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  // 요청패스에 대한 콜백함수를 넣어줍니다.
-  res.send('hello');
-});
+// Content-Type: application/x-www-form-urlencoded 형태의 데이터를 인식하고 핸들링할 수 있게 함.
+app.use(express.urlencoded({ extended: false }));
 
 // app을 통해 웹서버를 실행할 listen 함수
 app.listen(5000, () => {
@@ -23,6 +21,11 @@ app.listen(5000, () => {
 
 app.use('/api/user', userRouter);
 app.use('/api/lost', lostRouter);
+
+app.get('/', (req, res) => {
+  // 요청패스에 대한 콜백함수를 넣어줍니다.
+  res.send('hello');
+});
 
 app.use(errorHandler);
 

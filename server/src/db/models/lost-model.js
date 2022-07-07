@@ -33,9 +33,9 @@ export class LostModel {
     return updatedLostPost;
   }
 
-  // async delete(orderId) {
-  //   await this.Lost.findOneAndDelete({ shortId: orderId });
-  // }
+  async delete(shortId) {
+    await this.Lost.findOneAndDelete({ shortId: shortId });
+  }
 
   async create(lostinfo) {
     const newLostPost = await this.Lost.create(lostinfo);

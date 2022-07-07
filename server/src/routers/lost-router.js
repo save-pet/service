@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-// import { loginRequired, adminRequired } from '../middlewares';
+import { loginRequired, adminRequired } from '../middlewares/index.js';
 import { lostService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
@@ -158,23 +158,25 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
   }
 });
 
-// 상품 삭제("productId에 shortId가 들어가야됨")
-// lostRouter.delete(
-//   '/delete/:productId',
-//   loginRequired,
-//   adminRequired,
-//   asyncHandler(async (req, res, next) => {
-//     const { productId } = req.params;
-//     if (!productId) {
-//       throw new CustomError(
-//         400,
-//         '해당 상품이 없습니다. 상품id를 다시 확인해주세요.',
-//       );
-//     }
-//     await productService.deleteProduct(productId);
+// 분실 글 삭제("id에 shortId가 들어가야됨")
+lostRouter.delete('/delete/:id', adminRequired, async (req, res, next) => {
+  try {
+    if (is.emptyObject(req.body)) {
+      throw new Error(
+        'headers의 Content-Type을 application/json으로 설정해주세요',
+      );
+    }
+    const { shortId } = req.params;
+    if (!shortId) {
+      throw new Error('해당하는 글이 없습니다. 게시글 id를 다시 확인해주세요');
+    }
 
-//     res.status(200).json({ message: '상품이 삭제되었습니다' });
-//   }),
-// );
+    await lostService.deleteLost(shortId);
+
+    res.status(200).json({ message: '상품이 삭제되었습니다' });
+  } catch (error) {
+    next(error);
+  }
+});
 
 export { lostRouter };

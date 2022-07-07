@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-return */
 import { lostModel } from '../db/models/lost-model.js';
 
 class LostService {
@@ -58,19 +59,16 @@ class LostService {
     return lost;
   }
 
-  // 상품 정보 삭제
-  // async deleteProduct(productId) {
-  //   let product = await productModel.findById(productId);
+  // 분실 글 삭제
+  async deleteLost(shortId) {
+    const lostPost = await lostModel.findById(shortId);
 
-  //   if (!product) {
-  //     throw new CustomError(
-  //       400,
-  //       '해당 상품이 없습니다. 상품id를 다시 확인해주세요.',
-  //     );
-  //   }
-  //   await this.productModel.delete(productId);
-  //   return;
-  // }
+    if (!lostPost) {
+      throw new Error('해당하는 글이 없습니다. 게시글 id를 다시 확인해주세요');
+    }
+    await this.lostModel.delete(shortId);
+    return;
+  }
 }
 
 const lostService = new LostService(lostModel);
