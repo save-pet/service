@@ -1,5 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import {
+  userRouter
+} from './routers/UserRouter.js';
+import { errorHandler } from './middlewares/ErrorHandler.js';
 
 const app = express();
 
@@ -18,5 +22,9 @@ app.get('/', (req, res) => {
 app.listen(5000, () => {
   console.log(`정상적으로 서버를 시작하였습니다.  http://localhost:5000`);
 });
+
+app.use('/api/user', userRouter);
+
+app.use(errorHandler);
 
 export { app };
