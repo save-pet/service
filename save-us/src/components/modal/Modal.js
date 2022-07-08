@@ -20,7 +20,7 @@ function Modal({ onClickToggleModal, children }) {
 
 const ModalContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -28,17 +28,18 @@ const ModalContainer = styled.div`
 `;
 
 const DialogBox = styled.dialog`
-  width: 800px;
-  height: 400px;
+  width: 40vw;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
   border: none;
   border-radius: 3px;
   box-shadow: 0 0 30px rgb(30, 30, 30, 0.185);
   box-sizing: border-box;
   background-color: white;
-  z-index: 10000;
+  z-index: 2;
 `;
 
 const Backdrop = styled.div`
@@ -46,8 +47,8 @@ const Backdrop = styled.div`
   height: 100vh;
   position: fixed;
   top: 0;
-  z-index: 9999;
-  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
 export default Modal;

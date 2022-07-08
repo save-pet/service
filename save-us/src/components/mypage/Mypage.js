@@ -1,7 +1,9 @@
 import { React, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import Modal from '../modal/Modal';
-import Leave from './Leave'
+import Leave from './Leave';
 
 function Mypage() {
   const [isOpenModal, setOpenModal] = useState(false);
@@ -16,14 +18,20 @@ function Mypage() {
         <Title>Mypage</Title>
         {isOpenModal && (
           <Modal onClickToggleModal={onClickToggleModal}>
-            <Leave/>
+            <Leave />
           </Modal>
         )}
         <ul>
-          <li>개인정보수정</li>
-          <li>분실 신고 확인</li>
           <li>
-            <button type='button' onClick={onClickToggleModal}>계정 탈퇴</button>
+            <Link to="/">개인정보수정</Link>
+          </li>
+          <li>
+            <Link to="/">분실 신고 확인</Link>
+          </li>
+          <li>
+            <button type="button" onClick={onClickToggleModal}>
+              계정 탈퇴
+            </button>
           </li>
         </ul>
       </Main>
