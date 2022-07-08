@@ -30,8 +30,8 @@ const RescueSchema = new Schema (
       processState: {
         type: String,
       },
-      careNm : {
-        type: String,
+      shelter : {
+        type: Schema.Types.ObjectId,
         ref: 'Shelter',
         required: true
       }

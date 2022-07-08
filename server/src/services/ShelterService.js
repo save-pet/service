@@ -1,4 +1,4 @@
-import { ShelterModel } from "../db/models/ShelterModel";
+import { ShelterModel } from "../db/models/ShelterModel.js";
 
 class ShelterService {
     constructor(shelterModel){
@@ -57,4 +57,4 @@ class ShelterService {
 
 const shelterService = new ShelterService(ShelterModel);
 
-export { shelterService};
+export { shelterService };
