@@ -2,7 +2,7 @@ import pkg from 'mongoose';
 
 const { Schema } = pkg;
 
-const ShelterInfoSchema = new Schema (
+const RescueSchema = new Schema (
     {
       imgUrl : {
         type : String,
@@ -42,4 +42,4 @@ const ShelterInfoSchema = new Schema (
     }
   );
   
-export { ShelterInfoSchema };
+export { RescueSchema };
