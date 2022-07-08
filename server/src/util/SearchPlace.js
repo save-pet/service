@@ -15,11 +15,6 @@ async function getPlaces(place) {
 }
 
 function getCenterPlace(dataArr){
-    // const lat =
-    //     data.reduce((prev, e) => prev + Number(e.y), 0) / data.length;
-    // const lng =
-    //     data.reduce((prev, e) => prev + Number(e.x), 0) / data.length;
-    
     const LatLngObj = dataArr.reduce(function(acc, item) {
         acc.lat = (acc.lat || 0) + Number(item.y)
         acc.lng = (acc.lng || 0) + Number(item.x)
