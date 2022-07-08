@@ -1,2 +1,2 @@
-export * from './user-router.js';
+export * from './UserRouter';
 export * from './lost-router.js';
