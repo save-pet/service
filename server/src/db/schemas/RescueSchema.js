@@ -4,46 +4,41 @@ const { Schema } = pkg;
 
 const ShelterInfoSchema = new Schema (
     {
-        userId : {
-            type: Schema.Types.ObjectId,
-            ref: 'User',
-            required: true // 로그인 하지 않아도 검색 가능하면 false로 
-        },
-        imgUrl : {
-
-        },
-        happenDt : {
-
-        },
-        happenPlace: {
-
-        },
-        kindCd: {
-
-        },
-        colorCd: {
-
-        },
-        noticeSdt: {
-
-        },
-        noticeEdt :{
-
-        },
-        processState: {
-
-        },
-        careNm : {
-
-        },
-        careAddr: {
-
-        },
-        
+      imgUrl : {
+        type : String,
+        unique: true,
+      },
+      happenDt : {
+        type: Date,
+        default: new Date(0),
+      },
+      happenPlace: {
+        type : String,
+      },
+      kindCd: {
+        type: String,
+      },
+      colorCd: {
+        type: String,
+      },
+      noticeSdt: {
+        type: Date,
+      },
+      noticeEdt :{
+        type: Date,
+      },
+      processState: {
+        type: String,
+      },
+      careNm : {
+        type: String,
+        ref: 'Shelter',
+        required: true
+      }
     },
     {
       timestamps: true,
-      collection : 'users',
+      collection : 'rescues',
     }
   );
   
