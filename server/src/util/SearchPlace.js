@@ -1,3 +1,6 @@
+/**
+ * @param {string} place
+ */
 async function getPlaces(place) {
     const res = await fetch(
       `https://dapi.kakao.com/v2/local/search/keyword.json?query=${place}`,
@@ -14,8 +17,14 @@ async function getPlaces(place) {
     return data.documents;
 }
 
+/**
+ * @param {Array}  dataArr
+ * @param {string} dataArr[].x
+ * @param {string} dataArr[].y
+ */
 function getCenterPlace(dataArr){
-    const LatLngObj = dataArr.reduce(function(acc, item) {
+    const LatLngObj = dataArr.reduce(
+        function(acc, item) {
         acc.lat = (acc.lat || 0) + Number(item.y)
         acc.lng = (acc.lng || 0) + Number(item.x)
         return acc;
@@ -25,6 +34,9 @@ function getCenterPlace(dataArr){
     return [lat, lng]
 }
 
+/**
+ * @param {string} place
+ */
 async function SearchPlace(place) {
     const dataArr = await getPlaces(place);
     const [lat, lng] = getCenterPlace(dataArr);
