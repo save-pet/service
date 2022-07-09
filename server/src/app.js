@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import path from 'path';
 import { userRouter } from './routers/UserRouter.js';
 import { lostRouter } from './routers/lost-router.js';
 import { errorHandler } from './middlewares/ErrorHandler.js';
@@ -41,5 +42,9 @@ app.use('/api/user', userRouter);
 app.use('/api/lost', lostRouter);
 
 app.use(errorHandler);
+
+// 이미지 경로
+const __dirname = path.resolve();
+app.use('/static', express.static(__dirname + '/public'));
 
 export { app };

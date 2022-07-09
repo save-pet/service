@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { lostService, userService } from '../services/index.js';
+// import { loginRequired, adminRequired } from '../middlewares/index.js';
+import { lostService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
-// import formidable from 'formidable';
-// import path from 'path';
-// import fs from 'fs';
+import formidable from 'formidable';
+import path from 'path';
+import fs from 'fs';
 
 const lostRouter = Router();
 
@@ -45,32 +45,28 @@ lostRouter.get('/:id', async (req, res, next) => {
   }
 });
 
-// 상품 등록(이미지)
-// lostRouter.post(
-//   '/upload',
-//   loginRequired,
-//   adminRequired,
-//   asyncHandler(async function (req, res, next) {
-//     const form = new formidable.IncomingForm();
-//     form.parse(req, (err, fields, files) => {
-//       if (err) {
-//         next(err);
-//         return;
-//       }
+// 4. 분실 글 이미지 저장 (저장 후 파일명만 프론트로 전달)
+lostRouter.post('/upload', async (req, res, next) => {
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      next(err);
+      return;
+    }
 
-//       const file = files.image; // key를 image로 지정하고 파일을 보내줬기 때문에 files.image로 파일을 가져옴
-//       const dir = `public`;
-//       !fs.existsSync(dir) && fs.mkdirSync(dir);
-//       const newPath = path.join(
-//         __dirname,
-//         '..',
-//         `${dir}/${file.originalFilename}`,
-//       ); //__dirname : 현재경로 가져오기
-//       fs.renameSync(file.filepath, newPath); //파일명 변경 : fs.renameSync(이전경로, 현재경로)
-//       res.json({ result: `${file.originalFilename}` });
-//     });
-//   }),
-// );
+    const file = files.image; // key를 image로 지정하고 파일을 보내줬기 때문에 files.image로 파일을 가져옴
+    const dir = `public`;
+    !fs.existsSync(dir) && fs.mkdirSync(dir); // 'public' dir이 없으면 새로
+    const __dirname = path.resolve(); // ReferenceError 방지
+    const newPath = path.join(
+      __dirname,
+      '/.',
+      `${dir}/${file.originalFilename}`,
+    ); // __dirname : 현재경로 가져오기
+    fs.renameSync(file.filepath, newPath); // 파일명 변경 : fs.renameSync(이전경로, 현재경로)
+    res.json({ result: `${file.originalFilename}` });
+  });
+});
 
 // 5. 분실 글 등록
 lostRouter.post('/post', async (req, res, next) => {
@@ -172,6 +168,7 @@ lostRouter.delete('/delete/:id', async (req, res, next) => {
 
     res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
+    console.log('콘솔--------', error, '--------');
     next(error);
   }
 });
