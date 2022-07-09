@@ -2,10 +2,14 @@
 
 import React, { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import FindPlaceName from './FindPlaceName';
 
 const { kakao } = window;
 
+const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
+
 function FindLocation() {
+  const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -14,6 +18,8 @@ function FindLocation() {
     errMsg: null,
     isLoading: true,
   });
+
+  const [locationName, setLocationName] = useState();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -48,23 +54,66 @@ function FindLocation() {
   }, []);
 
   return (
-    <Map // 지도를 표시할 Container
-      center={state.center}
-      style={{
-        // 지도의 크기
-        width: '100%',
-        height: '450px',
-      }}
-      level={3} // 지도의 확대 레벨
-    >
-      {!state.isLoading && (
-        <MapMarker position={state.center}>
-          <div style={{ padding: '5px', color: '#000' }}>
-            {state.errMsg ? state.errMsg : '현재 위치'}
-          </div>
-        </MapMarker>
-      )}
-    </Map>
+    <>
+      <Map // 지도를 표시할 Container
+        center={state.center}
+        style={{
+          // 지도의 크기
+          width: '100%',
+          height: '450px',
+        }}
+        level={3} // 지도의 확대 레벨
+        onClick={(_t, mouseEvent) =>
+          setPosition({
+            lat: mouseEvent.latLng.getLat(),
+            lng: mouseEvent.latLng.getLng(),
+          })
+        }
+      >
+        {position && (
+          <MapMarker
+            position={position}
+            image={{
+              src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+              size: {
+                width: 64,
+                height: 69,
+              },
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                },
+              },
+            }}
+          />
+        )}
+        {!state.isLoading && (
+          <MapMarker
+            position={state.center}
+            image={{
+              src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+              size: {
+                width: 64,
+                height: 69,
+              },
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                },
+              },
+            }}
+          >
+            <div style={{ padding: '5px', color: '#000' }}>
+              {state.errMsg ? state.errMsg : '현재 위치'}
+            </div>
+          </MapMarker>
+        )}
+      </Map>
+
+      <FindPlaceName position={position} />
+    </>
   );
 }
 
