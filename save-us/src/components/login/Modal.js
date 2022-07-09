@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  * @param {Function} close
  * @param {string} header
  */
-function Modal({ open, close, header, content }) {
+function Modal({ open, close, header, content, button }) {
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? 'openModal modal' : 'modal'}>
@@ -22,14 +22,7 @@ function Modal({ open, close, header, content }) {
             </button>
           </header>
           <main>{content}</main>
-          <footer>
-            <button type="button" className="close" onClick={close}>
-              취소
-            </button>
-            <button type="button" className="close" onClick={close}>
-              {header}
-            </button>
-          </footer>
+          <footer>{button}</footer>
         </section>
       )}
     </div>
@@ -40,5 +33,6 @@ Modal.propTypes = {
   close: PropTypes.func.isRequired,
   header: PropTypes.string.isRequired,
   content: PropTypes.element.isRequired,
+  button: PropTypes.element.isRequired,
 };
 export default Modal;
