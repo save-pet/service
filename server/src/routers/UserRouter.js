@@ -78,8 +78,7 @@ userRouter.post('/login', async (req, res, next) => {
 });
 
 // 3. 전체 유저 목록 반환 (배열 형태)
-// eslint-disable-next-line func-names
-userRouter.get('/users', loginRequired, async function (req, res, next) {
+userRouter.get('/users', loginRequired, async (req, res, next) => {
   try {
     const users = await userService.getUsers();
     
@@ -90,8 +89,7 @@ userRouter.get('/users', loginRequired, async function (req, res, next) {
 });
 
 // 3-1. 전체 사용자 수 반환
-// eslint-disable-next-line func-names
-userRouter.get('/numbers', loginRequired, async function (req, res, next) {
+userRouter.get('/numbers', loginRequired, async (req, res, next) => {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -104,8 +102,7 @@ userRouter.get('/numbers', loginRequired, async function (req, res, next) {
 });
 
 // 4. 회원 정보 반환
-// eslint-disable-next-line func-names
-userRouter.get('/', loginRequired, async function (req, res, next) {
+userRouter.get('/', loginRequired, async (req, res, next) => {
   try {
     const user = await userService.getUser(req.currentUserId);
     const { email, fullName, role, _id, address, phoneNumber, password } = user;
@@ -126,8 +123,7 @@ userRouter.get('/', loginRequired, async function (req, res, next) {
 });
 
 // 5. 사용자 정보 수정
-// eslint-disable-next-line func-names
-userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
+userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -178,8 +174,7 @@ userRouter.patch('/:userId', loginRequired, async function (req, res, next) {
 });
 
 // 6. 사용자 탈퇴
-// eslint-disable-next-line func-names
-userRouter.delete('/:userId', loginRequired, async function (req, res, next) {
+userRouter.delete('/:userId', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { currentPassword } = req.body;
