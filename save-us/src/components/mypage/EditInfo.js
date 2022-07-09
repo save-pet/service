@@ -1,5 +1,7 @@
 import { React, useState } from 'react';
 
+import MenuBar from './menu/MenuBar';
+
 // const initialState = {
 //   passwordAlert: { message: '', status: '' },
 // };
@@ -37,7 +39,7 @@ function EditInfo() {
     await new Promise((r) => {
       setTimeout(r, 1000);
     });
-    alert(`정보가 변경되었습니다.`);
+    alert(`회원정보가 변경되었습니다.`);
     setDisabled(false);
   };
 
@@ -61,7 +63,19 @@ function EditInfo() {
 
   return (
     <div>
+      <MenuBar />
       <form onSubmit={handleSubmit}>
+        <div>
+          아이디 :
+          <input
+            name="id"
+            type="text"
+            value={id}
+            onChange={handleChangeId}
+            placeholder="아이디"
+          />
+          <button type="button">중복확인</button>
+        </div>
         <div>
           이름 :
           <input
@@ -73,17 +87,27 @@ function EditInfo() {
           />
         </div>
         <div>
-          아이디 :
+          현재 비밀번호 :
           <input
-            name="id"
-            type="text"
-            value={id}
-            onChange={handleChangeId}
-            placeholder="아이디"
+            name="password"
+            type="password"
+            value={pwd}
+            onChange={handleChangePwd}
+            placeholder="••••••••"
           />
         </div>
         <div>
-          비밀번호 :
+          새 비밀번호 :
+          <input
+            name="password"
+            type="password"
+            value={pwd}
+            onChange={handleChangePwd}
+            placeholder="••••••••"
+          />
+        </div>
+        <div>
+          새 비밀번호 확인 :
           <input
             name="password"
             type="password"
@@ -103,8 +127,7 @@ function EditInfo() {
           />
         </div>
         <button type="submit" disabled={disabled}>
-          {' '}
-          변경하기
+          회원정보수정
         </button>
       </form>
     </div>

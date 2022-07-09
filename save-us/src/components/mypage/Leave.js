@@ -18,10 +18,10 @@ function Leave() {
 
   return (
     <div>
-      <h2>계정 탈퇴</h2>
+      <h2>회원탈퇴안내</h2>
+      <hr />
       <p>탈퇴 시 해당 계정으로 작성한 글을 삭제할 수 없습니다.</p>
       <p>삭제를 원하는 글이 있다면 탈퇴 전 삭제 해주세요.</p>
-      <hr/>
       <form onSubmit={handleSubmit}>
         <div>
           비밀번호 확인 :
@@ -33,8 +33,9 @@ function Leave() {
             placeholder="••••••••"
           />
         </div>
+        <button type="button">취소</button>
         <button type="submit" disabled={disabled}>
-          탈퇴하기
+          탈퇴
         </button>
       </form>
     </div>

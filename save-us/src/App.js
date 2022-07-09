@@ -5,6 +5,8 @@ import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
 import Main from './pages/Main';
 import MapView from './components/map/MapView';
+import EditInfo from './components/mypage/EditInfo';
+import LostList from './components/mypage/LostList';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Main />} />
           <Route path="/lostMap" element={<MapView />} />
+          <Route path="/mypage" element={<EditInfo />} />
+          <Route path="/lostList" element={<LostList />} />
         </Routes>
       </BrowserRouter>
     </div>
