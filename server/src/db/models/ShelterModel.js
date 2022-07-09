@@ -1,6 +1,7 @@
-import { model } from 'mongoose';
-import { ShelterSchema } from '../schemas/ShelterSchema';
+import pkg from 'mongoose';
+import { ShelterSchema } from '../schemas/ShelterSchema.js';
 
+const { model, Types } = pkg;
 const Shelter = model('Shelter', ShelterSchema);
 
 export class ShelterModel {
@@ -37,3 +38,7 @@ export class ShelterModel {
         return 'Successfully deleted';
     }
 }
+
+const shelterModel = new ShelterModel();
+
+export { shelterModel };

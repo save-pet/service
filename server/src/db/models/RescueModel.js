@@ -1,6 +1,7 @@
-import { model } from 'mongoose';
-import { RescueSchema } from '../schemas/RescueSchema';
+import pkg from 'mongoose';
+import { RescueSchema } from '../schemas/RescueSchema.js';
 
+const { model, Types } = pkg;
 const Rescue = model('Rescue', RescueSchema);
 
 export class RescueModel {

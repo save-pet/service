@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { rescueService } from '../services/RescueService.js';
-import { loginRequired, adminRequired } from '../middlewares';
+import { loginRequired } from '../middlewares/LoginRequired.js';
+import { adminRequired } from '../middlewares/AdminRequired.js';
 
 const rescueRouter = Router();
 
