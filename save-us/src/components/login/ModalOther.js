@@ -1,5 +1,5 @@
 /* ref : https://phrygia.github.io/react/2021-09-21-react-modal/ */
-
+// 사용하지 않는 코드입니다.
 import { React, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 
