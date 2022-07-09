@@ -5,6 +5,9 @@ import {
   userRouter
 } from './routers/UserRouter.js';
 import { errorHandler } from './middlewares/ErrorHandler.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
@@ -15,7 +18,7 @@ app.use(cors());
 app.use(express.json());
 
 const DB_URL =
-"mongodb+srv://zinger:asdf123456@cluster0.iwlaosv.mongodb.net/?retryWrites=true&w=majority" ||
+process.env.MONGODB_URL ||
   'MongoDB 서버 주소가 설정되지 않았습니다.\n./db/index.ts 파일을 확인해 주세요. \n.env 파일도 필요합니다.\n';
 
 mongoose.connect(DB_URL);
