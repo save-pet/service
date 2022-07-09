@@ -1,2 +1,2 @@
-export * from './UserService';
+export * from './UserService.js';
 export * from './lost-service.js';

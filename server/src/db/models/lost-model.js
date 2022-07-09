@@ -5,40 +5,36 @@ const { model } = pkg;
 const Lost = model('losts', LostSchema);
 
 export class LostModel {
-  async findAll() {
-    const orders = await this.Lost.find({});
+  async findAllLostPosts() {
+    const orders = await Lost.find({});
     return orders;
   }
 
   async findByEmail(email) {
-    const lostPost = await this.Lost.find({ email: email });
+    const lostPost = await Lost.find({ email: email });
     return lostPost;
   }
 
   async findById(shortId) {
-    const lostPost = await this.Lost.findOne({ shortId: shortId });
+    const lostPost = await Lost.findOne({ shortId: shortId });
     return lostPost;
   }
 
   async update({ lostShortId, update }) {
-    const filter = { email: lostShortId };
+    const filter = { shortId: lostShortId };
     const option = { returnOriginal: false };
 
-    const updatedLostPost = await this.Lost.findOneAndUpdate(
-      filter,
-      update,
-      option,
-    );
+    const updatedLostPost = await Lost.findOneAndUpdate(filter, update, option);
 
     return updatedLostPost;
   }
 
   async delete(shortId) {
-    await this.Lost.findOneAndDelete({ shortId: shortId });
+    await Lost.findOneAndDelete({ shortId: shortId });
   }
 
-  async create(lostinfo) {
-    const newLostPost = await this.Lost.create(lostinfo);
+  async create(lostInfo) {
+    const newLostPost = await Lost.create(lostInfo);
     return newLostPost;
   }
 }

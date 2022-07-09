@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { lostService } from '../services/index.js';
+import { lostService, userService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
 // import formidable from 'formidable';
@@ -22,10 +22,12 @@ lostRouter.get('/', async (req, res, next) => {
 });
 
 // 2. 사용자가 작성한 분실 글 조회
-lostRouter.get('/:email', async (req, res, next) => {
+lostRouter.get('/user/:email', async (req, res, next) => {
   try {
     const { email } = req.params;
+
     const lostPost = await lostService.getLostByEmail(email);
+
     res.status(200).json(lostPost);
   } catch (error) {
     next(error);
@@ -35,8 +37,8 @@ lostRouter.get('/:email', async (req, res, next) => {
 // 3. 분실번호 분실 글 목록 조회 (shortId로 조회)
 lostRouter.get('/:id', async (req, res, next) => {
   try {
-    const { shortId } = req.params;
-    const lostPost = await lostService.getLostById(shortId);
+    const { id } = req.params;
+    const lostPost = await lostService.getLostById(id);
     res.status(200).json(lostPost);
   } catch (error) {
     next(error);
@@ -91,7 +93,7 @@ lostRouter.post('/post', async (req, res, next) => {
       image,
     } = req.body;
 
-    // 전화번호 형식 검사하는 validator
+    // 전화번호 형식 검사하는 validator 추가하기
 
     const newLostPost = await lostService.addLostPost({
       email,
@@ -119,8 +121,8 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
         'headers의 Content-Type을 application/json으로 설정해주세요',
       );
     }
-    const { lostShortId } = req.params;
-    if (!lostShortId) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error(
         '해당 게시글이 존재하지 않습니다. 게시글 shortId를 다시 확인해주세요.',
       );
@@ -150,7 +152,7 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
       ...(image && { image }),
     };
 
-    const updatedLost = await lostService.updateLost(lostShortId, toUpdate);
+    const updatedLost = await lostService.updateLost(id, toUpdate);
 
     res.status(201).json(updatedLost);
   } catch (error) {
@@ -158,22 +160,17 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
   }
 });
 
-// 분실 글 삭제("id에 shortId가 들어가야됨")
-lostRouter.delete('/delete/:id', adminRequired, async (req, res, next) => {
+// 분실 글 삭제("id에 shortId가 들어가야됨") adminRequired,
+lostRouter.delete('/delete/:id', async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요',
-      );
-    }
-    const { shortId } = req.params;
-    if (!shortId) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error('해당하는 글이 없습니다. 게시글 id를 다시 확인해주세요');
     }
 
-    await lostService.deleteLost(shortId);
+    await lostService.deleteLost(id);
 
-    res.status(200).json({ message: '상품이 삭제되었습니다' });
+    res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
     next(error);
   }

@@ -8,8 +8,6 @@ const LostSchema = new Schema(
 
     email: {
       type: String,
-      index: true,
-      unique: true,
       required: true,
     },
     fullName: {
@@ -25,16 +23,7 @@ const LostSchema = new Schema(
       required: true,
     },
     address: {
-      type: new Schema(
-        {
-          postalCode: String,
-          address1: String,
-          address2: String,
-        },
-        {
-          _id: false,
-        },
-      ),
+      type: String,
       required: true,
     },
     phoneNumber1: {

@@ -17,7 +17,7 @@ class LostService {
 
   // 사용자가 작성한 분실 글 조회(목록 조회)
   async getLostByEmail(shortId) {
-    const myLostPost = await this.lostModel.findById(shortId);
+    const myLostPost = await this.lostModel.findByEmail(shortId);
     return myLostPost;
   }
 
@@ -45,7 +45,7 @@ class LostService {
   }
 
   // 분실 게시글 수정
-  async updateProduct(lostShortId, toUpdate) {
+  async updateLost(lostShortId, toUpdate) {
     let lost = await this.lostModel.findById(lostShortId);
 
     if (!lost) {
