@@ -2,8 +2,6 @@ import { Router } from 'express';
 import { shelterService } from '../services/ShelterService.js';
 import { loginRequired, adminRequired } from '../middlewares';
 
-import is from '@sindresorhus/is';
-
 const shelterRouter = Router();
 
 // 1. 신규 보호소 등록
