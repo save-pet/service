@@ -2,7 +2,7 @@ import { React } from 'react';
 
 import MenuBar from './menu/MenuBar';
 
-function LostList() {
+function LostPostList() {
   return (
     <div>
       <MenuBar />
@@ -38,4 +38,4 @@ function LostList() {
   );
 }
 
-export default LostList;
+export default LostPostList;

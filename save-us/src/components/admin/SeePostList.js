@@ -2,14 +2,14 @@ import { React } from 'react';
 
 import MenuBar from './menu/MenuBar';
 
-function LostList() {
+function SeePostList() {
   return (
     <div>
       <MenuBar />
       <div>
-        <h2 style={{ display: 'inline' }}>분실 신고 리스트</h2>
+        <h2 style={{ display: 'inline' }}>목격 신고 리스트</h2>
         <span>
-          회원님이 등록한 분실 신고 목록입니다.
+          회원님이 등록한 목격 신고 목록입니다.
           <button type="button">삭제</button>
         </span>
       </div>
@@ -38,4 +38,4 @@ function LostList() {
   );
 }
 
-export default LostList;
+export default SeePostList;
