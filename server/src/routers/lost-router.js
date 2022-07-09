@@ -168,7 +168,6 @@ lostRouter.delete('/delete/:id', async (req, res, next) => {
 
     res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
-    console.log('콘솔--------', error, '--------');
     next(error);
   }
 });
