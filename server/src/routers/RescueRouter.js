@@ -24,4 +24,14 @@ rescueRouter.get('/shelter/:shelterId', async (req, res, next) =>{
 
 });
 
-// 5.  
+// 5. 보호 동물 정보 수정
+rescueRouter.patch('/:rescueId', loginRequired, adminRequired, async (req, res, next) =>{
+
+});
+
+// 6. 특정 보호 동물 삭제
+rescueRouter.delete('/:rescueId', loginRequired, adminRequired, async (req, res, next) =>{
+
+});
+
+export { rescueRouter };
