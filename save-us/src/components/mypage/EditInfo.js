@@ -1,6 +1,25 @@
 import { React, useState } from 'react';
 
+// const initialState = {
+//   passwordAlert: { message: '', status: '' },
+// };
+
+// const reducer = (alert, action) => {
+//   const { PASSWORDCHECK } = actions;
+//   switch (action.type) {
+//     case PASSWORDCHECK:
+//       return {
+//         ...alert,
+//         passwordAlert: action.passwordAlert,
+//       };
+//   }
+//   return {
+//     ...alert,
+//   };
+// };
+
 function EditInfo() {
+  // const [alert, dispatch] = useReducer(reducer, initialState);
   const [name, setName] = useState('');
   const [id, setId] = useState('');
   const [pwd, setPwd] = useState('');
@@ -22,11 +41,29 @@ function EditInfo() {
     setDisabled(false);
   };
 
+  // useEffect(() => {
+  //   password.length >= 8
+  //     ? dispatch({
+  //         type: 'PASSWORDCHECK',
+  //         passwordAlert: {
+  //           message: '유효한 비밀번호입니다.',
+  //           status: 'success',
+  //         },
+  //       })
+  //     : dispatch({
+  //         type: 'PASSWORDCHECK',
+  //         passwordAlert: {
+  //           message: '비밀번호는 8자 이상 입력해주세요',
+  //           status: 'warning',
+  //         },
+  //       });
+  // }, [password]);
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <div>
-          이름 :{' '}
+          이름 :
           <input
             name="name"
             type="text"
@@ -52,14 +89,14 @@ function EditInfo() {
             type="password"
             value={pwd}
             onChange={handleChangePwd}
-            placeholder="********"
+            placeholder="••••••••"
           />
         </div>
         <div>
           전화번호 :
           <input
-            name="number"
-            type="number"
+            name="phoneNumber"
+            type="phoneNumber"
             value={number}
             onChange={handleChangeNumber}
             placeholder="010-1234-5678"
