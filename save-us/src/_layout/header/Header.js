@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LOGO from './MainLogo.png';
+import ModalBtn from '../../components/login/ModalBtn';
+// import ModalBtn2 from '../../components/login/ModalOther';
 
 function Header() {
   return (
@@ -16,12 +18,23 @@ function Header() {
     >
       <div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <button type="button" component={Link} to="/">
+          <ModalBtn
+            buttonName="로그인"
+            title="로그인"
+            content={<div>test</div>}
+          />
+          <ModalBtn
+            buttonName="회원가입"
+            title="회원가입"
+            content={<div>test</div>}
+          />
+          {/* <ModalBtn2 /> */}
+          {/* <button type="button" component={Link} to="/">
             회원가입
           </button>
           <button type="button" component={Link} to="/">
             로그인
-          </button>
+          </button> */}
         </div>
       </div>
 
