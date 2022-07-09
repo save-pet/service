@@ -1,4 +1,5 @@
 /*eslint-disable */
+// 사용하지 않는 코드입니다.
 // 키워드 장소로 검색하기
 // https://react-kakao-maps-sdk.jaeseokim.dev/docs/sample/library/keywordBasic
 import React, { useEffect, useState } from 'react';
