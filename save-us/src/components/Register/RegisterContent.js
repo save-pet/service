@@ -41,6 +41,9 @@ function RegisterContent() {
           </label>
         </div>
       </form>
+      <button type="button" className="login" onClick={() => {}}>
+        회원가입
+      </button>
     </div>
   );
 }

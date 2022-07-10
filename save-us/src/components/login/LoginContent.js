@@ -21,6 +21,9 @@ function LoginContent() {
           </label>
         </div>
       </form>
+      <button type="button" className="login" onClick={() => {}}>
+        로그인
+      </button>
     </div>
   );
 }

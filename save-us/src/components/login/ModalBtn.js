@@ -8,7 +8,7 @@ import Modal from './Modal';
  * @param {string} title
  */
 
-function ModalBtn({ buttonName, title, content, button }) {
+function ModalBtn({ buttonName, title, content }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -28,7 +28,7 @@ function ModalBtn({ buttonName, title, content, button }) {
         close={closeModal}
         header={title}
         content={content}
-        button={button}
+        // button={button}
       >
         {' '}
       </Modal>
@@ -40,7 +40,7 @@ ModalBtn.propTypes = {
   buttonName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.element.isRequired,
-  button: PropTypes.element.isRequired,
+  // button: PropTypes.element.isRequired,
 };
 
 export default ModalBtn;
