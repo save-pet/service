@@ -16,14 +16,14 @@ class LostService {
   }
 
   // 사용자가 작성한 분실 글 조회(목록 조회)
-  async getLostByEmail(shortId) {
-    const myLostPost = await this.lostModel.findByEmail(shortId);
+  async getLostByEmail(email) {
+    const myLostPost = await lostModel.findByEmail(email);
     return myLostPost;
   }
 
   // 게시글 shortId로 개별 분실 글 조회
   async getLostById(shortId) {
-    const lostPost = await this.lostModel.findById(shortId);
+    const lostPost = await lostModel.findById(shortId);
 
     if (!lostPost) {
       throw new Error(

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 // import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { lostService } from '../services/index.js';
+import { lostService, userService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
 import formidable from 'formidable';
@@ -17,7 +17,8 @@ lostRouter.get('/', async (req, res, next) => {
 
     res.status(200).json(losts);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
@@ -25,12 +26,17 @@ lostRouter.get('/', async (req, res, next) => {
 lostRouter.get('/user/:email', async (req, res, next) => {
   try {
     const { email } = req.params;
+    const user = await userService.getUserByEmail(email);
+    if (!user) {
+      throw new Error('일치하는 email이 없습니다. email을 다시 확인해주세요.');
+    }
 
     const lostPost = await lostService.getLostByEmail(email);
 
     res.status(200).json(lostPost);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
@@ -41,7 +47,8 @@ lostRouter.get('/:id', async (req, res, next) => {
     const lostPost = await lostService.getLostById(id);
     res.status(200).json(lostPost);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
@@ -50,7 +57,8 @@ lostRouter.post('/upload', async (req, res, next) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) {
-      next(err);
+      // next(error);
+      res.status(400).json({ result: 'error', reason: err.message });
       return;
     }
 
@@ -105,7 +113,8 @@ lostRouter.post('/post', async (req, res, next) => {
 
     res.status(200).json(newLostPost);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
@@ -117,6 +126,7 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
         'headers의 Content-Type을 application/json으로 설정해주세요',
       );
     }
+
     const { id } = req.params;
     if (!id) {
       throw new Error(
@@ -152,7 +162,8 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
 
     res.status(201).json(updatedLost);
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
@@ -168,7 +179,8 @@ lostRouter.delete('/delete/:id', async (req, res, next) => {
 
     res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
-    next(error);
+    // next(error);
+    res.status(400).json({ result: 'error', reason: error.message });
   }
 });
 
