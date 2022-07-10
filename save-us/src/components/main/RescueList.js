@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
@@ -31,15 +32,8 @@ function RescueList() {
       }}
     >
       {rescueList.map((rescue) => {
-        const {
-          happenDt,
-          happenPlace,
-          kindCd,
-          filename,
-          sexCd,
-          neuterYn,
-          desertionNo,
-        } = rescue;
+        const { happenDt, happenPlace, kindCd, filename, sexCd, neuterYn } =
+          rescue;
 
         let sex;
         if (sexCd === 'M') {
@@ -58,15 +52,22 @@ function RescueList() {
           neutralization = '미상';
         }
         return (
-          <div key={desertionNo}>
+          <Link
+            to="/"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <img src={filename} alt="rescued animal" />
-            <div>접수일: {happenDt}</div>
-            <div>발견장소: {happenPlace}</div>
-            <div>품종: {kindCd}</div>
-            <div>성별: {sex}</div>
-            <div>중성화 여부: {neutralization}</div>
-            <br />
-          </div>
+            <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
+              <div>접수일: {happenDt}</div>
+              <div>발견장소: {happenPlace}</div>
+              <div>품종: {kindCd}</div>
+              <div>성별: {sex}</div>
+              <div>중성화 여부: {neutralization}</div>
+            </div>
+          </Link>
         );
       })}
     </div>
