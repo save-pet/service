@@ -9,16 +9,30 @@ import RegisterButton from '../../components/Register/RegisterButton';
 
 function Header() {
   return (
-    <div
+    <header
       className="header-container"
       style={{
         backgroundColor: '#FFD149',
-        height: '200px',
+        height: '15vh',
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
+        position: 'sticky',
+        paddingTop: '5vh',
+        top: '-5vh',
       }}
     >
+      <div style={{ width: '125px' }} />
+      <Link
+        to="/"
+        style={{ display: 'flex', justifyContent: 'center', width: '150px' }}
+      >
+        <img
+          className="main-LOGO"
+          src={LOGO}
+          alt="Main LOGO that has a cat and a dog in a box"
+          style={{ maxWidth: '100%', objectFit: 'scale-down' }}
+        />
+      </Link>
       <div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <ModalBtn
@@ -47,16 +61,7 @@ function Header() {
           </button> */}
         </div>
       </div>
-
-      <Link to="/" style={{ display: 'flex', justifyContent: 'center' }}>
-        <img
-          className="main-LOGO"
-          src={LOGO}
-          alt="Main LOGO that has a cat and a dog in a box"
-          style={{ width: '150px' }}
-        />
-      </Link>
-    </div>
+    </header>
   );
 }
 
