@@ -22,7 +22,7 @@ function RescueList() {
   }, []);
 
   return (
-    <div
+    <main
       style={{
         display: 'inline-flex',
         flexWrap: 'wrap',
@@ -52,25 +52,29 @@ function RescueList() {
           neutralization = '미상';
         }
         return (
-          <Link
-            to="/"
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <img src={filename} alt="rescued animal" />
-            <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
-              <div>접수일: {happenDt}</div>
-              <div>발견장소: {happenPlace}</div>
-              <div>품종: {kindCd}</div>
-              <div>성별: {sex}</div>
-              <div>중성화 여부: {neutralization}</div>
-            </div>
-          </Link>
+          <article>
+            <Link
+              to="/"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+              }}
+            >
+              <img src={filename} alt="rescued animal" />
+              <section
+                style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}
+              >
+                <div>접수일: {happenDt}</div>
+                <div>발견장소: {happenPlace}</div>
+                <div>품종: {kindCd}</div>
+                <div>성별: {sex}</div>
+                <div>중성화 여부: {neutralization}</div>
+              </section>
+            </Link>
+          </article>
         );
       })}
-    </div>
+    </main>
   );
 }
 
