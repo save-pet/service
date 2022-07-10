@@ -47,7 +47,7 @@ function EventMarkerContainer({ position, content }) {
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
       image={{
-        src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+        src: 'https://i.ibb.co/MsqtRCN/pin.png',
         size: {
           width: 64,
           height: 69,
