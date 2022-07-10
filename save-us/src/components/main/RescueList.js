@@ -4,7 +4,7 @@ function RescueList() {
   const [rescueList, setRescueList] = useState([]);
 
   async function getRescue() {
-    const res = await fetch('/MockData.json', {
+    const res = await fetch('/RescueMockData.json', {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
