@@ -13,15 +13,15 @@ export class RescueModel {
   // 2. 전체 유기동물 목록 조회
   async findAll() {
     const rescues = await Rescue.find({})
-      .populate('shelter', 'careNm')
+      .populate('shelter', 'careName')
       .sort({ createdAt: -1 });
     return rescues;
   }
 
-  // 3. 특정 범위(페이지)에 위치한 제품 정보 조회
+  // 3. 특정 범위(페이지)에 위치한 동물 정보 조회
   async getInRange(page, perPage) {
     const rescuesInRange = await Rescue.find({})
-      .populate('shelter', 'careNm')
+      .populate('shelter', 'careName')
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
@@ -32,16 +32,16 @@ export class RescueModel {
   async findById(rescueId) {
     const rescue = await Rescue.findOne({ _id: rescueId }).populate(
       'shelter',
-      'careNm',
+      'careName',
     );
     return rescue;
   }
 
-  // 5. 보호소 기준 제품 조회(shelterId 기준 제품 조회)
+  // 5. 보호소 기준 동물 조회(shelterId 기준 제품 조회)
   async findByShelter(shelterId) {
     const rescues = await Rescue.find({ shelter: shelterId }).populate(
       'shelter',
-      'careNm',
+      'careName',
     );
     return rescues;
   }
