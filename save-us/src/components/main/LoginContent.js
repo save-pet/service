@@ -24,7 +24,7 @@ function LoginContent() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: inputId, password: inputPw }),
+        body: JSON.stringify({ id: inputId, password: inputPw }),
       },
     );
     const result = await resp.json();
