@@ -18,7 +18,7 @@ class UserService {
     const user = await this.userModel.findByEmail(email);
     if (user) {
       throw new Error(
-        '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.'
+        '이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.',
       );
     }
 
@@ -41,7 +41,7 @@ class UserService {
     const user = await this.userModel.findByEmail(email);
     if (!user) {
       throw new Error(
-        '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.'
+        '해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
@@ -52,12 +52,12 @@ class UserService {
     // 매개변수의 순서 중요 (1번째는 프론트가 보내온 비밀번호, 2번째는 db에 있던 암호화된 비밀번호)
     const isPasswordCorrect = await bcrypt.compare(
       password,
-      correctPasswordHash
+      correctPasswordHash,
     );
 
     if (!isPasswordCorrect) {
       throw new Error(
-        '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
+        '비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
@@ -72,7 +72,7 @@ class UserService {
         name: user.fullName,
         email: user.email,
       },
-      secretKey
+      secretKey,
     );
 
     return { token };
@@ -87,6 +87,11 @@ class UserService {
   async getUser(userId) {
     const users = await this.userModel.findById(userId);
     return users;
+  }
+
+  async getUserByEmail(email) {
+    const user = await this.userModel.findByEmail(email);
+    return user;
   }
 
   // 4. 유저정보 수정, 현재 비밀번호가 있어야 수정 가능함.
@@ -108,12 +113,12 @@ class UserService {
 
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
-      correctPasswordHash
+      correctPasswordHash,
     );
 
     if (!isPasswordCorrect) {
       throw new Error(
-        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
+        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
@@ -152,12 +157,12 @@ class UserService {
     const correctPasswordHash = user.password;
     const isPasswordCorrect = await bcrypt.compare(
       currentPassword,
-      correctPasswordHash
+      correctPasswordHash,
     );
 
     if (!isPasswordCorrect) {
       throw new Error(
-        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.'
+        '현재 비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.',
       );
     }
 
