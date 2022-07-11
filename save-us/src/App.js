@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
@@ -13,13 +13,6 @@ import LostPostList from './components/admin/LostPostList';
 import SeePostList from './components/admin/SeePostList';
 
 function App() {
-  const callApi = async () => {
-    axios.get('/api').then((res) => console.log(res.data.test));
-  };
-
-  useEffect(() => {
-    callApi();
-  }, []);
   return (
     <div className="App">
       <BrowserRouter>
