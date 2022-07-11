@@ -31,6 +31,7 @@ function LoginContent() {
 
     if (Object.prototype.hasOwnProperty.call(result, 'token')) {
       sessionStorage.setItem('token', result.token);
+      window.location.replace('/');
     } else {
       alert('회원가입 바랍니다.');
     }

@@ -42,7 +42,7 @@ export default function HamburgerMenu() {
     },
     bmOverlay: {
       background: 'rgba(0, 0, 0, 0.3)',
-      top: '200px',
+      paddingTop: '5vh',
     },
   };
   return (

@@ -1,7 +1,7 @@
 import { React } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
 import Main from './pages/Main';
