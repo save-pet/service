@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
-import { userRouter, lostRouter, shelterRouter, rescueRouter } from './routers/index.js';
+import { userRouter, lostRouter, rescueRouter } from './routers/index.js';
 import { errorHandler } from './middlewares/ErrorHandler.js';
 import dotenv from 'dotenv';
 
@@ -41,7 +41,6 @@ app.listen(5000, () => {
 });
 
 app.use('/api/user', userRouter);
-app.use('/api/shelter', shelterRouter);
 app.use('/api/rescue', rescueRouter);
 app.use('/api/lost', lostRouter);
 
