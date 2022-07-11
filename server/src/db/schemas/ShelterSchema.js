@@ -1,10 +1,8 @@
-import pkg from 'mongoose';
+import mongoose from 'mongoose';
 
-const { Schema } = pkg;
-
-const ShelterSchema = new Schema(
+const ShelterSchema = new mongoose.Schema(
     {
-      careNm: {
+      careName: {
         type: String,
         required: true,
         unique: true,

@@ -1,37 +1,38 @@
-import pkg from 'mongoose';
+import mongoose from 'mongoose';
 
-const { Schema } = pkg;
-
-const RescueSchema = new Schema (
+const RescueSchema = new mongoose.Schema (
     {
       imgUrl : {
         type : String,
         unique: true,
       },
-      happenDt : {
+      happenDate : {
         type: Date,
         default: new Date(0),
       },
       happenPlace: {
         type : String,
       },
-      kindCd: {
+      kindCode: {
         type: String,
       },
-      colorCd: {
+      colorCode: {
         type: String,
       },
-      noticeSdt: {
+      sexCode: {
+        type: String,
+      },
+      noticeStartDate: {
         type: Date,
       },
-      noticeEdt :{
+      noticeEndDate :{
         type: Date,
       },
       processState: {
         type: String,
       },
       shelter : {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Shelter',
         required: true
       }
