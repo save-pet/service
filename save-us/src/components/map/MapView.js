@@ -1,5 +1,5 @@
 /*eslint-disable */
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import styled from 'styled-components';
 
@@ -47,7 +47,7 @@ function EventMarkerContainer({ position, content }) {
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
       image={{
-        src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+        src: 'https://i.ibb.co/MsqtRCN/pin.png',
         size: {
           width: 64,
           height: 69,
@@ -105,7 +105,33 @@ function MapView() {
     },
   ];
 
-  const data = getInfoWindowData(_data);
+  // happenPlace는 백엔드에서 위경도 좌표로 변환해야 함
+  // const [rescueList, setRescueList] = useState([]);
+
+  // async function getRescue() {
+  //   const res = await fetch('/MockData.json', {
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       Accept: 'application/json',
+  //     },
+  //   });
+  //   const data = await res.json();
+  //   return data;
+  // }
+  // useEffect(() => {
+  //   const getRescueFunc = async () => {
+  //     setRescueList(await getRescue());
+  //   };
+  //   getRescueFunc();
+  // }, []);
+
+  const rescueList = getInfoWindowData(_data);
+
+  // const _rescueList = rescueList.map(async (rescue) => {
+  //   const { lat, lng } = await SearchPlace(rescue.happenPlace);
+  //   return { ...rescue, latlng: { lat, lng } };
+  // });
+  // console.log(_rescueList);
 
   return (
     <Map // 지도를 표시할 Container
@@ -121,11 +147,11 @@ function MapView() {
       }}
       level={3} // 지도의 확대 레벨
     >
-      {data.map((value) => (
+      {rescueList.map((rescue) => (
         <EventMarkerContainer
-          key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-          position={value.latlng}
-          content={value.content}
+          key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
+          position={rescue.latlng}
+          content={rescue.content}
         />
       ))}
     </Map>

@@ -1,8 +1,14 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 
 import MenuBar from './menu/MenuBar';
 
 function LostList() {
+  useEffect(async () => {
+    const response = await fetch('/LostListMockData.json');
+    const lostList = await response.json();
+    console.log(lostList);
+  }, []);
+
   return (
     <div>
       <MenuBar />
