@@ -16,7 +16,9 @@ function RescueList() {
     setRescueList(data);
   }
 
-  useEffect(() => getRescue(), []);
+  useEffect(() => {
+    getRescue();
+  }, []);
 
   function InfiniteScroll() {
     async function intersectionHandler([entry], observer) {
@@ -51,8 +53,15 @@ function RescueList() {
       }}
     >
       {rescueList.map((rescue) => {
-        const { happenDt, happenPlace, kindCd, filename, sexCd, neuterYn } =
-          rescue;
+        const {
+          happenDt,
+          happenPlace,
+          kindCd,
+          filename,
+          sexCd,
+          neuterYn,
+          desertionNo,
+        } = rescue;
 
         let sex;
         if (sexCd === 'M') {
@@ -71,7 +80,7 @@ function RescueList() {
           neutralization = '미상';
         }
         return (
-          <article>
+          <article key={desertionNo}>
             <Link
               to="/"
               style={{
