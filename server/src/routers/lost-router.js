@@ -17,8 +17,7 @@ lostRouter.get('/', async (req, res, next) => {
 
     res.status(200).json(losts);
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
@@ -35,8 +34,7 @@ lostRouter.get('/user/:email', async (req, res, next) => {
 
     res.status(200).json(lostPost);
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
@@ -47,8 +45,7 @@ lostRouter.get('/:id', async (req, res, next) => {
     const lostPost = await lostService.getLostById(id);
     res.status(200).json(lostPost);
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
@@ -57,8 +54,7 @@ lostRouter.post('/upload', async (req, res, next) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) {
-      // next(error);
-      res.status(400).json({ result: 'error', reason: err.message });
+      next(err);
       return;
     }
 
@@ -113,8 +109,7 @@ lostRouter.post('/post', async (req, res, next) => {
 
     res.status(200).json(newLostPost);
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
@@ -162,8 +157,7 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
 
     res.status(201).json(updatedLost);
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
@@ -179,8 +173,7 @@ lostRouter.delete('/delete/:id', async (req, res, next) => {
 
     res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
-    // next(error);
-    res.status(400).json({ result: 'error', reason: error.message });
+    next(error);
   }
 });
 
