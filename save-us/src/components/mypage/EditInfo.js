@@ -1,22 +1,6 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
-// const initialState = {
-//   passwordAlert: { message: '', status: '' },
-// };
-
-// const reducer = (alert, action) => {
-//   const { PASSWORDCHECK } = actions;
-//   switch (action.type) {
-//     case PASSWORDCHECK:
-//       return {
-//         ...alert,
-//         passwordAlert: action.passwordAlert,
-//       };
-//   }
-//   return {
-//     ...alert,
-//   };
-// };
+import MenuBar from './menu/MenuBar';
 
 function EditInfo() {
   // const [alert, dispatch] = useReducer(reducer, initialState);
@@ -37,31 +21,32 @@ function EditInfo() {
     await new Promise((r) => {
       setTimeout(r, 1000);
     });
-    alert(`정보가 변경되었습니다.`);
+    alert(`회원정보가 변경되었습니다.`);
     setDisabled(false);
   };
 
-  // useEffect(() => {
-  //   password.length >= 8
-  //     ? dispatch({
-  //         type: 'PASSWORDCHECK',
-  //         passwordAlert: {
-  //           message: '유효한 비밀번호입니다.',
-  //           status: 'success',
-  //         },
-  //       })
-  //     : dispatch({
-  //         type: 'PASSWORDCHECK',
-  //         passwordAlert: {
-  //           message: '비밀번호는 8자 이상 입력해주세요',
-  //           status: 'warning',
-  //         },
-  //       });
-  // }, [password]);
+  useEffect(async () => {
+    const response = await fetch('/UserInfoMockData.json');
+    const userInfo = await response.json();
+    const userId = userInfo[0].id;
+    console.log(userId);
+  }, []);
 
   return (
     <div>
+      <MenuBar />
       <form onSubmit={handleSubmit}>
+        <div>
+          아이디 :
+          <input
+            name="id"
+            type="text"
+            value={id}
+            onChange={handleChangeId}
+            placeholder="아이디"
+          />
+          <button type="button">중복확인</button>
+        </div>
         <div>
           이름 :
           <input
@@ -73,17 +58,27 @@ function EditInfo() {
           />
         </div>
         <div>
-          아이디 :
+          현재 비밀번호 :
           <input
-            name="id"
-            type="text"
-            value={id}
-            onChange={handleChangeId}
-            placeholder="아이디"
+            name="password"
+            type="password"
+            value={pwd}
+            onChange={handleChangePwd}
+            placeholder="••••••••"
           />
         </div>
         <div>
-          비밀번호 :
+          새 비밀번호 :
+          <input
+            name="password"
+            type="password"
+            value={pwd}
+            onChange={handleChangePwd}
+            placeholder="••••••••"
+          />
+        </div>
+        <div>
+          새 비밀번호 확인 :
           <input
             name="password"
             type="password"
@@ -103,8 +98,7 @@ function EditInfo() {
           />
         </div>
         <button type="submit" disabled={disabled}>
-          {' '}
-          변경하기
+          회원정보수정
         </button>
       </form>
     </div>
