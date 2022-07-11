@@ -46,10 +46,19 @@ const RescueSchema = new mongoose.Schema (
       processState: {
         type: String,
       },
-      shelter : {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Shelter',
-        required: true
+      careName: {
+        type: String,
+        required: true,
+        unique: true,
+      },
+      careAddr: {
+        type: String,
+        required: true,
+        unique: true,
+        },
+      careTel:{
+        type: String, 
+        required: false,
       },
       officeTel: {
         type: String,

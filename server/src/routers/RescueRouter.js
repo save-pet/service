@@ -5,13 +5,13 @@ import { adminRequired } from '../middlewares/AdminRequired.js';
 
 const rescueRouter = Router();
 
-// 1. 보호 동물 등록
-rescueRouter.post(
-  '/register',
-  loginRequired,
-  adminRequired,
-  async (req, res, next) => {},
-);
+// 1. 보호 동물 등록 -> 근데 api 사용해서 필요 없을 듯
+// rescueRouter.post(
+//   '/register',
+//   loginRequired,
+//   adminRequired,
+//   async (req, res, next) => {},
+// );
 
 // 2. 페이지네이션 된 보호동물 리스트 조회 (페이지네이션 적용)
 rescueRouter.get('/rescues', async (req, res, next) => {});
