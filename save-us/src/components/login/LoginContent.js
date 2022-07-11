@@ -18,13 +18,16 @@ function LoginContent() {
     console.log(inputId);
     console.log(inputPw);
 
-    const resp = await fetch('http://localhost:5000/api/user/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const resp = await fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOGIN}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: inputId, password: inputPw }),
       },
-      body: JSON.stringify({ email: inputId, password: inputPw }),
-    });
+    );
     const result = await resp.json();
 
     if (Object.prototype.hasOwnProperty.call(result, 'token')) {

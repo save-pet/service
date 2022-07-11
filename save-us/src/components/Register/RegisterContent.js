@@ -23,21 +23,24 @@ function RegisterContent() {
   };
 
   const onClickRegister = async () => {
-    console.log('구해줘 댕냥쓰! 정상적으로 로그인 되었습니다.');
+    alert('구해줘 댕냥쓰! 정상적으로 로그인 되었습니다.');
     console.log(inputId);
     console.log(inputPassword);
 
-    const resp = await fetch('http://localhost:5000/api/user/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const resp = await fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_REGISTER}`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          fullName: phoneNumber,
+          email: inputId,
+          password: inputPassword,
+        }),
       },
-      body: JSON.stringify({
-        fullName: phoneNumber,
-        email: inputId,
-        password: inputPassword,
-      }),
-    });
+    );
     const result = await resp.json();
     console.log(result);
   };
