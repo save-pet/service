@@ -1,21 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 function RegisterContent() {
+  const [inputId, setInputId] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+
+  const handleInputId = (e) => {
+    setInputId(e.target.value);
+  };
+
+  const handleInputPassword = (e) => {
+    setInputPassword(e.target.value);
+  };
+
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value);
+  };
+
+  const handlePhoneNumber = (e) => {
+    setPhoneNumber(e.target.value);
+  };
+
+  const onClickRegister = async () => {
+    console.log('구해줘 댕냥쓰! 정상적으로 로그인 되었습니다.');
+    console.log(inputId);
+    console.log(inputPassword);
+
+    const resp = await fetch('http://localhost:5000/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        fullName: phoneNumber,
+        email: inputId,
+        password: inputPassword,
+      }),
+    });
+    const result = await resp.json();
+    console.log(result);
+  };
+
+  useEffect(() => {
+    // const getLoginToken = ()
+    console.log('start');
+  }, []);
+
   return (
     <div>
       <form>
         <div className="container">
-          <label htmlFor="id">
+          <label htmlFor="inputId">
             <b>아이디 : </b>
-            <input type="text" placeholder="id" name="id" required />
+            <input
+              type="text"
+              placeholder="id"
+              name="inputId"
+              value={inputId}
+              onChange={handleInputId}
+              required
+            />
           </label>
           <br />
-          <label htmlFor="password">
+          <label htmlFor="inputPassword">
             <b>비밀번호 : </b>
             <input
               type="text"
               placeholder="password"
-              name="password"
+              name="inputPassword"
+              value={inputPassword}
+              onChange={handleInputPassword}
               required
             />
           </label>
@@ -26,21 +81,28 @@ function RegisterContent() {
               type="text"
               placeholder="password"
               name="confirmPassword"
+              value={confirmPassword}
+              onChange={handleConfirmPassword}
               required
             />
           </label>
           <br />
-          <label htmlFor="confirmPassword">
+          <label htmlFor="phoneNumber">
             <b>전화번호 : </b>
             <input
               type="text"
               placeholder="010-0000-0000"
-              name="confirmPassword"
+              name="phoneNumber"
+              value={phoneNumber}
+              onChange={handlePhoneNumber}
               required
             />
           </label>
         </div>
       </form>
+      <button type="button" className="register" onClick={onClickRegister}>
+        회원가입
+      </button>
     </div>
   );
 }

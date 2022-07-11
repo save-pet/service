@@ -1,6 +1,7 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import axios from 'axios';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
 import Main from './pages/Main';
@@ -12,6 +13,13 @@ import LostPostList from './components/admin/LostPostList';
 import SeePostList from './components/admin/SeePostList';
 
 function App() {
+  const callApi = async () => {
+    axios.get('/api').then((res) => console.log(res.data.test));
+  };
+
+  useEffect(() => {
+    callApi();
+  }, []);
   return (
     <div className="App">
       <BrowserRouter>
