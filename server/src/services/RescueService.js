@@ -32,14 +32,14 @@ class RescueService {
         return rescue;
     }
 
-    // 6. 보호소 아이디별 검색
-    async findByShelterId(shelterId){
-        const rescue = await this.rescueModel.findByShelterId(shelterId);
-        return rescue;
+    // 6. 보호소 코드 별 검색
+    async findByCareCode(careCode){
+        const rescues = await this.rescueModel.findByCareCode(careCode);
+        return rescues;
     }
 
     // 7. 보호 동물 정보 수정 (근데 API 사용하니까 수정할 일은 없을듯)
-    
+
     // 8. 보호 동물 삭제
     async removeRescue(rescueId){
         const rescue = await this.rescueModel.findById(rescueId);
