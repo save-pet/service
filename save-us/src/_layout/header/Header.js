@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import LOGO from './MainLogo.png';
-import ModalBtn from '../../components/login/ModalBtn';
-import LoginContent from '../../components/login/LoginContent';
-// import LoginButton from '../../components/login/LoginButton';
-import RegisterContent from '../../components/Register/RegisterContent';
-// import RegisterButton from '../../components/Register/RegisterButton';
+import ModalButton from '../../components/modal/ModalButton';
+import LoginContent from '../../components/main/LoginContent';
+import RegisterContent from '../../components/main/RegisterContent';
 
 function Header() {
   return (
@@ -21,23 +19,16 @@ function Header() {
     >
       <div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <ModalBtn
+          <ModalButton
             buttonName="로그인"
             title="로그인"
             content={<LoginContent />}
           />
-          <ModalBtn
+          <ModalButton
             buttonName="회원가입"
             title="회원가입"
             content={<RegisterContent />}
           />
-          {/* <ModalBtn2 /> */}
-          {/* <button type="button" component={Link} to="/">
-            회원가입
-          </button>
-          <button type="button" component={Link} to="/">
-            로그인
-          </button> */}
         </div>
       </div>
 
