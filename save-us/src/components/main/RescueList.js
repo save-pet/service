@@ -17,7 +17,10 @@ function RescueList() {
   }
 
   useEffect(() => {
-    getRescue();
+    const asyncGetRescue = async () => {
+      getRescue();
+    };
+    asyncGetRescue();
   }, []);
 
   function InfiniteScroll() {
