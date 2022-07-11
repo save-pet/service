@@ -1,17 +1,16 @@
-import pkg from 'mongoose';
+import mongoose from 'mongoose';
 import { UserSchema } from '../schemas/UserSchema.js';
 
-const { model, Types } = pkg;
-const User = model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 export class UserModel {
-  async findByEmail(email) {
-    const user = await User.findOne({ email });
+  async findById(id) {
+    const user = await User.findOne({ id });
     return user;
   }
 
-  async findById(userId) {
-    const user = await User.findOne({ _id: new Types.ObjectId(userId) });
+  async findByautoId(userId) {
+    const user = await User.findOne({ _id: new mongoose.Types.ObjectId(userId) });
     return user;
   }
 
@@ -31,7 +30,7 @@ export class UserModel {
   }
 
   async update({ userId, update }) {
-    const filter = { _id: new Types.ObjectId(userId) };
+    const filter = { _id: new mongoose.Types.ObjectId(userId) };
     const option = { returnOriginal: false };
 
     const updatedUser = await User.findOneAndUpdate(filter, update, option);
@@ -40,7 +39,7 @@ export class UserModel {
 
   async del(userId) {
     try{
-      await User.deleteOne({ _id: new Types.ObjectId(userId)});
+      await User.deleteOne({ _id: new mongoose.Types.ObjectId(userId)});
       return "Successed to delete";
     }catch{
       return "Failed to delete";

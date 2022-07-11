@@ -16,6 +16,8 @@ function Leave() {
     setDisabled(false);
   };
 
+  
+
   return (
     <div>
       <h2>회원탈퇴안내</h2>

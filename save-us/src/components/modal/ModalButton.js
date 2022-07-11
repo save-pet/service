@@ -1,14 +1,8 @@
-/* ref : https://phrygia.github.io/react/2021-09-21-react-modal/ */
-
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Modal from './Modal';
-/**
- * @param {string} place
- * @param {string} title
- */
+import ModalWindow from './ModalWindow';
 
-function ModalBtn({ buttonName, title, content, button }) {
+function ModalButton({ buttonName, title, content }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -23,24 +17,24 @@ function ModalBtn({ buttonName, title, content, button }) {
       <button type="button" onClick={openModal}>
         {buttonName}
       </button>
-      <Modal
+      <ModalWindow
         open={modalOpen}
         close={closeModal}
         header={title}
         content={content}
-        button={button}
       >
         {' '}
-      </Modal>
+      </ModalWindow>
     </div>
   );
 }
 
-ModalBtn.propTypes = {
+ModalButton.propTypes = {
   buttonName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   content: PropTypes.element.isRequired,
-  button: PropTypes.element.isRequired,
 };
 
-export default ModalBtn;
+export default ModalButton;
+
+// ref : https://phrygia.github.io/react/2021-09-21-react-modal/

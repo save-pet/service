@@ -16,12 +16,12 @@ userRouter.post('/admin', async (req, res, next) => {
     }
 
     const fullName = req.body.fullName;
-    const email = req.body.email;
+    const id = req.body.id;
     const password = req.body.password;
 
     const newUser = await userService.addUser({
       fullName,
-      email,
+      id,
       password,
       role: 'admin-user',
     });
@@ -42,12 +42,12 @@ userRouter.post('/register', async (req, res, next) => {
     }
 
     const fullName = req.body.fullName;
-    const email = req.body.email;
+    const id = req.body.id;
     const password = req.body.password;
 
     const newUser = await userService.addUser({
       fullName,
-      email,
+      id,
       password,
     });
 
@@ -66,10 +66,10 @@ userRouter.post('/login', async (req, res, next) => {
       );
     }
 
-    const email = req.body.email;
+    const id = req.body.id;
     const password = req.body.password;
 
-    const userToken = await userService.getUserToken({ email, password });
+    const userToken = await userService.getUserToken({ id, password });
 
     res.status(200).json(userToken);
   } catch (error) {
@@ -105,9 +105,9 @@ userRouter.get('/numbers', loginRequired, async (req, res, next) => {
 userRouter.get('/', loginRequired, async (req, res, next) => {
   try {
     const user = await userService.getUser(req.currentUserId);
-    const { email, fullName, role, _id, address, phoneNumber, password } = user;
+    const { id, fullName, role, _id, address, phoneNumber, password } = user;
     const toSend = {
-      ...(email && { email }),
+      ...(id && { id }),
       ...(fullName && { fullName }),
       ...(_id && { _id }),
       ...(password && { password }),
@@ -122,7 +122,7 @@ userRouter.get('/', loginRequired, async (req, res, next) => {
   }
 });
 
-// 5. 사용자 정보 수정
+// 5. 사용자 정보 수정 (여기서 userId 는 _id 를 의미)
 userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
@@ -132,7 +132,7 @@ userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
     }
 
     const userId = req.params.userId;
-    const email = req.body.email;
+    const id = req.body.id;
     const fullName = req.body.fullName;
     const password = req.body.password;
     const address = req.body.address;
@@ -162,10 +162,10 @@ userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
     );
     
     if (password) {
-      const userToken = await userService.getUserToken({ email, password });
+      const userToken = await userService.getUserToken({ id, password });
       res.status(200).json(userToken);
     } else{
-      const userToken1 = await userService.getUserToken({ email, password: currentPassword });
+      const userToken1 = await userService.getUserToken({ id, password: currentPassword });
       res.status(200).json(userToken1);
     }
   } catch (error) {
