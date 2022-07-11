@@ -34,7 +34,7 @@ function RegisterContent() {
         },
         body: JSON.stringify({
           fullName: phoneNumber,
-          email: inputId,
+          id: inputId,
           password: inputPassword,
         }),
       },
