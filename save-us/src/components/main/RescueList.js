@@ -96,15 +96,29 @@ function RescueList() {
         return (
           <article key={desertionNo}>
             <Link
-              to="/"
+              to={`/rescue/${desertionNo}`}
               style={{
                 display: 'flex',
                 flexDirection: 'column',
+                width: '350px',
+                height: '400px',
               }}
             >
-              <img src={imgUrl} alt="rescued animal" />
+              <img
+                src={imgUrl}
+                alt="rescued animal"
+                style={{
+                  width: '350px',
+                  height: '270px',
+                  objectFit: 'cover',
+                }}
+              />
               <section
-                style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}
+                style={{
+                  backgroundColor: '#ffd149',
+                  fontStyle: 'none',
+                  height: '130px',
+                }}
               >
                 <div>접수일: {happenDate}</div>
                 <div>발견장소: {happenPlace}</div>
