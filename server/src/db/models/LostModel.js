@@ -1,8 +1,7 @@
-import pkg from 'mongoose';
-import { LostSchema } from '../schemas/lost-schema.js';
+import mongoose from 'mongoose';
+import { LostSchema } from '../schemas/LostSchema.js';
 
-const { model } = pkg;
-const Lost = model('losts', LostSchema);
+const Lost = mongoose.model('losts', LostSchema);
 
 export class LostModel {
   async findAllLostPosts() {

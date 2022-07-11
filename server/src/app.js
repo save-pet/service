@@ -2,10 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import path from 'path';
-import { userRouter } from './routers/UserRouter.js';
-import { lostRouter } from './routers/lost-router.js';
-import { shelterRouter } from './routers/ShelterRouter.js';
-import { rescueRouter } from './routers/RescueRouter.js';
+import { userRouter, lostRouter, shelterRouter, rescueRouter } from './routers/index.js';
 import { errorHandler } from './middlewares/ErrorHandler.js';
 import dotenv from 'dotenv';
 
@@ -21,7 +18,7 @@ app.use(express.json());
 
 const DB_URL =
   process.env.MONGODB_URL ||
-  'MongoDB 서버 주소가 설정되지 않았습니다.\n.env 파일도 필요합니다.\n';
+  'MongoDB 서버 주소가 설정되지 않았습니다.env 파일도 필요합니다.\n';
 
 mongoose.connect(DB_URL);
 const db = mongoose.connection;
