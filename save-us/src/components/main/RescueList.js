@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
+  const [target, setTarget] = useState(null);
 
   async function getRescue() {
     const res = await fetch('/RescueMockData.json', {
@@ -12,14 +13,32 @@ function RescueList() {
       },
     });
     const data = await res.json();
-    return data;
+    setRescueList(data);
   }
-  useEffect(() => {
-    const getRescueFunc = async () => {
-      setRescueList(await getRescue());
-    };
-    getRescueFunc();
-  }, []);
+
+  useEffect(() => getRescue(), []);
+
+  function InfiniteScroll() {
+    async function intersectionHandler([entry], observer) {
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+        await getRescue();
+        observer.observe(entry.target);
+      }
+    }
+
+    useEffect(() => {
+      let observer;
+      if (target) {
+        observer = new IntersectionObserver(intersectionHandler, {
+          threshold: 0.9,
+        });
+        observer.observe(target);
+      }
+      return () => observer && observer.disconnect();
+    }, [target]);
+  }
+  InfiniteScroll();
 
   return (
     <main
@@ -74,6 +93,7 @@ function RescueList() {
           </article>
         );
       })}
+      <div ref={setTarget} />
     </main>
   );
 }
