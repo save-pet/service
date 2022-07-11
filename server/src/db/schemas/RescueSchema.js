@@ -2,9 +2,12 @@ import mongoose from 'mongoose';
 
 const RescueSchema = new mongoose.Schema (
     {
+      desertionNo : {
+        type: String,
+        unique : true,
+      }, 
       imgUrl : {
         type : String,
-        unique: true,
       },
       happenDate : {
         type: Date,
@@ -22,11 +25,23 @@ const RescueSchema = new mongoose.Schema (
       sexCode: {
         type: String,
       },
+      neuterYN : {
+        type: String, 
+      },
       noticeStartDate: {
         type: Date,
       },
       noticeEndDate :{
         type: Date,
+      },
+      specialMark:{
+        type: String,
+      },
+      age: {
+        type: String,
+      },
+      weight: {
+        type: String,
       },
       processState: {
         type: String,
@@ -35,6 +50,9 @@ const RescueSchema = new mongoose.Schema (
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Shelter',
         required: true
+      },
+      officeTel: {
+        type: String,
       }
     },
     {

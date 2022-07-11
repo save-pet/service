@@ -12,6 +12,10 @@ const ShelterSchema = new mongoose.Schema(
         required: true,
         unique: true,
         },
+      careTel:{
+        type: String, 
+        required: false,
+      },
     },
     {
       collection: 'shelters',
