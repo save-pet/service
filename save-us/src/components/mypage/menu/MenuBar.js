@@ -17,7 +17,7 @@ function MenuBar() {
       <Menu>
         <h2>마이페이지</h2>
         <Content>
-          <Link to="/mypage/editInfo">개인 정보 수정</Link>
+          <Link to="/mypage">개인 정보 수정</Link>
         </Content>
         <Content>
           <Link to="/mypage/lostList">분실 신고 리스트</Link>
@@ -47,7 +47,7 @@ const Menu = styled.menu`
   padding: 10px;
 `;
 
-const Content = styled.menu`
+const Content = styled.div`
   margin: 0;
   padding: 10px;
   border: 1px solid #fafafa;

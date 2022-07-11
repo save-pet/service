@@ -29,10 +29,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/lostMap" element={<MapView />} />
           <Route path="/mypage" element={<EditInfo />} />
-          <Route path="/mypage/editInfo" element={<EditInfo />} />
           <Route path="/mypage/lostList" element={<LostList />} />
           <Route path="/admin" element={<ManageUser />} />
-          <Route path="/admin/manageUser" element={<ManageUser />} />
           <Route path="/admin/lostPostList" element={<LostPostList />} />
           <Route path="/admin/seePostList" element={<SeePostList />} />
         </Routes>
