@@ -9,13 +9,6 @@ function Header() {
   const navigate = useNavigate();
   const [didLogin, setDidLogin] = useState(sessionStorage.getItem('token'));
 
-  // window.onstorage = (event) => {
-  //   if (event.newValue) {
-  //     console.log('토큰 감지');
-  //     window.location.replace('/');
-  //   }
-  // };
-
   function handleLogout() {
     sessionStorage.removeItem('token');
     setDidLogin(null);
