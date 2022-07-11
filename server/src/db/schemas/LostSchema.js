@@ -1,8 +1,7 @@
-import pkg from 'mongoose';
+import mongoose from 'mongoose';
 import { shortId } from './types/short-id.js';
 
-const { Schema } = pkg;
-const LostSchema = new Schema(
+const LostSchema = new mongoose.Schema(
   {
     shortId,
 

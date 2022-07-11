@@ -1,10 +1,8 @@
-import pkg from 'mongoose';
+import mongoose from 'mongoose';
 
-const { Schema } = pkg;
-
-const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
   {
-    email: {
+    id: {
       type: String,
       index: true,
       unique: true,
@@ -23,16 +21,7 @@ const UserSchema = new Schema(
       required: false,
     },
     address: {
-      type: new Schema(
-        {
-          postalCode: String,
-          address1: String,
-          address2: String,
-        },
-        {
-          _id: false,
-        }
-      ),
+      type: String,
       required: false,
     },
     role: {

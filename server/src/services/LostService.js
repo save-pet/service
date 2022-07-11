@@ -1,5 +1,5 @@
 /* eslint-disable no-useless-return */
-import { lostModel } from '../db/models/lost-model.js';
+import { lostModel } from '../db/models/LostModel.js';
 
 class LostService {
   constructor(lostModel) {

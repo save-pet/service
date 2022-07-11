@@ -5,7 +5,7 @@ const Shelter = mongoose.model('Shelter', ShelterSchema);
 
 export class ShelterModel {
   // 1. shelter 정보 저장
-  async create(shelterInfo) {
+  async create(shelterInfo){
     const createNewShelter = await Shelter.create(shelterInfo);
     return createNewShelter;
   }

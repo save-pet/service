@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { shelterService } from '../services/ShelterService.js';
-// import { loginRequired, adminRequired } from '../middlewares';
 import { loginRequired } from '../middlewares/LoginRequired.js';
 import { adminRequired } from '../middlewares/AdminRequired.js';
 
