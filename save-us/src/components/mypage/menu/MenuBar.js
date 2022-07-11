@@ -17,10 +17,10 @@ function MenuBar() {
       <Menu>
         <h2>마이페이지</h2>
         <Content>
-          <Link to="/mypage">개인 정보 수정</Link>
+          <Link to="/mypage/editInfo">개인 정보 수정</Link>
         </Content>
         <Content>
-          <Link to="/lostList">분실 신고 리스트</Link>
+          <Link to="/mypage/lostList">분실 신고 리스트</Link>
         </Content>
         <Content>
           {isOpenModal && (

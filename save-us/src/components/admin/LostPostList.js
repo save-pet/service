@@ -1,14 +1,8 @@
-import { React, useEffect } from 'react';
+import { React } from 'react';
 
 import MenuBar from './menu/MenuBar';
 
-function LostList() {
-  useEffect(async () => {
-    const response = await fetch('/LostListMockData.json');
-    const lostList = await response.json();
-    console.log(lostList);
-  }, []);
-
+function LostPostList() {
   return (
     <div>
       <MenuBar />
@@ -44,4 +38,4 @@ function LostList() {
   );
 }
 
-export default LostList;
+export default LostPostList;

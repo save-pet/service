@@ -1,24 +1,6 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 import MenuBar from './menu/MenuBar';
-
-// const initialState = {
-//   passwordAlert: { message: '', status: '' },
-// };
-
-// const reducer = (alert, action) => {
-//   const { PASSWORDCHECK } = actions;
-//   switch (action.type) {
-//     case PASSWORDCHECK:
-//       return {
-//         ...alert,
-//         passwordAlert: action.passwordAlert,
-//       };
-//   }
-//   return {
-//     ...alert,
-//   };
-// };
 
 function EditInfo() {
   // const [alert, dispatch] = useReducer(reducer, initialState);
@@ -43,23 +25,12 @@ function EditInfo() {
     setDisabled(false);
   };
 
-  // useEffect(() => {
-  //   password.length >= 8
-  //     ? dispatch({
-  //         type: 'PASSWORDCHECK',
-  //         passwordAlert: {
-  //           message: '유효한 비밀번호입니다.',
-  //           status: 'success',
-  //         },
-  //       })
-  //     : dispatch({
-  //         type: 'PASSWORDCHECK',
-  //         passwordAlert: {
-  //           message: '비밀번호는 8자 이상 입력해주세요',
-  //           status: 'warning',
-  //         },
-  //       });
-  // }, [password]);
+  useEffect(async () => {
+    const response = await fetch('/UserInfoMockData.json');
+    const userInfo = await response.json();
+    const userId = userInfo[0].id;
+    console.log(userId);
+  }, []);
 
   return (
     <div>
