@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function RegisterContent() {
   const [inputId, setInputId] = useState('');
@@ -24,8 +24,6 @@ function RegisterContent() {
 
   const onClickRegister = async () => {
     alert('구해줘 댕냥쓰! 정상적으로 로그인 되었습니다.');
-    console.log(inputId);
-    console.log(inputPassword);
 
     const resp = await fetch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_REGISTER}`,
@@ -44,11 +42,6 @@ function RegisterContent() {
     const result = await resp.json();
     console.log(result);
   };
-
-  useEffect(() => {
-    // const getLoginToken = ()
-    console.log('start');
-  }, []);
 
   return (
     <div>

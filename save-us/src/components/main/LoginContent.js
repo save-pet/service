@@ -1,5 +1,4 @@
-// https://ddeck.tistory.com/35?category=866566
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 function LoginContent() {
   const [inputId, setInputId] = useState('');
@@ -36,11 +35,6 @@ function LoginContent() {
       alert('회원가입 바랍니다.');
     }
   };
-
-  useEffect(() => {
-    // const getLoginToken = ()
-    console.log('start');
-  }, []);
 
   return (
     <div>
@@ -79,3 +73,5 @@ function LoginContent() {
 }
 
 export default LoginContent;
+
+// ref : https://ddeck.tistory.com/35?category=866566
