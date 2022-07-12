@@ -10,8 +10,7 @@ const RescueSchema = new mongoose.Schema (
         type : String,
       },
       happenDate : {
-        type: Date,
-        default: new Date(0),
+        type: String,
       },
       happenPlace: {
         type : String,
@@ -29,10 +28,10 @@ const RescueSchema = new mongoose.Schema (
         type: String, 
       },
       noticeStartDate: {
-        type: Date,
+        type: String,
       },
       noticeEndDate :{
-        type: Date,
+        type: String,
       },
       specialMark:{
         type: String,
