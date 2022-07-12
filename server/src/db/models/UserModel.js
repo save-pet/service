@@ -4,11 +4,13 @@ import { UserSchema } from '../schemas/UserSchema.js';
 const User = mongoose.model('User', UserSchema);
 
 export class UserModel {
+  // 1. id 로 조회
   async findById(id) {
     const user = await User.findOne({ id });
     return user;
   }
 
+  // 2. _id 로 조회
   async findByautoId(userId) {
     const user = await User.findOne({ _id: new mongoose.Types.ObjectId(userId) });
     return user;
@@ -24,6 +26,7 @@ export class UserModel {
     return users;
   }
 
+  // 전체 user 수 반환
   async totalUsers(){
     const totalNum = await User.find({}).count();
     return totalNum;
