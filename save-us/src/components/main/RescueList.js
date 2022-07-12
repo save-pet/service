@@ -26,13 +26,6 @@ function RescueList() {
     }, []);
   }
 
-  // useEffect(() => {
-  //   const asyncGetRescue = async () => {
-  //     getRescue();
-  //   };
-  //   asyncGetRescue();
-  // }, [rescueList]);
-
   // function InfiniteScroll() {
   //   async function intersectionHandler([entry], observer) {
   //     if (entry.isIntersecting) {
@@ -54,6 +47,7 @@ function RescueList() {
   //   }, [target]);
   // }
   // InfiniteScroll();
+
   getRescue();
 
   return (

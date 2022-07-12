@@ -52,10 +52,10 @@ export default function HamburgerMenu() {
       styles={styles}
     >
       <h3>찾아줘😿</h3>
-      <Link className="menu-item" to="/">
+      <Link className="menu-item" to="/lost/post">
         분실 등록
       </Link>
-      <Link className="menu-item" to="/">
+      <Link className="menu-item" to="/lost">
         분실 목록
       </Link>
       <br />
