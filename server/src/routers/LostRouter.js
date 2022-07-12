@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-// import { loginRequired, adminRequired } from '../middlewares/index.js';
+import { loginRequired, adminRequired } from '../middlewares/index.js';
 import { lostService, userService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
@@ -22,15 +22,15 @@ lostRouter.get('/', async (req, res, next) => {
 });
 
 // 2. 사용자가 작성한 분실 글 조회
-lostRouter.get('/user/:id', async (req, res, next) => {
+lostRouter.get('/user', loginRequired, async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const user = await userService.getUserById(id);
+    const userId = req.currentUserId;
+    const user = await userService.getUserByautoId(userId);
     if (!user) {
-      throw new Error('일치하는 id가 없습니다. id를 다시 확인해주세요.');
+      throw new Error('등록된 글이 없습니다/ ');
     }
 
-    const lostPost = await lostService.getLostById(id);
+    const lostPost = await lostService.getLostById(userId);
 
     res.status(200).json(lostPost);
   } catch (error) {
@@ -73,7 +73,7 @@ lostRouter.post('/upload', async (req, res, next) => {
 });
 
 // 5. 분실 글 등록
-lostRouter.post('/post', async (req, res, next) => {
+lostRouter.post('/post', loginRequired, async (req, res, next) => {
   if (is.emptyObject(req.body)) {
     throw new Error(
       'headers의 Content-Type을 application/json으로 설정해주세요',
@@ -81,28 +81,20 @@ lostRouter.post('/post', async (req, res, next) => {
   }
 
   try {
+    const userId = req.currentUserId; 
     const {
-      id,
-      fullName,
       animalName,
       lostDate,
       address,
-      phoneNumber1,
-      phoneNumber2,
       detail,
       image,
     } = req.body;
 
-    // 전화번호 형식 검사하는 validator 추가하기
-
     const newLostPost = await lostService.addLostPost({
-      id,
-      fullName,
+      userId,
       animalName,
       lostDate,
       address,
-      phoneNumber1,
-      phoneNumber2,
       detail,
       image,
     });
@@ -114,7 +106,7 @@ lostRouter.post('/post', async (req, res, next) => {
 });
 
 // 6. 분실 게시글 수정 (shortId로 게시글 불러옴)
-lostRouter.patch('/edit/:shortid', async (req, res, next) => {
+lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -128,32 +120,27 @@ lostRouter.patch('/edit/:shortid', async (req, res, next) => {
         '해당 게시글이 존재하지 않습니다. 게시글 shortId를 다시 확인해주세요.',
       );
     }
+    
+    const userId = req.currentUserId;
     const {
-      id,
-      fullName,
       animalName,
       lostDate,
       address,
-      phoneNumber1,
-      phoneNumber2,
       detail,
       image,
     } = req.body;
 
     // 전화번호랑 날짜 형식 validator 만들기
     const toUpdate = {
-      ...(id && { id }),
-      ...(fullName && { fullName }),
+      ...(userId && { userId }),
       ...(animalName && { animalName }),
       ...(lostDate && { lostDate }),
       ...(address && { address }),
-      ...(phoneNumber1 && { phoneNumber1 }),
-      ...(phoneNumber2 && { phoneNumber2 }),
       ...(detail && { detail }),
       ...(image && { image }),
     };
 
-    const updatedLost = await lostService.updateLost(id, toUpdate);
+    const updatedLost = await lostService.updateLost(shortid, toUpdate);
 
     res.status(201).json(updatedLost);
   } catch (error) {

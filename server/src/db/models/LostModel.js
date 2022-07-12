@@ -9,8 +9,9 @@ export class LostModel {
     return orders;
   }
 
+  // user의 _id로 검색 -> populate 사용해서 , user 다른 정보 불러올 수 있음
   async findById(id) {
-    const lostPost = await Lost.find({ id: id });
+    const lostPost = await Lost.find({ userId: id }).populate('userId');
     return lostPost;
   }
 
