@@ -16,14 +16,14 @@ class LostService {
   }
 
   // 사용자가 작성한 분실 글 조회(목록 조회)
-  async getLostByEmail(email) {
-    const myLostPost = await lostModel.findByEmail(email);
+  async getLostById(id) {
+    const myLostPost = await lostModel.findById(id);
     return myLostPost;
   }
 
   // 게시글 shortId로 개별 분실 글 조회
-  async getLostById(shortId) {
-    const lostPost = await lostModel.findById(shortId);
+  async getLostByShortId(shortId) {
+    const lostPost = await lostModel.findByShortId(shortId);
 
     if (!lostPost) {
       throw new Error(
@@ -46,7 +46,7 @@ class LostService {
 
   // 분실 게시글 수정
   async updateLost(lostShortId, toUpdate) {
-    let lost = await this.lostModel.findById(lostShortId);
+    let lost = await this.lostModel.findByShortId(lostShortId);
 
     if (!lost) {
       throw new Error(
@@ -61,7 +61,7 @@ class LostService {
 
   // 분실 글 삭제
   async deleteLost(shortId) {
-    const lostPost = await lostModel.findById(shortId);
+    const lostPost = await lostModel.findByShortId(shortId);
 
     if (!lostPost) {
       throw new Error('해당하는 글이 없습니다. 게시글 id를 다시 확인해주세요');

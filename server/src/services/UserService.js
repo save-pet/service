@@ -89,8 +89,8 @@ class UserService {
     return users;
   }
 
-  async getUserByEmail(email) {
-    const user = await this.userModel.findByEmail(email);
+  async getUserById(id) {
+    const user = await this.userModel.findById(id);
     return user;
   }
 

@@ -123,7 +123,7 @@ userRouter.get('/', loginRequired, async (req, res, next) => {
 });
 
 // 5. 사용자 정보 수정 (여기서 userId 는 _id 를 의미)
-userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
+userRouter.patch('/:userid', loginRequired, async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -131,7 +131,7 @@ userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
       );
     }
 
-    const userId = req.params.userId;
+    const userId = req.params.userid;
     const id = req.body.id;
     const fullName = req.body.fullName;
     const password = req.body.password;
@@ -174,7 +174,7 @@ userRouter.patch('/:userId', loginRequired, async (req, res, next) => {
 });
 
 // 6. 사용자 탈퇴
-userRouter.delete('/:userId', loginRequired, async (req, res, next) => {
+userRouter.delete('/:userid', loginRequired, async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { currentPassword } = req.body;

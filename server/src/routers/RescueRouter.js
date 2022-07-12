@@ -3,8 +3,6 @@ import { rescueService } from '../services/RescueService.js';
 import { loginRequired } from '../middlewares/LoginRequired.js';
 import { adminRequired } from '../middlewares/AdminRequired.js';
 
-import is from '@sindresorhus/is';
-
 const rescueRouter = Router();
 
 // 1. 보호 동물 등록 -> 근데 api 사용해서 필요 없을 듯
@@ -49,7 +47,7 @@ rescueRouter.get('/:rescueId', async (req, res, next) => {
 
 
 // 4. 동일 보호소에 보호되고 있는 동물 조회
-rescueRouter.get('/careCode/:careCode', async (req, res, next) => {
+rescueRouter.get('/care-code/:careCode', async (req, res, next) => {
   try {
     const { careCode } = req.params;
     const rescues = await rescueService.findByCareCode(careCode);

@@ -5,7 +5,7 @@ const LostSchema = new mongoose.Schema(
   {
     shortId,
 
-    email: {
+    id: {
       type: String,
       required: true,
     },
