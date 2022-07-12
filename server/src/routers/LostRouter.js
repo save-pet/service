@@ -22,15 +22,15 @@ lostRouter.get('/', async (req, res, next) => {
 });
 
 // 2. 사용자가 작성한 분실 글 조회
-lostRouter.get('/user/:email', async (req, res, next) => {
+lostRouter.get('/user/:id', async (req, res, next) => {
   try {
-    const { email } = req.params;
-    const user = await userService.getUserByEmail(email);
+    const { id } = req.params;
+    const user = await userService.getUserById(id);
     if (!user) {
-      throw new Error('일치하는 email이 없습니다. email을 다시 확인해주세요.');
+      throw new Error('일치하는 id가 없습니다. id를 다시 확인해주세요.');
     }
 
-    const lostPost = await lostService.getLostByEmail(email);
+    const lostPost = await lostService.getLostById(id);
 
     res.status(200).json(lostPost);
   } catch (error) {
@@ -39,10 +39,10 @@ lostRouter.get('/user/:email', async (req, res, next) => {
 });
 
 // 3. 분실번호 분실 글 목록 조회 (shortId로 조회)
-lostRouter.get('/:id', async (req, res, next) => {
+lostRouter.get('/:shortid', async (req, res, next) => {
   try {
-    const { id } = req.params;
-    const lostPost = await lostService.getLostById(id);
+    const { shortid } = req.params;
+    const lostPost = await lostService.getLostByShortId(shortid);
     res.status(200).json(lostPost);
   } catch (error) {
     next(error);
@@ -82,7 +82,7 @@ lostRouter.post('/post', async (req, res, next) => {
 
   try {
     const {
-      email,
+      id,
       fullName,
       animalName,
       lostDate,
@@ -96,7 +96,7 @@ lostRouter.post('/post', async (req, res, next) => {
     // 전화번호 형식 검사하는 validator 추가하기
 
     const newLostPost = await lostService.addLostPost({
-      email,
+      id,
       fullName,
       animalName,
       lostDate,
@@ -114,7 +114,7 @@ lostRouter.post('/post', async (req, res, next) => {
 });
 
 // 6. 분실 게시글 수정 (shortId로 게시글 불러옴)
-lostRouter.patch('/edit/:id', async (req, res, next) => {
+lostRouter.patch('/edit/:shortid', async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -122,14 +122,14 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
       );
     }
 
-    const { id } = req.params;
-    if (!id) {
+    const { shortid } = req.params;
+    if (!shortid) {
       throw new Error(
         '해당 게시글이 존재하지 않습니다. 게시글 shortId를 다시 확인해주세요.',
       );
     }
     const {
-      email,
+      id,
       fullName,
       animalName,
       lostDate,
@@ -142,7 +142,7 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
 
     // 전화번호랑 날짜 형식 validator 만들기
     const toUpdate = {
-      ...(email && { email }),
+      ...(id && { id }),
       ...(fullName && { fullName }),
       ...(animalName && { animalName }),
       ...(lostDate && { lostDate }),
@@ -162,16 +162,16 @@ lostRouter.patch('/edit/:id', async (req, res, next) => {
 });
 
 // 분실 글 삭제("id에 shortId가 들어가야됨") adminRequired,
-lostRouter.delete('/delete/:id', async (req, res, next) => {
+lostRouter.delete('/delete/:shortid', async (req, res, next) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { shortid } = req.params;
+    if (!shortid) {
       throw new Error('해당하는 글이 없습니다. 게시글 id를 다시 확인해주세요');
     }
 
-    await lostService.deleteLost(id);
+    await lostService.deleteLost(shortid);
 
-    res.status(200).json({ data: id, message: '게시글이 삭제 되었습니다.' });
+    res.status(200).json({ data: shortid, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
     next(error);
   }

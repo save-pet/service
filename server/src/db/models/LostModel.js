@@ -9,12 +9,12 @@ export class LostModel {
     return orders;
   }
 
-  async findByEmail(email) {
-    const lostPost = await Lost.find({ email: email });
+  async findById(id) {
+    const lostPost = await Lost.find({ id: id });
     return lostPost;
   }
 
-  async findById(shortId) {
+  async findByShortId(shortId) {
     const lostPost = await Lost.findOne({ shortId: shortId });
     return lostPost;
   }
