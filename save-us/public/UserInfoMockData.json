@@ -1,62 +1,32 @@
 [
   {
-    "id": "nmacalinden0",
-    "name": "cszachniewicz0",
-    "currentPassword": "jTFZg6",
-    "phoneNumber": "894-533-2896"
+    "id": "testid",
+    "name": "테스트",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
   },
   {
-    "id": "nmatzaitis1",
-    "name": "csmalridge1",
-    "currentPassword": "Fk2RPU2bdzGw",
-    "phoneNumber": "583-397-6165"
+    "id": "testid1",
+    "name": "테스트1",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
   },
   {
-    "id": "aglyssanne2",
-    "name": "mtatterton2",
-    "currentPassword": "F4Ipv7",
-    "phoneNumber": "405-280-2522"
+    "id": "testid2",
+    "name": "테스트2",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
   },
   {
-    "id": "cwalbrun3",
-    "name": "ppetrescu3",
-    "currentPassword": "rvd8d5yJL",
-    "phoneNumber": "694-584-2690"
+    "id": "testid3",
+    "name": "테스트3",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
   },
   {
-    "id": "mpagelsen4",
-    "name": "nboothe4",
-    "currentPassword": "w8lzE0sjRs",
-    "phoneNumber": "725-275-7277"
-  },
-  {
-    "id": "dderoos5",
-    "name": "acutmore5",
-    "currentPassword": "RzuF0ZDfAT",
-    "phoneNumber": "230-967-7830"
-  },
-  {
-    "id": "sterbeck6",
-    "name": "bturnell6",
-    "currentPassword": "PHrjg569",
-    "phoneNumber": "434-343-0411"
-  },
-  {
-    "id": "cgreenroad7",
-    "name": "hockland7",
-    "currentPassword": "U2tf8km7r",
-    "phoneNumber": "965-474-2813"
-  },
-  {
-    "id": "vallsopp8",
-    "name": "frama8",
-    "currentPassword": "mZFRUxa",
-    "phoneNumber": "720-762-4977"
-  },
-  {
-    "id": "mbride9",
-    "name": "pbrockton9",
-    "currentPassword": "21UxUnXF",
-    "phoneNumber": "127-269-4658"
+    "id": "testid4",
+    "name": "테스트4",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
   }
 ]

@@ -1,22 +1,45 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 
 function Leave() {
-  const [pwd, setPwd] = useState('');
-  const [disabled, setDisabled] = useState(false);
-
-  const handleChangePwd = ({ target: { value } }) => setPwd(value);
+  // 현재 비밀번호
+  const [currentPassword, setCurrentPassword] = useState('');
+  // 유저정보
+  const [userInfo, setUserInfo] = useState({});
+  // 데이터 로딩여부
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
-    setDisabled(true);
     event.preventDefault();
-    await new Promise((r) => {
-      setTimeout(r, 1000);
+    if (userInfo.currentPassword !== currentPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+    await new Promise((resolve) => {
+      setTimeout(resolve, 1000);
     });
     alert(`회원탈퇴가 완료되었습니다.`);
-    setDisabled(false);
+    window.location.replace('/');
   };
 
-  
+  const fetchData = () => {
+    setIsLoading(true); // 로딩 중
+    return new Promise(() => {
+      fetch('/MypageUserInfoMockData.json')
+        .then((response) => response.json())
+        .then((data) => {
+          setUserInfo(data);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (isLoading) return <div>로딩중...</div>;
 
   return (
     <div>
@@ -30,15 +53,12 @@ function Leave() {
           <input
             name="password"
             type="password"
-            value={pwd}
-            onChange={handleChangePwd}
-            placeholder="••••••••"
+            value={currentPassword}
+            onChange={(e) => setCurrentPassword(e.target.value)}
           />
         </div>
         <button type="button">취소</button>
-        <button type="submit" disabled={disabled}>
-          탈퇴
-        </button>
+        <button type="submit">탈퇴</button>
       </form>
     </div>
   );
