@@ -6,12 +6,17 @@ function ManageUser() {
   const [userList, setUserList] = useState([]);
 
   async function getList() {
-    const res = await fetch('/UserInfoMockData.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+    useEffect(() => {})
+    const res = await fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/users`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
       },
-    });
+    );
     const data = await res.json();
     return data;
   }
@@ -52,13 +57,13 @@ function ManageUser() {
         </thead>
       </table>
       {userList.map((list) => {
-        const { id, name, phoneNumber } = list;
+        const { id, fullName, phoneNumber } = list;
         return (
           <table>
             <tbody>
               <tr>
                 <td>{id}</td>
-                <td>{name}</td>
+                <td>{fullName}</td>
                 <td>{phoneNumber}</td>
               </tr>
             </tbody>
