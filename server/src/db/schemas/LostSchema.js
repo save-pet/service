@@ -5,12 +5,9 @@ const LostSchema = new mongoose.Schema(
   {
     shortId,
 
-    id: {
-      type: String,
-      required: true,
-    },
-    fullName: {
-      type: String,
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     animalName: {
@@ -24,14 +21,6 @@ const LostSchema = new mongoose.Schema(
     address: {
       type: String,
       required: true,
-    },
-    phoneNumber1: {
-      type: String,
-      required: true,
-    },
-    phoneNumber2: {
-      type: String,
-      required: false,
     },
     detail: {
       type: String,

@@ -44,10 +44,12 @@ userRouter.post('/register', async (req, res, next) => {
     const fullName = req.body.fullName;
     const id = req.body.id;
     const password = req.body.password;
+    const phoneNumber = req.body.phoneNumber;
 
     const newUser = await userService.addUser({
       fullName,
       id,
+      phoneNumber,
       password,
     });
 
@@ -104,7 +106,7 @@ userRouter.get('/numbers', loginRequired, async (req, res, next) => {
 // 4. 회원 정보 반환
 userRouter.get('/', loginRequired, async (req, res, next) => {
   try {
-    const user = await userService.getUser(req.currentUserId);
+    const user = await userService.getUserByautoId(req.currentUserId);
     const { id, fullName, role, _id, address, phoneNumber, password } = user;
     const toSend = {
       ...(id && { id }),

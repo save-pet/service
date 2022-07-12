@@ -12,7 +12,7 @@ class UserService {
   // 1. 회원가입
   async addUser(userInfo) {
     // 객체 destructuring
-    const { id, fullName, password, role } = userInfo;
+    const { id, fullName, phoneNumber, password, role } = userInfo;
 
     // 이메일 중복 확인
     const user = await this.userModel.findById(id);
@@ -25,7 +25,7 @@ class UserService {
     // 이메일 중복은 이제 아니므로, 회원가입을 진행함
     // 우선 비밀번호 해쉬화(암호화)
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUserInfo = { fullName, id, password: hashedPassword, role };
+    const newUserInfo = { fullName, id, phoneNumber, password: hashedPassword, role };
 
     // db에 저장
     const createdNewUser = await this.userModel.create(newUserInfo);
@@ -84,8 +84,8 @@ class UserService {
     return users;
   }
 
-  async getUser(userId) {
-    const users = await this.userModel.findById(userId);
+  async getUserByautoId(userId) {
+    const users = await this.userModel.findByautoId(userId);
     return users;
   }
 
@@ -100,7 +100,7 @@ class UserService {
     const { userId, currentPassword } = userInfoRequired;
 
     // 우선 해당 id의 유저가 db에 있는지 확인
-    let user = await this.userModel.findById(userId);
+    let user = await this.userModel.findByautoId(userId);
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
