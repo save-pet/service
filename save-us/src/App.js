@@ -1,7 +1,7 @@
 import { React } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import axios from 'axios';
+// import axios from 'axios';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
 import Main from './pages/Main';
@@ -22,10 +22,8 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/lostMap" element={<MapView />} />
           <Route path="/mypage" element={<EditInfo />} />
-          <Route path="/mypage/editInfo" element={<EditInfo />} />
           <Route path="/mypage/lostList" element={<LostList />} />
           <Route path="/admin" element={<ManageUser />} />
-          <Route path="/admin/manageUser" element={<ManageUser />} />
           <Route path="/admin/lostPostList" element={<LostPostList />} />
           <Route path="/admin/seePostList" element={<SeePostList />} />
         </Routes>
