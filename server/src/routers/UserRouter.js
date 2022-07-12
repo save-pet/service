@@ -1,7 +1,7 @@
 import { request, Router } from 'express';
 import is from '@sindresorhus/is';
 
-import { loginRequired } from '../middlewares/LoginRequired.js';
+import { loginRequired, adminRequired } from '../middlewares/index.js';
 import { userService } from '../services/UserService.js';
 
 const userRouter = Router();
@@ -80,7 +80,7 @@ userRouter.post('/login', async (req, res, next) => {
 });
 
 // 3. 전체 유저 목록 반환 (배열 형태)
-userRouter.get('/users', loginRequired, async (req, res, next) => {
+userRouter.get('/users', loginRequired, adminRequired, async (req, res, next) => {
   try {
     const users = await userService.getUsers();
     
@@ -91,7 +91,7 @@ userRouter.get('/users', loginRequired, async (req, res, next) => {
 });
 
 // 3-1. 전체 사용자 수 반환
-userRouter.get('/numbers', loginRequired, async (req, res, next) => {
+userRouter.get('/numbers', loginRequired, adminRequired, async (req, res, next) => {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();

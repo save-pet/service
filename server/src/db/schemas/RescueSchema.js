@@ -48,15 +48,6 @@ const RescueSchema = new mongoose.Schema (
       careCode:{
         type: String,
       },
-      careName: {
-        type: String,
-      },
-      careAddr: {
-        type: String,
-      },
-      careTel:{
-        type: String, 
-      },
       officeTel: {
         type: String,
       }

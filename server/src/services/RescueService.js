@@ -14,7 +14,7 @@ class RescueService {
         return rescues;
     }
 
-    // 3. 전체 구조 동물 수 조회 (근데 이건 api 가 따로 있어서 .. 음 그래도 일단 작성해두긴 함)
+    // 3. 전체 구조 동물 수 조회 
     async countRescue(){
         const rescueQty = await this.rescueModel.countAll();
         return rescueQty;
