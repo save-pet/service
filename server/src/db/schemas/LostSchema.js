@@ -34,11 +34,11 @@ const LostSchema = new mongoose.Schema(
       type: String,
     },
     latitude: {
-      type: String,
+      type: Number,
       required: false,
     },
     longitude: {
-      type: String,
+      type: Number,
       required: false,
     },
   },

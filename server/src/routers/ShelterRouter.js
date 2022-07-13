@@ -5,8 +5,18 @@ import { loginRequired, adminRequired } from '../middlewares/index.js';
 const shelterRouter = Router();
 
 // 1. 보호소 등록 -> 사용자가 등록하면 안됨
+// 2-1. 전체 보호소 리스트 조회 
+shelterRouter.get('/', async (req, res, next) => {
+  try {
+    const shelters = await shelterService.getShelters();
+    res.status(200).json(shelters);
+  }
+  catch (error) {
+    next(error);
+  }
+});
 
-// 2. 페이지네이션 된 보호소 리스트 조회 (페이지네이션 적용)
+// 2-2. 페이지네이션 된 보호소 리스트 조회 (페이지네이션 적용)
 shelterRouter.get('/shelters', async (req, res, next) => {
   try {
     // url 쿼리로부터 page 값 수신, 부재시 기본값 1
@@ -44,7 +54,7 @@ shelterRouter.get('/:shelterId', async (req, res, next) => {
 
 
 // 4. code 이용 보호소 조회
-shelterRouter.get('/:shelterCd', async (req, res, next) => {
+shelterRouter.get('/code/:shelterCd', async (req, res, next) => {
   try {
     const { shelterCd } = req.params;
     const shelter = await shelterService.findShelterByCode(shelterCd);

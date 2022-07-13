@@ -1,6 +1,7 @@
 /* eslint-disable no-useless-return */
 import { lostShelterModel } from '../db/models/LostShelterModel.js';
 import { lostModel } from '../db/models/LostModel.js'
+import { shelterModel } from '../db/models/ShelterModel.js';
 
 class LostShelterService {
     constructor(lostShelterModel) {
@@ -28,19 +29,18 @@ class LostShelterService {
 
     // 전화번호 반환 -> schema에 phoneNumber 저장 안해도 될듯 
     async getPhoneNumber (lostId){
-        const userInfo = await lostModel.findById(lostId);
-        const phoneNumber = userInfo[0].phoneNumber;
+        const phoneNumber = await lostModel.findPhoneNumberByLostId(lostId);
         return phoneNumber;
     }
   
     // 분실장소의 위/경도와 보호소의 위경도로 거리구하기
     async getDistance(lostId, shelterId) {
-      const lostLa = await this.lostShelterModel.LostLatitude(lostId);
-      const lostLon = await this.lostShelterModel.LostLongitude(lostId);
-      const shelLa = await this.lostShelterModel.ShelterLatitude(shelterId);
-      const shelLon = await this.lostShelterModel.ShelterLongitude(shelterId);
-
-      const Distance = await this.lostShelterModel.Distance(lostLa, lostLon, shelLa, shelLon);
+      
+      const lostLa = await lostModel.getLatitude(lostId);
+      const lostLon = await lostModel.getLongitude(lostId);
+      const shelLa = await shelterModel.getLatitude(shelterId);
+      const shelLon = await shelterModel.getLongitude(shelterId);      
+      const Distance = await this.lostShelterModel.Dist(lostLa, lostLon, shelLa, shelLon);
       return Distance;
     }
 

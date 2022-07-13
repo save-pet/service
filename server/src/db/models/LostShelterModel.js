@@ -29,28 +29,6 @@ export class LostShelterModel {
     return shelterInfo;
   }
 
-  // 3-1. 분실 위치 위경도 불러오기 
-  async LostLatitude(lostId) {
-    const latitude = await LostShelter.find({lostId : lostId}).populate('lost','latitude');
-    return latitude;
-  }
-
-  async LostLongitude(lostId) {
-    const longitude = await LostShelter.find({lostId : lostId}).populate('lost','longitude');
-    return longitude;
-  }
-  
-  // 3-2. 보호소 위치 위경도 불러오기
-  async ShelterLatitude(shelterId) {
-    const latitude = await LostShelter.find({ shelterId : shelterId}).populate('shelter', 'latitude');
-    return latitude;
-  }
-
-  async ShelterLongitude(shelterId) {
-    const longitude = await LostShelter.find({shelterId: shelterId}).populate('shelter', 'longitude');
-    return longitude;
-  }
-
   // 3. 위경도 distance 구하기 
   async Dist(lat1, lon1, lat2, lon2) {
     function rad (x) {

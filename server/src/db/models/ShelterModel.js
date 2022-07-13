@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { ShelterSchema } from '../schemas/ShelterSchema';
+import { ShelterSchema } from '../schemas/ShelterSchema.js';
 
 const Shelter = mongoose.model('Shelter', ShelterSchema);
 
@@ -37,6 +37,19 @@ export class ShelterModel {
   async findByCode(shelterCd){
     const shelter = await Shelter.findOne({ careCode : shelterCd });
     return shelter;
+  }
+
+  // 보호소 위경도 조회
+  async getLatitude(shelterId) {
+    const shelterInfo = await Shelter.findOne({ _id : shelterId });
+    const latitude = shelterInfo.latitude;
+    return latitude;
+  }
+
+  async getLongitude(shelterId) {
+    const shelterInfo = await Shelter.findOne({ _id : shelterId });
+    const longitude = shelterInfo.longitude;
+    return longitude;
   }
 
   // 6. 보호소 정보 수정 -> api 에서 불러오는것이므로 우리가 자체적으로 수정할 필요 없을듯

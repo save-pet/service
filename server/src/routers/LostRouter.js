@@ -88,6 +88,7 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      processState,
       latitude, 
       longitude,
     } = req.body;
@@ -99,6 +100,7 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      processState,
       latitude, 
       longitude,
     });
@@ -132,6 +134,7 @@ lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      processState,
       latitude, 
       longitude,
     } = req.body;
@@ -144,6 +147,7 @@ lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
       ...(address && { address }),
       ...(detail && { detail }),
       ...(image && { image }),
+      ...(processState && { processState }),
       ...(latitude && { latitude }),
       ...(longitude && { longitude }),
     };

@@ -18,18 +18,18 @@ const ShelterSchema = new mongoose.Schema(
       type: String,
     },
     latitude: {
-      type: String,
+      type: Number,
       required: false,
     },
     longitude: {
-      type: String,
+      type: Number,
       required: false,
     },
   },
   {
     timestamps: true,
     collection: 'shelters',
-  },
+  },  
 );
 
 export { ShelterSchema };
