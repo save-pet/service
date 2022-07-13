@@ -30,12 +30,15 @@ const LostSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    latitude: {
+    processState: {
       type: String,
+    },
+    latitude: {
+      type: Number,
       required: false,
     },
     longitude: {
-      type: String,
+      type: Number,
       required: false,
     },
   },
