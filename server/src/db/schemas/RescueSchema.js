@@ -15,6 +15,12 @@ const RescueSchema = new mongoose.Schema (
       happenPlace: {
         type : String,
       },
+      happenLatitude : {
+        type: String,
+      },
+      happenLongitude : {
+        type: String,
+      },
       kindCode: {
         type: String,
       },
