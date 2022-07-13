@@ -3,16 +3,11 @@ import { React, useState, useEffect } from 'react';
 import MenuBar from './menu/MenuBar';
 
 function EditInfo() {
-  // 현재 비밀번호
   const [currentPassword, setCurrentPassword] = useState('')
-  // 새로운 비밀번호
   const [newPassword, setNewPassword] = useState('')
-  // 새로운 비밀번호 확인
-  const [confirmPassword, setConfirmPassword] = useState('')
 
-  // 유저정보
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [userInfo, setUserInfo] = useState({})
-  // 데이터 로딩여부
   const [isLoading, setIsLoading] = useState(false)
 
   const handleChangeUserInfo = (e) =>{
