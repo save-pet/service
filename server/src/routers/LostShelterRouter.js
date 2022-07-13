@@ -34,7 +34,7 @@ lostShelterRouter.get('/:lostId', loginRequired, async (req, res, next) => {
 });
 
 // 3. 특정 보호소 기준으로 목록 불러오기
-lostShelterRouter.get('/:shelterId', loginRequired, adminRequired, async (req, res, next) => {
+lostShelterRouter.get('/shelter/:shelterId', loginRequired, adminRequired, async (req, res, next) => {
   try {
     const shelterId = req.params.shelterId;
     const postsByShelter = await lostShelterService.getLostShelterByShelter(shelterId);
@@ -57,7 +57,6 @@ lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
         for(let i = 0; i < shelters.length; i++) {
             shelterId = shelters[i]._id;
             distance = await lostShelterService.getDistance(lostId, shelterId);
-            console.log(distance);
             if(distance < 100) { 
                 newLostShelterPost = await lostShelterService.addLostShelter({
                     lostId,
