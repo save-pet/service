@@ -88,6 +88,8 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      latitude, 
+      longitude,
     } = req.body;
 
     const newLostPost = await lostService.addLostPost({
@@ -97,6 +99,8 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      latitude, 
+      longitude,
     });
 
     res.status(200).json(newLostPost);
@@ -128,6 +132,8 @@ lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
       address,
       detail,
       image,
+      latitude, 
+      longitude,
     } = req.body;
 
     // 전화번호랑 날짜 형식 validator 만들기
@@ -138,6 +144,8 @@ lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
       ...(address && { address }),
       ...(detail && { detail }),
       ...(image && { image }),
+      ...(latitude && { latitude }),
+      ...(longitude && { longitude }),
     };
 
     const updatedLost = await lostService.updateLost(shortid, toUpdate);

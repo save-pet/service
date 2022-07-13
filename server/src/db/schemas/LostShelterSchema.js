@@ -7,13 +7,13 @@ const LostShelterSchema = new mongoose.Schema(
       ref: 'Lost',
       required: true,
     },
+    shelterId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Shelter',
+      required: true,
+    },    
     phoneNumber: {
       type: String,
-      required: true,
-    },
-    shelterId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Shelter',
       required: true,
     },
     distance: {
