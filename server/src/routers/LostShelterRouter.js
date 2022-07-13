@@ -2,14 +2,13 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 import { Router } from 'express';
-import is from '@sindresorhus/is';
 import { loginRequired, adminRequired } from '../middlewares/index.js';
 import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
 
 const lostShelterRouter = Router();
 
 // 1.전체 목록 조회
-lostShelterRouter.get('/', async (req, res, next) => {
+lostShelterRouter.get('/', loginRequired, adminRequired, async (req, res, next) => {
   try {
     const lostShelters = await lostShelterService.getLostShelters();
 
@@ -35,7 +34,7 @@ lostShelterRouter.get('/:lostId', loginRequired, async (req, res, next) => {
 });
 
 // 3. 특정 보호소 기준으로 목록 불러오기
-lostShelterRouter.get('/:shelterId', async (req, res, next) => {
+lostShelterRouter.get('/:shelterId', loginRequired, adminRequired, async (req, res, next) => {
   try {
     const shelterId = req.params.shelterId;
     const postsByShelter = await lostShelterService.getLostShelterByShelter(shelterId);
@@ -46,7 +45,6 @@ lostShelterRouter.get('/:shelterId', async (req, res, next) => {
 });
 
 // 5. 분실위치에서 부터 보호소까지 거리 구하기 -> 이 과정이 있어야지 등록이 됨 (근데 일괄적으로 모든 사용자에게 해야하는데 .. 분실 신고가 들어올때마다 .. ) -> lostRouter 에서 분실 등록 하자마자 자동으로 여길로 페이지 옮겨오도록 해야할듯
-
 lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
     try {
         const lostId = req.params.lostId;
@@ -54,11 +52,12 @@ lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
         const shelters = await shelterService.getShelters();
         let shelterId ;
         let distance ;
+        let newLostShelterPost ;
         for(let i = 0; i < shelters.length; i++) {
             shelterId = shelters[i].shelterId;
             distance = await lostShelterService.getDistance(lostId, shelterId);
             if(distance < 100) { 
-                let newLostShelterPost = await lostShelterService.addLostShelter({
+                newLostShelterPost = await lostShelterService.addLostShelter({
                     lostId,
                     shelterId,
                     phoneNumber,
