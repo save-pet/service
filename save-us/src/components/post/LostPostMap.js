@@ -3,12 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import FindPlaceName from './FindPlaceName';
+import PropTypes from 'prop-types';
 
 const { kakao } = window;
 
 const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
 
-function FindLocation() {
+function FindLocation({ address, setAddress }) {
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
@@ -20,7 +21,12 @@ function FindLocation() {
   });
 
   const [locationName, setLocationName] = useState();
+  const handleClickSubmit = (event) => {
+    event.preventDefault();
 
+    setAddress(position);
+    console.log(address);
+  };
   useEffect(() => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -113,8 +119,14 @@ function FindLocation() {
       </Map>
 
       <FindPlaceName position={position} />
+      <button type="submit" onClick={handleClickSubmit}>
+        확인
+      </button>
     </>
   );
 }
-
+FindLocation.propTypes = {
+  address: PropTypes.string.isRequired,
+  setAddress: PropTypes.string.isRequired,
+};
 export default FindLocation;
