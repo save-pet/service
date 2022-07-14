@@ -8,12 +8,16 @@ function LostList() {
   const [myLostList, setmyLostList] = useState([]);
 
   async function getList() {
-    const res = await fetch('/LostListMockData.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+    const res = await fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
       },
-    });
+    );
     const data = await res.json();
     return data;
   }
@@ -52,7 +56,7 @@ function LostList() {
         </thead>
       </table>
       {myLostList.map((list) => {
-        const { lostNumber, name, lostDate } = list;
+        const { animalName, lostDate } = list;
         return (
           <div>
             <table>
@@ -62,10 +66,7 @@ function LostList() {
                     <input type="checkbox" />
                   </td>
                   <Content>
-                    <td>{lostNumber}</td>
-                  </Content>
-                  <Content>
-                    <td>{name}</td>
+                    <td>{animalName}</td>
                   </Content>
                   <Content>
                     <td>{lostDate}</td>

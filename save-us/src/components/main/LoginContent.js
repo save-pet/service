@@ -56,7 +56,7 @@ function LoginContent() {
           <label htmlFor="inputPw">
             <b>비밀번호 : </b>
             <input
-              type="text"
+              type="password"
               placeholder="password"
               name="inputPw"
               value={inputPw}
