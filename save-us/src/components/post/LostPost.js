@@ -1,27 +1,58 @@
 import React, { useState } from 'react';
 import PostImg from './LostPostImg';
-import Modal from '../Modal';
+import ModalButton from '../modal/ModalButton';
+import LostPostMap from './LostPostMap';
 
 export default function InputData() {
-  const [openModal, setOpenModal] = useState(false);
-
-  const [animalName, setAnimalName] = useState('');
+  const [animalName, setAnimalName] = useState();
   const [animalSpecies, setAnimalSpecies] = useState('');
   const [lostDate, setLostDate] = useState('');
-  const [animalAge, setAnimalAge] = useState(0);
-  const [animalColor, setAnimalColor] = useState('');
-  const [animalSex, setAnimalSex] = useState('');
-  const [animalNeuter, setAnimalNeuter] = useState(false);
+  // const [animalAge, setAnimalAge] = useState(0);
+  // const [animalColor, setAnimalColor] = useState('');
+  // const [animalSex, setAnimalSex] = useState('');
+  // const [animalNeuter, setAnimalNeuter] = useState(false);
+  const [phoneNumber1, setPhoneNumber1] = useState();
+  const [phoneNumber2, setPhoneNumber2] = useState();
+  const [detail, setDetail] = useState('');
+  const [address, setAddress] = useState('');
 
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
   const handleAnimalSpecies = ({ target: { value } }) =>
     setAnimalSpecies(value);
   const handleLostDate = ({ target: { value } }) => setLostDate(value);
-  const handleAnimalAge = ({ target: { value } }) => setAnimalAge(value);
-  const handleAnimalColor = ({ target: { value } }) => setAnimalColor(value);
-  const handleAnimalSex = ({ target: { value } }) => setAnimalSex(value);
-  const handleAnimalNeuter = ({ target: { value } }) => setAnimalNeuter(value);
+  // const handleAnimalAge = ({ target: { value } }) => setAnimalAge(value);
+  // const handleAnimalColor = ({ target: { value } }) => setAnimalColor(value);
+  // const handleAnimalSex = ({ target: { value } }) => setAnimalSex(value);
+  // const handleAnimalNeuter = ({ target: { value } }) => setAnimalNeuter(value);
+  const handlePhoneNumber1 = ({ target: { value } }) => setPhoneNumber1(value);
+  const handlePhoneNumber2 = ({ target: { value } }) => setPhoneNumber2(value);
+  const handleDetail = ({ target: { value } }) => setDetail(value);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    const resp = await fetch('http://localhost:5000/api/lost/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: 'so',
+        animalName,
+        lostDate,
+        address: 'where',
+        detail,
+        image: 'hello.jpg',
+        processState: 'lost',
+        latitude: '123',
+        longitude: '234',
+      }),
+    });
+    const result = await resp.json();
+    console.log(result);
+    console.log(address);
+  };
 
   return (
     <form>
@@ -29,6 +60,7 @@ export default function InputData() {
       <input
         name="반려 동물 이름"
         value={animalName}
+        type="string"
         onChange={handleChangeAnimalName}
       />
       품종{' '}
@@ -46,42 +78,38 @@ export default function InputData() {
       <br />
       실종 날짜 <input type="date" value={lostDate} onChange={handleLostDate} />
       실종 장소
-      <button
-        type="button"
-        className="openMapModalBtn"
-        onClick={() => setOpenModal(true)}
-      >
-        지도 열기
-      </button>
-      {openModal && <Modal closeModal={setOpenModal} />}
-      <br />
-      나이 <input type="number" value={animalAge} onChange={handleAnimalAge} />
-      색깔{' '}
-      <input type="text" value={animalColor} onChange={handleAnimalColor} />
-      <br />
-      성별
-      <label htmlFor="sex" value={animalSex} onChange={handleAnimalSex}>
-        <input type="radio" name="성별" value="남자" />
-        남자
-      </label>
-      <label htmlFor="sex">
-        <input type="radio" name="성별" value="여자" />
-        여자
-      </label>
-      <br />
-      중성화 여부{' '}
-      <input
-        type="checkbox"
-        value={animalNeuter}
-        onChange={handleAnimalNeuter}
+      <ModalButton
+        buttonName="지도 열기"
+        title="지도"
+        content={<LostPostMap address={address} setAddress={setAddress} />}
       />
       <br />
-      보호자 연락처1 <input type="tel" /> <br />
-      보호자 연락처2 <input type="tel" /> <br />
-      특이 사항 <input type="text" /> <br />
+      <br />
+      보호자 연락처1{' '}
+      <input
+        type="tel"
+        value={phoneNumber1}
+        onChange={handlePhoneNumber1}
+      />{' '}
+      <br />
+      보호자 연락처2{' '}
+      <input
+        type="tel"
+        value={phoneNumber2}
+        onChange={handlePhoneNumber2}
+      />{' '}
+      <br />
+      특이 사항 <input
+        type="text"
+        value={detail}
+        onChange={handleDetail}
+      />{' '}
+      <br />
       <PostImg />
       <br />
-      <button type="submit">등록하기</button>
+      <button type="submit" onClick={onSubmit}>
+        등록하기
+      </button>
     </form>
   );
 }
