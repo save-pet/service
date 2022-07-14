@@ -10,6 +10,7 @@ import EditInfo from './components/mypage/EditInfo';
 import UserLostList from './components/mypage/LostList';
 import ManageUser from './components/admin/ManageUser';
 import LostList from './components/admin/LostList';
+import LostPost from './components/post/LostPost';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/mypage/lost-list" element={<UserLostList />} />
           <Route path="/admin" element={<ManageUser />} />
           <Route path="/admin/lost-list" element={<LostList />} />
+          <Route path="/lost/post" element={<LostPost />} />
         </Routes>
       </BrowserRouter>
     </div>
