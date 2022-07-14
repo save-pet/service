@@ -48,6 +48,7 @@ lostShelterRouter.get('/shelter/:shelterId', loginRequired, adminRequired, async
 lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
     try {
         const lostId = req.params.lostId;
+        const radius = req.body.radius; // !!!!
         const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
         const shelters = await shelterService.getShelters();
         let shelterId ;
@@ -57,7 +58,7 @@ lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
         for(let i = 0; i < shelters.length; i++) {
             shelterId = shelters[i]._id;
             distance = await lostShelterService.getDistance(lostId, shelterId);
-            if(distance < 100) { 
+            if(distance < radius) { 
                 newLostShelterPost = await lostShelterService.addLostShelter({
                     lostId,
                     shelterId,
