@@ -1,4 +1,4 @@
-import { request, Router } from 'express';
+import { Router } from 'express';
 import is from '@sindresorhus/is';
 
 import { loginRequired, adminRequired } from '../middlewares/index.js';
@@ -70,7 +70,6 @@ userRouter.post('/login', async (req, res, next) => {
 
     const id = req.body.id;
     const password = req.body.password;
-
     const userToken = await userService.getUserToken({ id, password });
 
     res.status(200).json(userToken);
