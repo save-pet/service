@@ -11,6 +11,7 @@ import UserLostList from './components/mypage/LostList';
 import ManageUser from './components/admin/ManageUser';
 import LostList from './components/admin/LostList';
 import LostPost from './components/post/LostPost';
+import LostDetail from './components/post/LostDetail';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/admin" element={<ManageUser />} />
           <Route path="/admin/lost-list" element={<LostList />} />
           <Route path="/lost/post" element={<LostPost />} />
+          <Route path="/lost/:id" element={<LostDetail />} />
         </Routes>
       </BrowserRouter>
     </div>

@@ -5,7 +5,8 @@ import { useLocation } from 'react-router-dom';
 function LostDetail() {
   const location = useLocation();
   const [lostList, setLostList] = useState([]);
-  const locationId = location.pathname.split('/')[4];
+  const locationId = location.pathname.split('/')[2];
+  // console.log(location.pathname.split('/'));
 
   async function handleClickDelete() {
     if (
@@ -49,7 +50,7 @@ function LostDetail() {
     console.log(locationId);
   }, []);
 
-  const { lostDate, address, fullName, detail } = lostList;
+  const { lostDate, address, animalName, detail, processState } = lostList;
 
   return (
     <>
@@ -64,10 +65,9 @@ function LostDetail() {
       <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
         <div>접수일: {lostDate}</div>
         <div>발견장소: {address}</div>
-        <div>이름: {fullName}</div>
-        {/* <div>성별: {sex}</div> */}
-        {/* <div>중성화 여부: {neutralization}</div> */}
+        <div>이름: {animalName}</div>
         <div>특이 사항: {detail}</div>
+        <div>현재 상태: {processState}</div>
       </div>
     </>
   );

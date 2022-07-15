@@ -15,6 +15,7 @@ export default function InputData() {
   const [phoneNumber2, setPhoneNumber2] = useState();
   const [detail, setDetail] = useState('');
   const [address, setAddress] = useState('');
+  const [addressName, setAddressName] = useState('');
 
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
@@ -39,10 +40,10 @@ export default function InputData() {
         authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
       body: JSON.stringify({
-        userId: 'so',
+        // userId: 'so',
         animalName,
         lostDate,
-        address: 'where',
+        address: addressName,
         detail,
         image: 'hello.jpg',
         processState: 'lost',
@@ -52,6 +53,7 @@ export default function InputData() {
     });
     const result = await resp.json();
     console.log(result);
+    console.log(addressName);
   };
 
   return (
@@ -81,8 +83,16 @@ export default function InputData() {
       <ModalButton
         buttonName="지도 열기"
         title="지도"
-        content={<LostPostMap address={address} setAddress={setAddress} />}
+        content={
+          <LostPostMap
+            address={address}
+            setAddress={setAddress}
+            addressName={addressName}
+            setAddressName={setAddressName}
+          />
+        }
       />
+      <p>{addressName}</p>
       <br />
       <br />
       보호자 연락처1{' '}
