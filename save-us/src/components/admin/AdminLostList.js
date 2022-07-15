@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import MenuBar from './menu/MenuBar';
 
-function LostList() {
+function AdminLostList() {
   const [myLostList, setmyLostList] = useState([]);
 
   async function getList() {
@@ -89,4 +89,4 @@ const Content = styled.td`
   margin: 0;
 `;
 
-export default LostList;
+export default AdminLostList;

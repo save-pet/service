@@ -41,6 +41,7 @@ function RescueList() {
 
   return (
     <>
+      <h2>구조 리스트</h2>
       <div
         style={{
           display: 'flex',
