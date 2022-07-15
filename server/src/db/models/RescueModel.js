@@ -22,7 +22,6 @@ export class RescueModel {
   // 3. 특정 범위(페이지)에 위치한 동물 정보 조회
   async getInRange(page, perPage) {
     const rescuesInRange = await Rescue.find({})
-      .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage);
     return rescuesInRange;

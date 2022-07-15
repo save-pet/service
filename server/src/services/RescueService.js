@@ -26,7 +26,7 @@ class RescueService {
         return rangedRescuesInfo;
     }
 
-    // 5. Id 이용 단일 보호 동물 조회
+    // 5. _id 이용 단일 보호 동물 조회
     async findRescue(rescueId){
         const rescue = await this.rescueModel.findById(rescueId);
         return rescue;
