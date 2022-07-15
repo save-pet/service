@@ -2,7 +2,7 @@ import { request, Router } from 'express';
 import is from '@sindresorhus/is';
 
 import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { userService } from '../services/UserService.js';
+import { userService } from '../services/index.js';
 
 const userRouter = Router();
 
@@ -178,8 +178,8 @@ userRouter.patch('/:userid', loginRequired, async (req, res, next) => {
 // 6. 사용자 탈퇴
 userRouter.delete('/:userid', loginRequired, async (req, res, next) => {
   try {
-    const { userId } = req.params;
-    const { currentPassword } = req.body;
+    const userId = req.params.userid;
+    const currentPassword = req.body.currentPassword;
     const result = await userService.delUser({ userId, currentPassword });
 
     res.status(200).json(result);
