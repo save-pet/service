@@ -1,0 +1,32 @@
+[
+  {
+    "id": "testid",
+    "name": "테스트",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
+  },
+  {
+    "id": "testid1",
+    "name": "테스트1",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
+  },
+  {
+    "id": "testid2",
+    "name": "테스트2",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
+  },
+  {
+    "id": "testid3",
+    "name": "테스트3",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
+  },
+  {
+    "id": "testid4",
+    "name": "테스트4",
+    "currentPassword": "0000",
+    "phoneNumber": "010-1234-5678"
+  }
+]

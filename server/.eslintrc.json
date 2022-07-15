@@ -1,0 +1,38 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+
+  // eslint의 룰을 기본 권장설정으로 설정
+  "extends": ["eslint:recommended", "airbnb-base", "airbnb/hooks", "prettier"],
+
+  // 코드를 해석하는 parser에 대한 설정
+  "parserOptions": {
+    "ecmaVersion": 13,
+    "sourceType": "module"
+  },
+  "ignorePatterns": ["node_modules/"],
+
+  // ESLint 룰을 설정
+  "rules": {
+    "import/no-unresolved": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/order": "off",
+    "prefer-destructuring": "off",
+    "prefer-arrow-callback": "off",
+    "object-shorthand": "off",
+    "class-methods-use-this": "off",
+    "no-unused-vars": "off",
+    "no-shadow": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "no-console": "off",
+    "no-unused-expressions": "off",
+    "no-path-concat": "off",
+    "prefer-template": "off"
+  }
+}
