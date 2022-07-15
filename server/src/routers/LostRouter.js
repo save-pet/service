@@ -94,6 +94,7 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       processState,
       latitude, 
       longitude,
+      radius
     } = req.body;
 
     const newLostPost = await lostService.addLostPost({
@@ -109,8 +110,6 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
     });
 
     const lostId = newLostPost._id;
-    const radius = 50; // 혹시 입력받지 않으면 기본값
-    // radius = req.body.radius; // !!!!
     const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
     const shelters = await shelterService.getShelters();
     let shelterId ;
