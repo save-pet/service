@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 // import axios from 'axios';
 
-function FindPlaceName({ position }) {
+function FindPlaceName({ position, setAddressName }) {
   const [data, setData] = useState();
 
   const findLocationName = async (location) => {
@@ -26,12 +26,13 @@ function FindPlaceName({ position }) {
   useEffect(() => {
     findLocationName(position);
   }, [position]);
-
+  setAddressName(data);
   return <p>반려동물을 잃어버린 장소는 {data} 부근 입니다.</p>;
 }
 
 FindPlaceName.propTypes = {
   position: PropTypes.string.isRequired,
+  setAddressName: PropTypes.string.isRequired,
 };
 
 export default FindPlaceName;
