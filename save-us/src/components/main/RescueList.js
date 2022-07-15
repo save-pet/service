@@ -14,10 +14,9 @@ function RescueList() {
     useEffect(() => {
       const asyncGetRescue = async () => {
         const res = await fetch(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues/?page=${pageNum}`,
+          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
         );
         const data = await res.json();
-        console.log(data.posts);
         setRescueList(data.posts);
       };
       asyncGetRescue();
