@@ -1,70 +1,30 @@
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
-function RescueList() {
+export default function ShelterList() {
   const [rescueList, setRescueList] = useState([]);
-  const [target, setTarget] = useState(null);
-  const [pageNum, setPageNum] = useState(1);
-  const [toggleList, setToggleList] = useState(true);
-  const navigate = useNavigate();
-  let totalPage;
+  const location = useLocation();
+  const careCode = location.pathname.split('/')[2];
 
   async function getRescue() {
     useEffect(() => {
       const asyncGetRescue = async () => {
         const res = await fetch(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
+          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/care-code/${careCode}`,
         );
         const data = await res.json();
-        setRescueList(data.posts);
+        console.log(data);
+        setRescueList(data);
       };
       asyncGetRescue();
-    }, [pageNum]);
+    }, []);
   }
 
   getRescue();
-  function pageHandler(e) {
-    if (e.target.innerText === '이전 페이지') {
-      if (pageNum === 1) {
-        return;
-      }
-      setPageNum((prev) => prev - 1);
-    } else {
-      if (pageNum === totalPage) {
-        return;
-      }
-      setPageNum((prev) => prev + 1);
-    }
-  }
-
   return (
     <>
-      <h2>구조 리스트</h2>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          height: '50px',
-        }}
-      >
-        <button
-          type="button"
-          style={{ height: '40px' }}
-          onClick={() => {
-            if (toggleList) {
-              navigate('/lostMap');
-            } else {
-              navigate('/');
-            }
-            setToggleList((toggle) => !toggle);
-          }}
-        >
-          {toggleList ? '지도 보기' : '리스트 보기'}
-        </button>
-      </div>
-
+      <h2>보호소 이름: </h2>
       <main
         style={{
           display: 'inline-flex',
@@ -138,17 +98,7 @@ function RescueList() {
             </article>
           );
         })}
-        <div ref={setTarget} />
       </main>
-      <button type="button" onClick={pageHandler}>
-        이전 페이지
-      </button>
-      {pageNum}
-      <button type="button" onClick={pageHandler}>
-        다음 페이지
-      </button>
     </>
   );
 }
-
-export default RescueList;
