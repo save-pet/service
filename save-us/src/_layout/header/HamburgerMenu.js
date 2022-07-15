@@ -66,7 +66,6 @@ export default function HamburgerMenu() {
       <Link className="menu-item" to="/lostMap">
         구조 지도
       </Link>
-      <br />
     </Menu>
   );
 }
