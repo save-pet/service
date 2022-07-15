@@ -1,11 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function LostList() {
   const [lostList, setLostList] = useState([]);
-  const location = useLocation();
-  const careCode = location.pathname.split('/')[2];
 
   async function getRescue() {
     useEffect(() => {
@@ -35,13 +33,13 @@ export default function LostList() {
         }}
       >
         {lostList.map((rescue) => {
-          const { _id, image, animalName, detail, lostDate, shortId, address } =
+          const { shortId, animalName, detail, lostDate, address, image } =
             rescue;
 
           return (
             <article key={shortId}>
               <Link
-                to={`/lost/${_id}`}
+                to={`/lost/${shortId}`}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -50,7 +48,7 @@ export default function LostList() {
                 }}
               >
                 <img
-                  src={image}
+                  src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_CLIENT_PORT}/static/${image}`}
                   alt="lost animal"
                   style={{
                     width: '350px',

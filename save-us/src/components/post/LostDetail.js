@@ -22,7 +22,7 @@ function LostDetail() {
         },
       );
       const data = await res.json();
-      window.location.replace('/');
+      window.location.replace('/lost/list');
 
       console.log(data);
       return data;

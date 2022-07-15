@@ -55,21 +55,16 @@ export default function HamburgerMenu() {
       <Link className="menu-item" to="/lost/post">
         분실 등록
       </Link>
-      <Link className="menu-item" to="/lost">
+      <Link className="menu-item" to="/lost/list">
         분실 목록
       </Link>
       <br />
       <h3>찾았어😹</h3>
       <Link className="menu-item" to="/">
-        목격 및 구조 리스트
+        구조 리스트
       </Link>
       <Link className="menu-item" to="/lostMap">
-        목격 및 구조 지도
-      </Link>
-      <br />
-      <h3>봤어🙀</h3>
-      <Link className="menu-item" to="/">
-        목격 신고
+        구조 지도
       </Link>
     </Menu>
   );
