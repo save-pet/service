@@ -36,6 +36,7 @@ export default function InputData() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
       body: JSON.stringify({
         userId: 'so',
@@ -45,13 +46,12 @@ export default function InputData() {
         detail,
         image: 'hello.jpg',
         processState: 'lost',
-        latitude: '123',
-        longitude: '234',
+        latitude: address.lat,
+        longitude: address.lng,
       }),
     });
     const result = await resp.json();
     console.log(result);
-    console.log(address);
   };
 
   return (
