@@ -12,6 +12,7 @@ import ManageUser from './components/admin/ManageUser';
 import LostList from './components/admin/LostList';
 import LostPost from './components/post/LostPost';
 import LostDetail from './components/post/LostDetail';
+import ShelterList from './components/shelter/ShelterList';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/admin/lost-list" element={<LostList />} />
           <Route path="/lost/post" element={<LostPost />} />
           <Route path="/lost/:id" element={<LostDetail />} />
+          <Route path="/shelter/:shelterID" element={<ShelterList />} />
         </Routes>
       </BrowserRouter>
     </div>
