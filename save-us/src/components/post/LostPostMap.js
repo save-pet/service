@@ -9,7 +9,7 @@ const { kakao } = window;
 
 const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
 
-function FindLocation({ address, setAddress }) {
+function FindLocation({ address, setAddress, setAddressName }) {
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
@@ -19,6 +19,7 @@ function FindLocation({ address, setAddress }) {
     errMsg: null,
     isLoading: true,
   });
+  // const [modalOpen, setModalOpen] = useState(true);
 
   const [locationName, setLocationName] = useState();
   const handleClickSubmit = (event) => {
@@ -80,7 +81,7 @@ function FindLocation({ address, setAddress }) {
           <MapMarker
             position={position}
             image={{
-              src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+              src: 'https://i.ibb.co/MsqtRCN/pin.png',
               size: {
                 width: 64,
                 height: 69,
@@ -118,7 +119,7 @@ function FindLocation({ address, setAddress }) {
         )}
       </Map>
 
-      <FindPlaceName position={position} />
+      <FindPlaceName position={position} setAddressName={setAddressName} />
       <button type="submit" onClick={handleClickSubmit}>
         확인
       </button>
@@ -128,5 +129,6 @@ function FindLocation({ address, setAddress }) {
 FindLocation.propTypes = {
   address: PropTypes.string.isRequired,
   setAddress: PropTypes.string.isRequired,
+  setAddressName: PropTypes.string.isRequired,
 };
 export default FindLocation;
