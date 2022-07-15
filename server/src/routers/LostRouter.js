@@ -1,7 +1,10 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-plusplus */
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { lostService, userService } from '../services/index.js';
+import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
 import formidable from 'formidable';
@@ -105,6 +108,27 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
       longitude,
     });
 
+    const lostId = newLostPost._id;
+    const radius = 50; // 혹시 입력받지 않으면 기본값
+    // radius = req.body.radius; // !!!!
+    const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
+    const shelters = await shelterService.getShelters();
+    let shelterId ;
+    let distance ;
+    let newLostShelterPost ;
+
+    for(let i = 0; i < shelters.length; i++) {
+      shelterId = shelters[i]._id;
+      distance = await lostShelterService.getDistance(lostId, shelterId);
+      if(distance < radius) { 
+          newLostShelterPost = await lostShelterService.addLostShelter({
+              lostId,
+              shelterId,
+              phoneNumber,
+              distance,
+          });
+      }
+    } 
     res.status(200).json(newLostPost);
   } catch (error) {
     next(error);

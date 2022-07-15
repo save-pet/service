@@ -8,8 +8,7 @@ export class RescueModel {
 
   // 2. 전체 유기동물 목록 조회
   async findAll() {
-    const rescues = await Rescue.find({})
-      .sort({ createdAt: -1 });
+    const rescues = await Rescue.find({});    
     return rescues;
   }
 
