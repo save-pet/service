@@ -1,11 +1,13 @@
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
   const [target, setTarget] = useState(null);
   const [pageNum, setPageNum] = useState(1);
+  const [toggleList, setToggleList] = useState(true);
+  const navigate = useNavigate();
   let totalPage;
 
   async function getRescue() {
@@ -39,6 +41,30 @@ function RescueList() {
 
   return (
     <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          height: '50px',
+        }}
+      >
+        <button
+          type="button"
+          style={{ height: '40px' }}
+          onClick={() => {
+            if (toggleList) {
+              navigate('/lostMap');
+            } else {
+              navigate('/');
+            }
+            setToggleList((toggle) => !toggle);
+          }}
+        >
+          {toggleList ? '지도 보기' : '리스트 보기'}
+        </button>
+      </div>
+
       <main
         style={{
           display: 'inline-flex',
