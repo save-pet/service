@@ -15,9 +15,7 @@ userRouter.post('/admin', async (req, res, next) => {
       );
     }
 
-    const fullName = req.body.fullName;
-    const id = req.body.id;
-    const password = req.body.password;
+    const { fullName, id, password} = req.body;
 
     const newUser = await userService.addUser({
       fullName,
@@ -41,10 +39,7 @@ userRouter.post('/register', async (req, res, next) => {
       );
     }
 
-    const fullName = req.body.fullName;
-    const id = req.body.id;
-    const password = req.body.password;
-    const phoneNumber = req.body.phoneNumber;
+    const { fullName, id, password, phoneNumber } = req.body;
 
     const newUser = await userService.addUser({
       fullName,
@@ -68,8 +63,7 @@ userRouter.post('/login', async (req, res, next) => {
       );
     }
 
-    const id = req.body.id;
-    const password = req.body.password;
+    const { id, password } = req.body;
     const userToken = await userService.getUserToken({ id, password });
 
     res.status(200).json(userToken);
@@ -133,13 +127,7 @@ userRouter.patch('/:userid', loginRequired, async (req, res, next) => {
     }
 
     const userId = req.params.userid;
-    const id = req.body.id;
-    const fullName = req.body.fullName;
-    const password = req.body.password;
-    const address = req.body.address;
-    const phoneNumber = req.body.phoneNumber;
-    const role = req.body.role;
-    const currentPassword = req.body.currentPassword;
+    const { id, fullName, password, address, phoneNumber, role, currentPassword } = req.params.userid;
 
     // currentPassword 없을 시, 진행 불가
     if (!currentPassword) {
