@@ -44,7 +44,7 @@ export class ShelterModel {
     const shelterInfo = await Shelter.findOne({ _id : shelterId });
     const latitude = shelterInfo.latitude;
     const longitude = shelterInfo.longitude;
-    return { latitude, longitude };
+    return { latitude: latitude, longitude: longitude };
   }
 
   // 6. 보호소 정보 수정 -> api 에서 불러오는것이므로 우리가 자체적으로 수정할 필요 없을듯

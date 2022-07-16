@@ -39,9 +39,14 @@ class LostShelterService {
       function rad (x) {
         return x*Math.PI/180;
       }
-      const { lostLa, lostLon } = await lostModel.getCoordinate(lostId);
-      const { shelLa, shelLon} = await shelterModel.getCoordinate(shelterId);
-      
+
+      const lostCoordinate = await lostModel.getCoordinate(lostId);
+      const shelCoordinate = await shelterModel.getCoordinate(shelterId);
+      const lostLa = lostCoordinate.latitude;
+      const lostLon = lostCoordinate.longitude;
+      const shelLa = shelCoordinate.latitude;
+      const shelLon = shelCoordinate.longitude;
+
       const R = 6378.137;             
       const dLat = rad( shelLa - lostLa );
       const dLong = rad( shelLon - lostLon );
@@ -49,6 +54,7 @@ class LostShelterService {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       const d = R * c;
       const Distance = d.toFixed(3);
+      console.log(Distance);
       return Distance;
     }
 

@@ -30,7 +30,7 @@ export class LostModel {
     const lostInfo = await Lost.findOne({ _id : lostId });
     const latitude = lostInfo.latitude;
     const longitude = lostInfo.longitude;
-    return { latitude, longitude };
+    return { latitude: latitude, longitude: longitude };
   }
 
   async update({ lostShortId, update }) {

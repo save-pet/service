@@ -103,7 +103,7 @@ userRouter.get('/', loginRequired, async (req, res, next) => {
 userRouter.patch('/:userid', loginRequired, checkEmpty, async (req, res, next) => {
   try {
     const userId = req.params.userid;
-    const { id, fullName, password, address, phoneNumber, role, currentPassword } = req.params.userid;
+    const { id, fullName, password, address, phoneNumber, role, currentPassword } = req.body;
 
     // currentPassword 없을 시, 진행 불가
     if (!currentPassword) {

@@ -78,7 +78,8 @@ lostRouter.post('/upload', loginRequired, async (req, res, next) => {
 // 5. 분실 글 등록
 lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
   try {
-    const userId = req.currentUserId; 
+    const userId = req.currentUserId;
+    let radius = 30;
     const {
       animalName,
       lostDate,
@@ -88,8 +89,8 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       processState,
       latitude, 
       longitude,
-      radius
     } = req.body;
+    radius = req.body.radius;
 
     const newLostPost = await lostService.addLostPost({
       userId,
@@ -108,13 +109,12 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
     const shelters = await shelterService.getShelters();
     let shelterId ;
     let distance ;
-    let newLostShelterPost ;
-
+    
     for(let cnt = 0; cnt < shelters.length; cnt++) {
       shelterId = shelters[cnt]._id;
       distance = await lostShelterService.getDistance(lostId, shelterId);
       if(distance < radius) { 
-          newLostShelterPost = await lostShelterService.addLostShelter({
+          let newLostShelterPost = await lostShelterService.addLostShelter({
               lostId,
               shelterId,
               phoneNumber,
