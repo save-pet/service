@@ -116,8 +116,8 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
     let distance ;
     let newLostShelterPost ;
 
-    for(let i = 0; i < shelters.length; i++) {
-      shelterId = shelters[i]._id;
+    for(let cnt = 0; cnt < shelters.length; cnt++) {
+      shelterId = shelters[cnt]._id;
       distance = await lostShelterService.getDistance(lostId, shelterId);
       if(distance < radius) { 
           newLostShelterPost = await lostShelterService.addLostShelter({
