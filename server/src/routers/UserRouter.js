@@ -1,20 +1,14 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 
-import { loginRequired, adminRequired } from '../middlewares/index.js';
+import { loginRequired, adminRequired, checkEmpty} from '../middlewares/index.js';
 import { userService } from '../services/index.js';
 
 const userRouter = Router();
 
 // 1-1. 관리자(admin-user) 등록
-userRouter.post('/admin', async (req, res, next) => {
+userRouter.post('/admin', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
     const { fullName, id, password} = req.body;
 
     const newUser = await userService.addUser({
@@ -31,14 +25,8 @@ userRouter.post('/admin', async (req, res, next) => {
 });
 
 // 1-2. 일반 회원(basic-user) 등록
-userRouter.post('/register', async (req, res, next) => {
+userRouter.post('/register', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
     const { fullName, id, password, phoneNumber } = req.body;
 
     const newUser = await userService.addUser({
@@ -55,14 +43,8 @@ userRouter.post('/register', async (req, res, next) => {
 });
 
 // 2. 로그인 구현
-userRouter.post('/login', async (req, res, next) => {
+userRouter.post('/login', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
     const { id, password } = req.body;
     const userToken = await userService.getUserToken({ id, password });
 
@@ -118,14 +100,8 @@ userRouter.get('/', loginRequired, async (req, res, next) => {
 });
 
 // 5. 사용자 정보 수정 (여기서 userId 는 _id 를 의미)
-userRouter.patch('/:userid', loginRequired, async (req, res, next) => {
+userRouter.patch('/:userid', loginRequired, checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
     const userId = req.params.userid;
     const { id, fullName, password, address, phoneNumber, role, currentPassword } = req.params.userid;
 

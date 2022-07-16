@@ -3,7 +3,7 @@
 /* eslint-disable no-plusplus */
 import { Router } from 'express';
 import is from '@sindresorhus/is';
-import { loginRequired, adminRequired } from '../middlewares/index.js';
+import { loginRequired, checkEmpty } from '../middlewares/index.js';
 import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
@@ -53,7 +53,7 @@ lostRouter.get('/:shortid', async (req, res, next) => {
 });
 
 // 4. 분실 글 이미지 저장 (저장 후 파일명만 프론트로 전달)
-lostRouter.post('/upload', async (req, res, next) => {
+lostRouter.post('/upload', loginRequired, async (req, res, next) => {
   const form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -76,13 +76,7 @@ lostRouter.post('/upload', async (req, res, next) => {
 });
 
 // 5. 분실 글 등록
-lostRouter.post('/post', loginRequired, async (req, res, next) => {
-  if (is.emptyObject(req.body)) {
-    throw new Error(
-      'headers의 Content-Type을 application/json으로 설정해주세요',
-    );
-  }
-
+lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
   try {
     const userId = req.currentUserId; 
     const {
@@ -135,14 +129,8 @@ lostRouter.post('/post', loginRequired, async (req, res, next) => {
 });
 
 // 6. 분실 게시글 수정 (shortId로 게시글 불러옴)
-lostRouter.patch('/edit/:shortid', loginRequired, async (req, res, next) => {
+lostRouter.patch('/edit/:shortid', loginRequired, checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요',
-      );
-    }
-
     const { shortid } = req.params;
     if (!shortid) {
       throw new Error(
