@@ -90,7 +90,7 @@ userRouter.get('/users', loginRequired, adminRequired, async (req, res, next) =>
 });
 
 // 3-1. 전체 사용자 수 반환
-userRouter.get('/numbers', loginRequired, adminRequired, async (req, res, next) => {
+userRouter.get('/numofusers', loginRequired, adminRequired, async (req, res, next) => {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
