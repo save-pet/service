@@ -47,6 +47,20 @@ function AdminLostList() {
     }
   };
 
+  const changeState = (shortId) =>
+    axios.patch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
+      {
+        processState: 'done',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      },
+    );
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -87,6 +101,12 @@ function AdminLostList() {
                   <td>{animalName}</td>
                   <td>{lostDate}</td>
                   <td>{processState === 'lost' ? '분실' : '완료'}</td>
+                  <button
+                    type="button"
+                    onClick={() => changeState(list.shortId)}
+                  >
+                    완료하기
+                  </button>
                   <button type="button" onClick={() => Delete(list.shortId)}>
                     삭제하기
                   </button>
