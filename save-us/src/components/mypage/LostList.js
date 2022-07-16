@@ -47,6 +47,20 @@ function LostList() {
     }
   };
 
+  const changeState = (shortId) =>
+    axios.patch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
+      {
+        processState: 'done',
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+      },
+    );
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -78,7 +92,7 @@ function LostList() {
         </thead>
       </table>
       {myLostList.map((list) => {
-        const { animalName, lostDate, processState } = list;
+        const {shortId, animalName, lostDate, processState } = list;
         return (
           <div>
             <table>
@@ -86,12 +100,17 @@ function LostList() {
                 <tr>
                   <td>{animalName}</td>
                   <td>{lostDate}</td>
-                  <td>{processState}</td>
-                  <button type="button">완료</button>
+                  <td>{processState === 'lost' ? '분실' : '완료'}</td>
+                  <button
+                    type="button"
+                    onClick={() => changeState(list.shortId)}
+                  >
+                    완료하기
+                  </button>
                   <button type="button" onClick={() => Delete(list.shortId)}>
                     삭제하기
                   </button>
-                  <Link to="/lost">
+                  <Link to={`/lost/${shortId}`}>
                     <td>상세보기</td>
                   </Link>
                 </tr>
