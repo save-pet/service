@@ -8,6 +8,7 @@ import RegisterContent from '../../components/main/RegisterContent';
 function Header() {
   const navigate = useNavigate();
   const [didLogin, setDidLogin] = useState(sessionStorage.getItem('token'));
+  
 
   function handleLogout() {
     sessionStorage.removeItem('token');
@@ -17,6 +18,7 @@ function Header() {
   }
 
   function handleMypage() {
+    // admin 계정추가
     navigate('/mypage');
   }
 
