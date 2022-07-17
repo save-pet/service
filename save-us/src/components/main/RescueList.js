@@ -49,18 +49,17 @@ function RescueList() {
     }
   }
 
-  // 체크 해제할 때 안먹힘
   useEffect(() => {
-    console.log('checked: ', checked);
     if (checked === []) {
       setShowList([...rescueList]);
+      return;
     }
     checked.forEach((checkedItem) => {
-      setShowList((prevList) => {
+      setShowList(() => {
         const newList = [];
-        prevList.forEach((prevRescue) => {
-          if (prevRescue.kindCode.includes(checkedItem)) {
-            newList.push(prevRescue);
+        rescueList.forEach((rescue) => {
+          if (rescue.kindCode.includes(checkedItem)) {
+            newList.push(rescue);
           }
         });
         console.log('newList: ', newList);
@@ -123,7 +122,7 @@ function RescueList() {
           padding: '20px',
         }}
       >
-        {showList.map((rescue) => {
+        {/* {showList.map((rescue) => {
           const {
             happenDate,
             happenPlace,
@@ -186,7 +185,7 @@ function RescueList() {
               </Link>
             </article>
           );
-        })}
+        })} */}
         <div ref={setTarget} />
       </main>
       <button type="button" onClick={pageHandler}>
