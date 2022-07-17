@@ -1,14 +1,17 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/void-dom-elements-no-children */
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useFetch from './useFetch';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
-  const [target, setTarget] = useState(null);
   const [pageNum, setPageNum] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [target, setTarget] = useState(null);
   const [toggleList, setToggleList] = useState(true);
   const navigate = useNavigate();
-  let totalPage;
 
   async function getRescue() {
     useEffect(() => {
@@ -18,12 +21,17 @@ function RescueList() {
         );
         const data = await res.json();
         setRescueList(data.posts);
+        setTotalPage(data.totalPage);
       };
       asyncGetRescue();
     }, [pageNum]);
   }
 
   getRescue();
+  const data = useFetch(pageNum);
+
+  console.log(data);
+
   function pageHandler(e) {
     if (e.target.innerText === '이전 페이지') {
       if (pageNum === 1) {
@@ -35,6 +43,16 @@ function RescueList() {
         return;
       }
       setPageNum((prev) => prev + 1);
+    }
+  }
+
+  const [checked, setChecked] = useState([]);
+  function checkHandler(e) {
+    console.log(e.target);
+    if (e.target.checked === true) {
+      setChecked((prev) => [...prev, e.target.value]);
+    } else {
+      setChecked((prev) => prev.filter((item) => item !== e.target.value));
     }
   }
 
@@ -63,6 +81,24 @@ function RescueList() {
         >
           {toggleList ? '지도 보기' : '리스트 보기'}
         </button>
+        <label>
+          <input
+            type="checkbox"
+            name="animal"
+            value="dog"
+            onChange={checkHandler}
+          />
+          개
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            name="animal"
+            value="cat"
+            onChange={checkHandler}
+          />
+          고양이
+        </label>
       </div>
 
       <main
@@ -143,7 +179,7 @@ function RescueList() {
       <button type="button" onClick={pageHandler}>
         이전 페이지
       </button>
-      {pageNum}
+      {`${pageNum}/${totalPage}`}
       <button type="button" onClick={pageHandler}>
         다음 페이지
       </button>
