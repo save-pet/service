@@ -1,32 +1,57 @@
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import axios from 'axios';
 
 import MenuBar from './menu/MenuBar';
 
 function AdminLostList() {
   const [myLostList, setmyLostList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  async function getList() {
-    const res = await fetch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+  const fetchData = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost`,
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
         },
-      },
-    );
-    const data = await res.json();
-    return data;
-  }
+      );
+      setmyLostList(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const Delete = async (shortId) => {
+    try {
+      await axios.delete(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${shortId}`,
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        },
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      alert('게시글이 삭제 되었습니다.');
+      window.location.replace('/admin/lost-list');
+    }
+  };
+
   useEffect(() => {
-    const getListFunc = async () => {
-      setmyLostList(await getList());
-    };
-    getListFunc();
+    fetchData();
   }, []);
+
+  if (isLoading) return <div>로딩중...</div>;
 
   return (
     <div>
@@ -46,31 +71,25 @@ function AdminLostList() {
       <table>
         <thead>
           <tr>
-            <th>선택 </th>
-            <th>번호</th>
             <th>이름</th>
-            <Content>
-              <th>실종 날짜</th>
-            </Content>
+            <th>실종 날짜</th>
+            <th>상태</th>
           </tr>
         </thead>
       </table>
       {myLostList.map((list) => {
-        const { animalName, lostDate } = list;
+        const { animalName, lostDate, processState } = list;
         return (
           <div>
             <table>
               <tbody>
                 <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <Content>
-                    <td>{animalName}</td>
-                  </Content>
-                  <Content>
-                    <td>{lostDate}</td>
-                  </Content>
+                  <td>{animalName}</td>
+                  <td>{lostDate}</td>
+                  <td>{processState === 'lost' ? '분실' : '완료'}</td>
+                  <button type="button" onClick={() => Delete(list.shortId)}>
+                    삭제하기
+                  </button>
                   <Link to="/lost">
                     <td>상세보기</td>
                   </Link>
@@ -83,10 +102,5 @@ function AdminLostList() {
     </div>
   );
 }
-
-const Content = styled.td`
-  padding: 0 8px;
-  margin: 0;
-`;
 
 export default AdminLostList;

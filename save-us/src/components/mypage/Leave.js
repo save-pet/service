@@ -1,50 +1,66 @@
+/* eslint no-underscore-dangle: "warn" */
 import { React, useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Leave() {
-  // 현재 비밀번호
   const [currentPassword, setCurrentPassword] = useState('');
-  // 유저정보
   const [userInfo, setUserInfo] = useState({});
-  // 데이터 로딩여부
   const [isLoading, setIsLoading] = useState(false);
+
+  const fetchUserInfo = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user`,
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        },
+      );
+      setUserInfo(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const deleteUserAccount = async () => {
+    try {
+      await axios({
+        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/${userInfo._id}`,
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        data: {
+          currentPassword,
+        },
+      });
+      alert('탈퇴가 완료되었습니다.');
+      sessionStorage.removeItem('token');
+      window.location.replace('/');
+    } catch (error) {
+      alert(error.response.data.reason);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (userInfo.currentPassword !== currentPassword) {
-      alert('비밀번호가 일치하지 않습니다.');
-      return;
-    }
-    await new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
-    alert(`회원탈퇴가 완료되었습니다.`);
-    window.location.replace('/');
-  };
-
-  const fetchData = () => {
-    setIsLoading(true); // 로딩 중
-    return new Promise(() => {
-      fetch('/MypageUserInfoMockData.json')
-        .then((response) => response.json())
-        .then((data) => {
-          setUserInfo(data);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    });
+    deleteUserAccount();
   };
 
   useEffect(() => {
-    fetchData();
+    fetchUserInfo();
   }, []);
 
   if (isLoading) return <div>로딩중...</div>;
 
   return (
     <div>
-      <h2>회원탈퇴안내</h2>
-      <hr />
       <p>탈퇴 시 해당 계정으로 작성한 글을 삭제할 수 없습니다.</p>
       <p>삭제를 원하는 글이 있다면 탈퇴 전 삭제 해주세요.</p>
       <form onSubmit={handleSubmit}>
@@ -57,7 +73,6 @@ function Leave() {
             onChange={(e) => setCurrentPassword(e.target.value)}
           />
         </div>
-        <button type="button">취소</button>
         <button type="submit">탈퇴</button>
       </form>
     </div>

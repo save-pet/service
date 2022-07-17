@@ -1,17 +1,11 @@
-import { React, useState, useCallback } from 'react';
+import { React } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Modal from '../../modal/Modal';
 import Leave from '../Leave';
+import ModalButton from '../../modal/ModalButton';
 
 function MenuBar() {
-  const [isOpenModal, setOpenModal] = useState(false);
-
-  const onClickToggleModal = useCallback(() => {
-    setOpenModal(!isOpenModal);
-  }, [isOpenModal]);
-
   return (
     <div>
       <Menu>
@@ -23,14 +17,11 @@ function MenuBar() {
           <Link to="/mypage/lost-list">분실 신고 리스트</Link>
         </Content>
         <Content>
-          {isOpenModal && (
-            <Modal onClickToggleModal={onClickToggleModal}>
-              <Leave />
-            </Modal>
-          )}
-          <button type="button" onClick={onClickToggleModal}>
-            계정 탈퇴
-          </button>
+          <ModalButton
+            buttonName="계정탈퇴"
+            title="회원탈퇴안내"
+            content={<Leave />}
+          />
         </Content>
       </Menu>
     </div>

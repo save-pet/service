@@ -11,11 +11,8 @@ function MenuBar() {
           <Link to="/admin">회원 정보 관리</Link>
         </Content>
         <Content>
-          <Link to="/admin/lostPostList">분실 신고 리스트</Link>
+          <Link to="/admin/lost-list">분실 신고 리스트</Link>
         </Content>
-        {/* <Content>
-          <Link to="/admin/seePostList">목격 신고 리스트</Link>
-        </Content> */}
       </Menu>
     </div>
   );
