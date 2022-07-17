@@ -1,45 +1,63 @@
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 
 function RegisterContent() {
-  const [inputId, setInputId] = useState('');
-  const [inputName, setInputName] = useState('');
-  const [inputPassword, setInputPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [inputPhoneNumber, setInputPhoneNumber] = useState('');
+  const [values, setValues] = useState({
+    inputId: '',
+    inputName: '',
+    inputPassword: '',
+    confirmPassword: '',
+    inputPhoneNumber: '',
+  });
 
-  const handleInputId = (e) => {
-    setInputId(e.target.value);
+  const {
+    inputId,
+    inputName,
+    inputPassword,
+    confirmPassword,
+    inputPhoneNumber,
+  } = values;
+
+  const handleNumber = (e) => {
+    const { value, name } = e.target;
+
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
-  const handleInputName = (e) => {
-    setInputName(e.target.value);
-  };
-
-  const handleInputPassword = (e) => {
-    setInputPassword(e.target.value);
-  };
-
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value);
-  };
-
-  const handleInputPhoneNumber = (e) => {
-    setInputPhoneNumber(e.target.value);
-  };
-
-  const registerValidator = () => {
-    if (inputId.length <= 4 && inputPassword <= 4) {
-      alert('아이디, 비밀번호는 4글자 이상 작성해주세요.');
-    } else if (!inputName && !confirmPassword && !inputPhoneNumber) {
-      alert('빈칸을 작성해주세요.');
+  useEffect(() => {
+    if (inputPhoneNumber === 11) {
+      setValues({
+        inputPhoneNumber: inputPhoneNumber.replace(
+          /(\d{3})(\d{4})(\d{4})/,
+          '$1-$2-$3',
+        ),
+      });
+    } else if (inputPhoneNumber === 13) {
+      setValues({
+        inputPhoneNumber: inputPhoneNumber
+          .replace(/-/g, '')
+          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+      });
     }
-  };
+  }, [inputPhoneNumber]);
 
   const onClickRegister = async (event) => {
     event.preventDefault();
+    if (inputId.length <= 4 && inputPassword <= 4) {
+      alert('아이디, 비밀번호는 4글자 이상 작성해주세요.');
+      return;
+    }
+    if (!inputName || !confirmPassword || !inputPhoneNumber) {
+      alert('빈칸을 작성해주세요.');
+      return;
+    }
+    if (inputPassword !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+    }
     try {
-      registerValidator();
       await axios({
         url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_REGISTER}`,
         method: 'POST',
@@ -73,7 +91,7 @@ function RegisterContent() {
                 placeholder="4자 이상의 영문 혹은 영문과 숫자를 조합"
                 name="inputId"
                 value={inputId}
-                onChange={handleInputId}
+                onChange={handleNumber}
                 required
               />
             </label>
@@ -86,7 +104,7 @@ function RegisterContent() {
                 placeholder="이름을 입력해주세요"
                 name="inputName"
                 value={inputName}
-                onChange={handleInputName}
+                onChange={handleNumber}
                 required
               />
             </label>
@@ -99,7 +117,7 @@ function RegisterContent() {
                 placeholder="비밀번호를 입력해주세요"
                 name="inputPassword"
                 value={inputPassword}
-                onChange={handleInputPassword}
+                onChange={handleNumber}
                 required
               />
             </label>
@@ -112,7 +130,7 @@ function RegisterContent() {
                 placeholder="비밀번호를 한번 더 입력해주세요"
                 name="confirmPassword"
                 value={confirmPassword}
-                onChange={handleConfirmPassword}
+                onChange={handleNumber}
                 required
               />
             </label>
@@ -125,7 +143,7 @@ function RegisterContent() {
                 placeholder="010-0000-0000"
                 name="inputPhoneNumber"
                 value={inputPhoneNumber}
-                onChange={handleInputPhoneNumber}
+                onChange={handleNumber}
                 required
               />
             </label>
