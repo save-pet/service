@@ -39,15 +39,14 @@ function AdminLostList() {
           },
         },
       );
+      setmyLostList(myLostList.filter((item) => item.shortId !== shortId));
+      alert('게시글이 삭제 되었습니다.');
     } catch (error) {
       console.log(error);
-    } finally {
-      alert('게시글이 삭제 되었습니다.');
-      window.location.replace('/admin/lost-list');
     }
   };
 
-  const changeState = (shortId) =>
+  const changeState = (shortId) => {
     axios.patch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
       {
@@ -60,6 +59,9 @@ function AdminLostList() {
         },
       },
     );
+    alert('게시글이 완료처리 되었습니다.');
+    window.location.replace('/admin/lost-list')
+  };
 
   useEffect(() => {
     fetchData();
@@ -82,40 +84,21 @@ function AdminLostList() {
           margin: 0,
         }}
       />
-      <table>
-        <thead>
-          <tr>
-            <th>이름</th>
-            <th>실종 날짜</th>
-            <th>상태</th>
-          </tr>
-        </thead>
-      </table>
+      <div>이름 실종 날짜 상태</div>
       {myLostList.map((list) => {
-        const { animalName, lostDate, processState } = list;
+        const { shortId, animalName, lostDate, processState } = list;
         return (
           <div>
-            <table>
-              <tbody>
-                <tr>
-                  <td>{animalName}</td>
-                  <td>{lostDate}</td>
-                  <td>{processState === 'lost' ? '분실' : '완료'}</td>
-                  <button
-                    type="button"
-                    onClick={() => changeState(list.shortId)}
-                  >
-                    완료하기
-                  </button>
-                  <button type="button" onClick={() => Delete(list.shortId)}>
-                    삭제하기
-                  </button>
-                  <Link to="/lost">
-                    <td>상세보기</td>
-                  </Link>
-                </tr>
-              </tbody>
-            </table>
+            {animalName}
+            {lostDate}
+            {processState === 'lost' ? '분실' : '완료'}
+            <button type="button" onClick={() => changeState(list.shortId)}>
+              완료하기
+            </button>
+            <button type="button" onClick={() => Delete(list.shortId)}>
+              삭제하기
+            </button>
+            <Link to={`/lost/${shortId}`}>상세보기</Link>
           </div>
         );
       })}

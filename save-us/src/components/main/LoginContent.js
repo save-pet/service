@@ -23,6 +23,7 @@ function LoginContent() {
         },
       );
       sessionStorage.setItem('token', data.token);
+      
     } catch (error) {
       alert(error.response.data.reason);
       return;

@@ -44,19 +44,20 @@ function RegisterContent() {
     }
   }, [inputPhoneNumber]);
 
-  const registerValidator = () => {
-    if (inputId.length <= 4 && inputPassword <= 4) {
-      alert('아이디, 비밀번호는 4글자 이상 작성해주세요.');
-    }
-    if (!inputName && !confirmPassword && !inputPhoneNumber) {
-      alert('빈칸을 작성해주세요.');
-    }
-  };
-
   const onClickRegister = async (event) => {
     event.preventDefault();
+    if (inputId.length <= 4 && inputPassword <= 4) {
+      alert('아이디, 비밀번호는 4글자 이상 작성해주세요.');
+      return;
+    }
+    if (!inputName || !confirmPassword || !inputPhoneNumber) {
+      alert('빈칸을 작성해주세요.');
+      return;
+    }
+    if (inputPassword !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+    }
     try {
-      registerValidator();
       await axios({
         url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_REGISTER}`,
         method: 'POST',
