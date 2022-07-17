@@ -44,34 +44,4 @@ lostShelterRouter.get('/shelter/:shelterId', loginRequired, adminRequired, async
   }
 });
 
-// 5. 분실위치에서 부터 보호소까지 거리 구하기 -> lostRouter 에서 구현
-// lostShelterRouter.post('/:lostId', loginRequired, async (req, res, next)=> {
-//     try {
-//       const lostId = req.params.lostId;
-//       let radius = 50; // 혹시 입력받지 않으면 기본값
-//       radius = req.body.radius; // !!!!
-//       const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
-//       const shelters = await shelterService.getShelters();
-//       let shelterId ;
-//       let distance ;
-//       let newLostShelterPost ;
-
-//       for(let i = 0; i < shelters.length; i++) {
-//           shelterId = shelters[i]._id;
-//           distance = await lostShelterService.getDistance(lostId, shelterId);
-//           if(distance < radius) { 
-//               newLostShelterPost = await lostShelterService.addLostShelter({
-//                   lostId,
-//                   shelterId,
-//                   phoneNumber,
-//                   distance,
-//               });
-//           }
-//       }
-//       res.status(200).json('success');
-//     } catch (error) {
-//         next(error);
-//     }
-// })
-
 export { lostShelterRouter };

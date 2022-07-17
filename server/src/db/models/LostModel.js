@@ -26,16 +26,11 @@ export class LostModel {
     return lostPost;
   }
 
-  async getLatitude(lostId) {
+  async getCoordinate(lostId) {
     const lostInfo = await Lost.findOne({ _id : lostId });
     const latitude = lostInfo.latitude;
-    return latitude;
-  }
-
-  async getLongitude(lostId) {
-    const lostInfo = await Lost.findOne({ _id : lostId });
     const longitude = lostInfo.longitude;
-    return longitude;
+    return { latitude: latitude, longitude: longitude };
   }
 
   async update({ lostShortId, update }) {

@@ -68,7 +68,6 @@ rescueRouter.get('/care-code/:careCode', async (req, res, next) => {
 );
 
 // 5. 보호 동물 정보 수정 -> api 를 불러오기 때문에 수정할일 없음
-// rescueRouter.patch( '/:rescueId', loginRequired, adminRequired, async (req, res, next) =>  {});
   
 
 // 6. 특정 보호 동물 삭제

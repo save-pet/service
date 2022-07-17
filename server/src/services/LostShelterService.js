@@ -35,12 +35,26 @@ class LostShelterService {
   
     // 분실장소의 위/경도와 보호소의 위경도로 거리구하기
     async getDistance(lostId, shelterId) {
-      
-      const lostLa = await lostModel.getLatitude(lostId);
-      const lostLon = await lostModel.getLongitude(lostId);
-      const shelLa = await shelterModel.getLatitude(shelterId);
-      const shelLon = await shelterModel.getLongitude(shelterId);      
-      const Distance = await this.lostShelterModel.Dist(lostLa, lostLon, shelLa, shelLon);
+
+      function rad (x) {
+        return x*Math.PI/180;
+      }
+
+      const lostCoordinate = await lostModel.getCoordinate(lostId);
+      const shelCoordinate = await shelterModel.getCoordinate(shelterId);
+      const lostLa = lostCoordinate.latitude;
+      const lostLon = lostCoordinate.longitude;
+      const shelLa = shelCoordinate.latitude;
+      const shelLon = shelCoordinate.longitude;
+
+      const R = 6378.137;             
+      const dLat = rad( shelLa - lostLa );
+      const dLong = rad( shelLon - lostLon );
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(rad(lostLa)) * Math.cos(rad(shelLa)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      const d = R * c;
+      const Distance = d.toFixed(3);
+      console.log(Distance);
       return Distance;
     }
 
