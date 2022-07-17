@@ -48,28 +48,14 @@ function LostList() {
           margin: 0,
         }}
       />
-      <table>
-        <thead>
-          <tr>
-            <th>아이디</th>
-            <th>이름</th>
-            <th>전화번호</th>
-          </tr>
-        </thead>
-      </table>
+      아이디 이름 전화번호
       {userList.map((list) => {
         const { id, fullName, phoneNumber } = list;
         return (
-          <div>
-            <table>
-              <tbody>
-                <tr>
-                  <td>{id}</td>
-                  <td>{fullName}</td>
-                  <td>{phoneNumber}</td>
-                </tr>
-              </tbody>
-            </table>
+          <div key={id}>
+            {id}
+            {fullName}
+            {phoneNumber}
           </div>
         );
       })}

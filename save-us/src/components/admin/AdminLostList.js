@@ -28,7 +28,7 @@ function AdminLostList() {
     }
   };
 
-  const Delete = async (shortId) => {
+  const deleteLostItem = async (shortId) => {
     try {
       await axios.delete(
         `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${shortId}`,
@@ -46,11 +46,11 @@ function AdminLostList() {
     }
   };
 
-  const changeState = (shortId) => {
-    axios.patch(
+  const changeState = async (processState, shortId) => {
+    await axios.patch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
       {
-        processState: 'done',
+        processState: processState === 'lost' ? 'done' : 'lost',
       },
       {
         headers: {
@@ -59,8 +59,16 @@ function AdminLostList() {
         },
       },
     );
-    alert('게시글이 완료처리 되었습니다.');
-    window.location.replace('/admin/lost-list')
+    setmyLostList(
+      myLostList.map((item) =>
+        item.shortId === shortId
+          ? {
+              ...item,
+              processState: item.processState === 'lost' ? 'done' : 'lost',
+            }
+          : item,
+      ),
+    );
   };
 
   useEffect(() => {
@@ -88,14 +96,17 @@ function AdminLostList() {
       {myLostList.map((list) => {
         const { shortId, animalName, lostDate, processState } = list;
         return (
-          <div>
+          <div key={shortId}>
             {animalName}
             {lostDate}
             {processState === 'lost' ? '분실' : '완료'}
-            <button type="button" onClick={() => changeState(list.shortId)}>
-              완료하기
+            <button
+              type="button"
+              onClick={() => changeState(processState, shortId)}
+            >
+              {processState === 'lost' ? '완료처리' : '분실처리'}
             </button>
-            <button type="button" onClick={() => Delete(list.shortId)}>
+            <button type="button" onClick={() => deleteLostItem(list.shortId)}>
               삭제하기
             </button>
             <Link to={`/lost/${shortId}`}>상세보기</Link>

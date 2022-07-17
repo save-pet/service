@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: "warn" */
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -18,7 +19,6 @@ function EditInfo() {
     });
   };
 
-  /* eslint no-underscore-dangle: "warn" */
   const editUserInfo = () =>
     axios.patch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/${userInfo._id}`,
@@ -40,7 +40,7 @@ function EditInfo() {
       },
     );
 
-  const fetchData = async () => {
+  const getUserInfo = async () => {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
@@ -82,7 +82,7 @@ function EditInfo() {
   };
 
   useEffect(() => {
-    fetchData();
+    getUserInfo();
   }, []);
 
   if (isLoading) return <div>로딩중...</div>;
