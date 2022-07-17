@@ -1,36 +1,31 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable react/void-dom-elements-no-children */
 /* eslint-disable no-unused-vars */
-import { React, useEffect, useState } from 'react';
+import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useFetch from './useFetch';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
+  const [showList, setShowList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
   const [target, setTarget] = useState(null);
   const [toggleList, setToggleList] = useState(true);
   const navigate = useNavigate();
 
-  async function getRescue() {
-    useEffect(() => {
-      const asyncGetRescue = async () => {
-        const res = await fetch(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
-        );
-        const data = await res.json();
+  const getRescue = useCallback(() => {
+    fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
         setRescueList(data.posts);
         setTotalPage(data.totalPage);
-      };
-      asyncGetRescue();
-    }, [pageNum]);
-  }
-
-  getRescue();
-  const data = useFetch(pageNum);
-
-  console.log(data);
+        setShowList(data.posts);
+      });
+  }, [pageNum]);
+  useEffect(() => getRescue(), [getRescue]);
 
   function pageHandler(e) {
     if (e.target.innerText === '이전 페이지') {
@@ -45,16 +40,34 @@ function RescueList() {
       setPageNum((prev) => prev + 1);
     }
   }
-
   const [checked, setChecked] = useState([]);
   function checkHandler(e) {
-    console.log(e.target);
     if (e.target.checked === true) {
       setChecked((prev) => [...prev, e.target.value]);
     } else {
       setChecked((prev) => prev.filter((item) => item !== e.target.value));
     }
   }
+
+  // 체크 해제할 때 안먹힘
+  useEffect(() => {
+    console.log('checked: ', checked);
+    if (checked === []) {
+      setShowList([...rescueList]);
+    }
+    checked.forEach((checkedItem) => {
+      setShowList((prevList) => {
+        const newList = [];
+        prevList.forEach((prevRescue) => {
+          if (prevRescue.kindCode.includes(checkedItem)) {
+            newList.push(prevRescue);
+          }
+        });
+        console.log('newList: ', newList);
+        return newList;
+      });
+    });
+  }, [checked]);
 
   return (
     <>
@@ -85,7 +98,7 @@ function RescueList() {
           <input
             type="checkbox"
             name="animal"
-            value="dog"
+            value="개"
             onChange={checkHandler}
           />
           개
@@ -94,7 +107,7 @@ function RescueList() {
           <input
             type="checkbox"
             name="animal"
-            value="cat"
+            value="고양이"
             onChange={checkHandler}
           />
           고양이
@@ -110,7 +123,7 @@ function RescueList() {
           padding: '20px',
         }}
       >
-        {rescueList.map((rescue) => {
+        {showList.map((rescue) => {
           const {
             happenDate,
             happenPlace,
