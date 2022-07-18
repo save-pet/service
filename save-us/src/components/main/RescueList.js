@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import useFetch from './useFetch';
+// import useFetch from './useFetch';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
@@ -57,9 +57,9 @@ function RescueList() {
       setShowList([...rescueList]);
       return;
     }
+    const newList = [];
     checked.forEach((checkedItem) => {
       setShowList(() => {
-        const newList = [];
         rescueList.forEach((rescue) => {
           if (rescue.kindCode.includes(checkedItem)) {
             newList.push(rescue);
