@@ -90,7 +90,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       latitude, 
       longitude,
     } = req.body;
-    radius = req.body.radius;
+    radius = Number(req.body.radius);
 
     const newLostPost = await lostService.addLostPost({
       userId,
@@ -98,6 +98,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       lostDate,
       address,
       detail,
+      radius,
       image,
       processState,
       latitude, 
