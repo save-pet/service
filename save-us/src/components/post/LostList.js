@@ -48,7 +48,7 @@ export default function LostList() {
                 }}
               >
                 <img
-                  src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_CLIENT_PORT}/static/${image}`}
+                  src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
                   alt="lost animal"
                   style={{
                     width: '350px',

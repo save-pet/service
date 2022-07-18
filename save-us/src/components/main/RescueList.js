@@ -1,29 +1,33 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/void-dom-elements-no-children */
 /* eslint-disable no-unused-vars */
-import { React, useEffect, useState } from 'react';
+import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+// import useFetch from './useFetch';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
-  const [target, setTarget] = useState(null);
+  const [showList, setShowList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  // const [target, setTarget] = useState(null);
   const [toggleList, setToggleList] = useState(true);
+  const [perPage, setPerPage] = useState(15);
   const navigate = useNavigate();
-  let totalPage;
 
-  async function getRescue() {
-    useEffect(() => {
-      const asyncGetRescue = async () => {
-        const res = await fetch(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
-        );
-        const data = await res.json();
+  const getRescue = useCallback(() => {
+    fetch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}&perPage=${perPage}`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
         setRescueList(data.posts);
-      };
-      asyncGetRescue();
-    }, [pageNum]);
-  }
+        setTotalPage(data.totalPage);
+        setShowList(data.posts);
+      });
+  }, [pageNum, perPage]);
+  useEffect(() => getRescue(), [getRescue]);
 
-  getRescue();
   function pageHandler(e) {
     if (e.target.innerText === '이전 페이지') {
       if (pageNum === 1) {
@@ -37,6 +41,39 @@ function RescueList() {
       setPageNum((prev) => prev + 1);
     }
   }
+  const [checked, setChecked] = useState([]);
+  function checkHandler(e) {
+    if (e.target.checked === true) {
+      setChecked((prev) => [...prev, e.target.value]);
+    } else {
+      setChecked((prev) => prev.filter((item) => item !== e.target.value));
+    }
+  }
+
+  useEffect(() => {
+    console.log('checked: ', checked);
+    if (checked.length === 0) {
+      console.log('checked 빔');
+      setShowList([...rescueList]);
+      return;
+    }
+    const newList = [];
+    checked.forEach((checkedItem) => {
+      setShowList(() => {
+        rescueList.forEach((rescue) => {
+          if (rescue.kindCode.includes(checkedItem)) {
+            newList.push(rescue);
+          }
+        });
+        console.log('newList: ', newList);
+        return newList;
+      });
+    });
+  }, [checked, rescueList]);
+
+  function handleDropdown(e) {
+    setPerPage(e.target.value);
+  }
 
   return (
     <>
@@ -49,6 +86,7 @@ function RescueList() {
           height: '50px',
         }}
       >
+        <div />
         <button
           type="button"
           style={{ height: '40px' }}
@@ -63,6 +101,42 @@ function RescueList() {
         >
           {toggleList ? '지도 보기' : '리스트 보기'}
         </button>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="개"
+              onChange={checkHandler}
+            />
+            개
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="고양이"
+              onChange={checkHandler}
+            />
+            고양이
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="기타"
+              onChange={checkHandler}
+            />
+            기타
+          </label>
+        </div>
+        <div>
+          <select onChange={handleDropdown}>
+            <option value="15">15개</option>
+            <option value="30">30개</option>
+            <option value="50">50개</option>
+          </select>
+        </div>
       </div>
 
       <main
@@ -74,7 +148,7 @@ function RescueList() {
           padding: '20px',
         }}
       >
-        {rescueList.map((rescue) => {
+        {showList.map((rescue) => {
           const {
             happenDate,
             happenPlace,
@@ -138,15 +212,17 @@ function RescueList() {
             </article>
           );
         })}
-        <div ref={setTarget} />
+        {/* <div ref={setTarget} /> */}
       </main>
-      <button type="button" onClick={pageHandler}>
-        이전 페이지
-      </button>
-      {pageNum}
-      <button type="button" onClick={pageHandler}>
-        다음 페이지
-      </button>
+      <div>
+        <button type="button" onClick={pageHandler}>
+          이전 페이지
+        </button>
+        {`${pageNum}/${totalPage}`}
+        <button type="button" onClick={pageHandler}>
+          다음 페이지
+        </button>
+      </div>
     </>
   );
 }
