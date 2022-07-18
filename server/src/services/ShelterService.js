@@ -20,7 +20,7 @@ class ShelterService {
         return sheltersNum;
     }
 
-    // 4. 특정 페이지 위치한 보호소 조회(페이지네이션)
+    // 4. 특정 페이지 위치한 보호소 조회(pagination)
     async getRangeShelters(page, perPage){
         const rangedSheltersInfo = await this.shelterModel.getInRange(page, perPage);
         return rangedSheltersInfo;

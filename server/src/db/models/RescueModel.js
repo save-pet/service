@@ -20,9 +20,15 @@ export class RescueModel {
 
   // 3. 특정 범위(페이지)에 위치한 동물 정보 조회
   async getInRange(page, perPage) {
-    const rescuesInRange = await Rescue.find({})
-      .skip(perPage * (page - 1))
-      .limit(perPage);
+    let rescuesInRange ;
+    if (page === 1){
+      rescuesInRange = await Rescue.find({}).limit(perPage); 
+    } else {
+      const rescuesInPreRange = await Rescue.find({}).limit(perPage * (page - 1));
+      const lastId = rescuesInPreRange[perPage * (page - 1) -1]._id;
+      rescuesInRange = await Rescue.find({ '_id': {'$gt': lastId}})
+        .limit(perPage);
+    }
     return rescuesInRange;
   }
 

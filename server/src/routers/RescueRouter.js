@@ -25,7 +25,7 @@ rescueRouter.get('/rescues', async (req, res, next) => {
 
     // url 쿼리로부터 perRage 값 수신, 부재시 기본값 12
     const perPage = Number(req.query.perPage) || 12;
-    
+
     // total(전체 정보 수 ), posts(현재 페이지에 있는 정보) 를 Promise.all 을 사용해 동시에 호출
     const [total, posts] = await Promise.all([
       await rescueService.countRescue(),
