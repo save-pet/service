@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function LostList() {
   const [lostList, setLostList] = useState([]);
@@ -8,7 +9,7 @@ export default function LostList() {
   async function getRescue() {
     useEffect(() => {
       const asyncGetRescue = async () => {
-        const res = await fetch(
+        const res = await axios(
           `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost`,
         );
         const data = await res.json();
