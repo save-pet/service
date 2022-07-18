@@ -49,7 +49,7 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const resp = await axios('http://localhost:5000/api/lost/post', {
+    const resp = await fetch('http://localhost:5000/api/lost/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

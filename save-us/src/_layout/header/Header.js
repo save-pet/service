@@ -32,7 +32,7 @@ function Header() {
     sessionStorage.removeItem('token');
     setDidLogin(null);
     alert('로그아웃 되었습니다.');
-    navigate('/');
+    window.location.replace('/');
   }
 
   function handleMypage() {

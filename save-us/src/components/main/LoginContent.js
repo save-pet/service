@@ -1,6 +1,5 @@
 import { React, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function LoginContent() {
   const [inputId, setInputId] = useState('');
@@ -15,8 +14,6 @@ function LoginContent() {
   };
 
   const onClickLogin = async () => {
-    const navigate = useNavigate();
-
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOGIN}`,
@@ -26,12 +23,13 @@ function LoginContent() {
         },
       );
       sessionStorage.setItem('token', data.token);
+      
     } catch (error) {
       alert(error.response.data.reason);
       return;
     }
     alert('정상적으로 로그인 되었습니다.');
-    navigate('/');
+    window.location.replace('/');
   };
 
   return (
