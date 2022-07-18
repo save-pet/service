@@ -120,7 +120,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
           let newLostShelterPost = await lostShelterService.addLostShelter({
               lostId,
               shelterId,
-              shelterCode,
+              careCode: shelterCode,
               phoneNumber,
               distance,
           });
