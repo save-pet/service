@@ -54,7 +54,6 @@ class LostShelterService {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       const d = R * c;
       const Distance = d.toFixed(3);
-      console.log(Distance);
       return Distance;
     }
 
