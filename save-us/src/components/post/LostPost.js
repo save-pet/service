@@ -49,7 +49,7 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const resp = await fetch('http://localhost:5000/api/lost/post', {
+    const { result } = await axios('http://localhost:5000/api/lost/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -66,7 +66,6 @@ export default function InputData() {
         longitude: address.lng,
       }),
     });
-    const result = await resp.json();
     console.log(result);
     console.log(addressName);
 
