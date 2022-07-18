@@ -26,6 +26,10 @@ const LostSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
+    radius: {
+      type: Number,
+      required: true,
+    },
     image: {
       type: String,
       required: false,
