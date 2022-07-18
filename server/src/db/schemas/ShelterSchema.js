@@ -6,7 +6,7 @@ const ShelterSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    careAddr: {
+    careAddress: {
       type: String,
       required: true,
     },

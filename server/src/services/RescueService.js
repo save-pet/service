@@ -20,7 +20,7 @@ class RescueService {
         return rescueQty;
     }
 
-    // 4. 특정 페이지 위치한 보호 동물 정보 조회
+    // 4. 특정 페이지 위치한 보호 동물 정보 조회 (pagination)
     async getRangeRescues(page, perPage){
         const rangedRescuesInfo = await this.rescueModel.getInRange(page, perPage);
         return rangedRescuesInfo;

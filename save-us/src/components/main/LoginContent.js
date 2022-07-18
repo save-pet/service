@@ -1,40 +1,35 @@
-import React, { useState } from 'react';
+import { React, useState } from 'react';
+import axios from 'axios';
 
 function LoginContent() {
   const [inputId, setInputId] = useState('');
-  const [inputPw, setInputPw] = useState('');
+  const [inputPassword, setInputPassword] = useState('');
 
   const handleInputId = (e) => {
     setInputId(e.target.value);
   };
 
-  const handleInputPw = (e) => {
-    setInputPw(e.target.value);
+  const handleInputPassword = (e) => {
+    setInputPassword(e.target.value);
   };
 
   const onClickLogin = async () => {
-    console.log('구해줘 댕냥쓰! 정상적으로 로그인 되었습니다.');
-    console.log(inputId);
-    console.log(inputPw);
-
-    const resp = await fetch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOGIN}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOGIN}`,
+        {
+          id: inputId,
+          password: inputPassword,
         },
-        body: JSON.stringify({ id: inputId, password: inputPw }),
-      },
-    );
-    const result = await resp.json();
-
-    if (Object.prototype.hasOwnProperty.call(result, 'token')) {
-      sessionStorage.setItem('token', result.token);
-      window.location.replace('/');
-    } else {
-      alert('회원가입 바랍니다.');
+      );
+      sessionStorage.setItem('token', data.token);
+      
+    } catch (error) {
+      alert(error.response.data.reason);
+      return;
     }
+    alert('정상적으로 로그인 되었습니다.');
+    window.location.replace('/');
   };
 
   return (
@@ -45,7 +40,7 @@ function LoginContent() {
             <b>아이디 : </b>
             <input
               type="text"
-              placeholder="id"
+              placeholder="아이디를 입력하세요."
               name="id"
               value={inputId}
               onChange={handleInputId}
@@ -53,14 +48,14 @@ function LoginContent() {
             />
           </label>
           <br />
-          <label htmlFor="inputPw">
+          <label htmlFor="inputPassword">
             <b>비밀번호 : </b>
             <input
               type="password"
-              placeholder="password"
-              name="inputPw"
-              value={inputPw}
-              onChange={handleInputPw}
+              placeholder="비밀번호를 입력하세요."
+              name="inputPassword"
+              value={inputPassword}
+              onChange={handleInputPassword}
               required
             />
           </label>
@@ -74,5 +69,3 @@ function LoginContent() {
 }
 
 export default LoginContent;
-
-// ref : https://ddeck.tistory.com/35?category=866566

@@ -1,23 +1,15 @@
 import { Router } from 'express';
 import is from '@sindresorhus/is';
 
-import { loginRequired, adminRequired } from '../middlewares/index.js';
+import { loginRequired, adminRequired, checkEmpty} from '../middlewares/index.js';
 import { userService } from '../services/index.js';
 
 const userRouter = Router();
 
 // 1-1. 관리자(admin-user) 등록
-userRouter.post('/admin', async (req, res, next) => {
+userRouter.post('/admin', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
-    const fullName = req.body.fullName;
-    const id = req.body.id;
-    const password = req.body.password;
+    const { fullName, id, password} = req.body;
 
     const newUser = await userService.addUser({
       fullName,
@@ -33,18 +25,9 @@ userRouter.post('/admin', async (req, res, next) => {
 });
 
 // 1-2. 일반 회원(basic-user) 등록
-userRouter.post('/register', async (req, res, next) => {
+userRouter.post('/register', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
-    const fullName = req.body.fullName;
-    const id = req.body.id;
-    const password = req.body.password;
-    const phoneNumber = req.body.phoneNumber;
+    const { fullName, id, password, phoneNumber } = req.body;
 
     const newUser = await userService.addUser({
       fullName,
@@ -60,16 +43,9 @@ userRouter.post('/register', async (req, res, next) => {
 });
 
 // 2. 로그인 구현
-userRouter.post('/login', async (req, res, next) => {
+userRouter.post('/login', checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
-    const id = req.body.id;
-    const password = req.body.password;
+    const { id, password } = req.body;
     const userToken = await userService.getUserToken({ id, password });
 
     res.status(200).json(userToken);
@@ -90,7 +66,7 @@ userRouter.get('/users', loginRequired, adminRequired, async (req, res, next) =>
 });
 
 // 3-1. 전체 사용자 수 반환
-userRouter.get('/numbers', loginRequired, adminRequired, async (req, res, next) => {
+userRouter.get('/numofusers', loginRequired, adminRequired, async (req, res, next) => {
   try {
     // 전체 사용자 목록을 얻음
     const users = await userService.getUsers();
@@ -124,22 +100,10 @@ userRouter.get('/', loginRequired, async (req, res, next) => {
 });
 
 // 5. 사용자 정보 수정 (여기서 userId 는 _id 를 의미)
-userRouter.patch('/:userid', loginRequired, async (req, res, next) => {
+userRouter.patch('/:userid', loginRequired, checkEmpty, async (req, res, next) => {
   try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        'headers의 Content-Type을 application/json으로 설정해주세요'
-      );
-    }
-
     const userId = req.params.userid;
-    const id = req.body.id;
-    const fullName = req.body.fullName;
-    const password = req.body.password;
-    const address = req.body.address;
-    const phoneNumber = req.body.phoneNumber;
-    const role = req.body.role;
-    const currentPassword = req.body.currentPassword;
+    const { id, fullName, password, address, phoneNumber, role, currentPassword } = req.body;
 
     // currentPassword 없을 시, 진행 불가
     if (!currentPassword) {

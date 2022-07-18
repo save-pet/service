@@ -1,5 +1,6 @@
-import { React, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import LOGO from './MainLogo.png';
 import ModalButton from '../../components/modal/ModalButton';
 import LoginContent from '../../components/main/LoginContent';
@@ -7,7 +8,25 @@ import RegisterContent from '../../components/main/RegisterContent';
 
 function Header() {
   const navigate = useNavigate();
+  const [userInfo, setUserInfo] = useState({});
   const [didLogin, setDidLogin] = useState(sessionStorage.getItem('token'));
+
+  const getUserInfo = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user`,
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        },
+      );
+      setUserInfo(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   function handleLogout() {
     sessionStorage.removeItem('token');
@@ -17,8 +36,14 @@ function Header() {
   }
 
   function handleMypage() {
-    navigate('/mypage');
+    if (userInfo.role === 'admin-user') {
+      navigate('/admin');
+    } else navigate('/mypage');
   }
+
+  useEffect(() => {
+    if (didLogin) getUserInfo();
+  }, [didLogin]);
 
   return (
     <header
