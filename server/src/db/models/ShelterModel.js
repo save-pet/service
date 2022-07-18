@@ -18,12 +18,17 @@ export class ShelterModel {
     return shelterSKU;
   }
 
-  // 3. 특정 범위(페이지)에 위치한 보호소 조회 (페이지네이션구현을 위한 함수)
+  // 3. 특정 범위(페이지)에 위치한 보호소 조회 
   async getInRange(page, perPage) {
-    const sheltersInRange = await Shelter.find({})
-      .sort({ createdAt: -1 })
-      .skip(perPage * (page - 1))
-      .limit(perPage);
+    let sheltersInRange ;
+    if(page === 1){
+      sheltersInRange = await Shelter.find({}).limit(perPage);
+    } else {
+      const sheltersInPreRange = await Shelter.find({}).limit(perPage * (page - 1));
+      const lastId = sheltersInPreRange[perPage * (page - 1) -1]._id;
+      sheltersInRange = await Shelter.find({'_id' : {'$gt' : lastId}})
+        .limit(perPage);
+    }
     return sheltersInRange;
   }
 
