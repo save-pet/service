@@ -10,13 +10,14 @@ function RescueList() {
   const [showList, setShowList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [target, setTarget] = useState(null);
+  // const [target, setTarget] = useState(null);
   const [toggleList, setToggleList] = useState(true);
+  const [perPage, setPerPage] = useState(15);
   const navigate = useNavigate();
 
   const getRescue = useCallback(() => {
     fetch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}&perPage=${perPage}`,
     )
       .then((res) => res.json())
       .then((data) => {
@@ -24,7 +25,7 @@ function RescueList() {
         setTotalPage(data.totalPage);
         setShowList(data.posts);
       });
-  }, [pageNum]);
+  }, [pageNum, perPage]);
   useEffect(() => getRescue(), [getRescue]);
 
   function pageHandler(e) {
@@ -50,7 +51,9 @@ function RescueList() {
   }
 
   useEffect(() => {
-    if (checked === []) {
+    console.log('checked: ', checked);
+    if (checked.length === 0) {
+      console.log('checked 빔');
       setShowList([...rescueList]);
       return;
     }
@@ -66,7 +69,11 @@ function RescueList() {
         return newList;
       });
     });
-  }, [checked]);
+  }, [checked, rescueList]);
+
+  function handleDropdown(e) {
+    setPerPage(e.target.value);
+  }
 
   return (
     <>
@@ -79,6 +86,7 @@ function RescueList() {
           height: '50px',
         }}
       >
+        <div />
         <button
           type="button"
           style={{ height: '40px' }}
@@ -93,24 +101,42 @@ function RescueList() {
         >
           {toggleList ? '지도 보기' : '리스트 보기'}
         </button>
-        <label>
-          <input
-            type="checkbox"
-            name="animal"
-            value="개"
-            onChange={checkHandler}
-          />
-          개
-        </label>
-        <label>
-          <input
-            type="checkbox"
-            name="animal"
-            value="고양이"
-            onChange={checkHandler}
-          />
-          고양이
-        </label>
+        <div>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="개"
+              onChange={checkHandler}
+            />
+            개
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="고양이"
+              onChange={checkHandler}
+            />
+            고양이
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="animal"
+              value="기타"
+              onChange={checkHandler}
+            />
+            기타
+          </label>
+        </div>
+        <div>
+          <select onChange={handleDropdown}>
+            <option value="15">15개</option>
+            <option value="30">30개</option>
+            <option value="50">50개</option>
+          </select>
+        </div>
       </div>
 
       <main
@@ -122,7 +148,7 @@ function RescueList() {
           padding: '20px',
         }}
       >
-        {/* {showList.map((rescue) => {
+        {showList.map((rescue) => {
           const {
             happenDate,
             happenPlace,
@@ -185,16 +211,18 @@ function RescueList() {
               </Link>
             </article>
           );
-        })} */}
-        <div ref={setTarget} />
+        })}
+        {/* <div ref={setTarget} /> */}
       </main>
-      <button type="button" onClick={pageHandler}>
-        이전 페이지
-      </button>
-      {`${pageNum}/${totalPage}`}
-      <button type="button" onClick={pageHandler}>
-        다음 페이지
-      </button>
+      <div>
+        <button type="button" onClick={pageHandler}>
+          이전 페이지
+        </button>
+        {`${pageNum}/${totalPage}`}
+        <button type="button" onClick={pageHandler}>
+          다음 페이지
+        </button>
+      </div>
     </>
   );
 }
