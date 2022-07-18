@@ -3,6 +3,7 @@ import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 function InfoWindowContent({ data }) {
   return (
@@ -113,7 +114,7 @@ function MapView() {
   // const [rescueList, setRescueList] = useState([]);
 
   // async function getRescue() {
-  //   const res = await fetch('/MockData.json', {
+  //   const res = await axios('/MockData.json', {
   //     headers: {
   //       'Content-Type': 'application/json',
   //       Accept: 'application/json',
