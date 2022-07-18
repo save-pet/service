@@ -16,6 +16,8 @@ export default function InputData() {
   const [detail, setDetail] = useState('');
   const [address, setAddress] = useState('');
   const [addressName, setAddressName] = useState('');
+  const [radius, setRadius] = useState();
+  // const [image, setImage] = useState();
 
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
@@ -29,6 +31,7 @@ export default function InputData() {
   const handlePhoneNumber1 = ({ target: { value } }) => setPhoneNumber1(value);
   const handlePhoneNumber2 = ({ target: { value } }) => setPhoneNumber2(value);
   const handleDetail = ({ target: { value } }) => setDetail(value);
+  const handleRadius = ({ target: { value } }) => setRadius(value);
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -40,12 +43,11 @@ export default function InputData() {
         authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
       body: JSON.stringify({
-        // userId: 'so',
         animalName,
         lostDate,
         address: addressName,
         detail,
-        image: 'hello.jpg',
+        image: 'ss',
         processState: 'lost',
         latitude: address.lat,
         longitude: address.lng,
@@ -115,6 +117,8 @@ export default function InputData() {
         onChange={handleDetail}
       />{' '}
       <br />
+      연락받을 반경 선택(km)
+      <input type="number" value={radius} onChange={handleRadius} />
       <PostImg />
       <br />
       <button type="submit" onClick={onSubmit}>
