@@ -29,6 +29,12 @@ export class LostShelterModel {
     return shelterInfo;
   }
 
+  // 3. 하나의 보호소 code에 대한 정보 조회
+  async findByShelterCode(careCode) {
+    const shelterCodeInfo = await LostShelter.find({ careCode: careCode });
+    return shelterCodeInfo;
+  }
+
   // 3. CRUD
   async create(lostShelterInfo) {
     const newLostShelter = await LostShelter.create(lostShelterInfo);
