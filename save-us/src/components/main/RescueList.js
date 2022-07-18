@@ -3,7 +3,6 @@
 /* eslint-disable no-unused-vars */
 import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 // import useFetch from './useFetch';
 
 function RescueList() {
@@ -17,7 +16,7 @@ function RescueList() {
   const navigate = useNavigate();
 
   const getRescue = useCallback(() => {
-    axios(
+    fetch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}&perPage=${perPage}`,
     )
       .then((res) => res.json())

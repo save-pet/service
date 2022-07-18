@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import { useLocation, Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 function LostDetail() {
   const location = useLocation();
@@ -9,7 +8,7 @@ function LostDetail() {
   const locationId = location.pathname.split('/')[2];
 
   async function getLost() {
-    const res = await axios(
+    const res = await fetch(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/${locationId}`,
       {
         method: 'GET',

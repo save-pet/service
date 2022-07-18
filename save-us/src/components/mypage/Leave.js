@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle: "warn" */
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function Leave() {
   const [currentPassword, setCurrentPassword] = useState('');
@@ -29,8 +28,6 @@ function Leave() {
   };
 
   const deleteUserAccount = async () => {
-    const navigate = useNavigate();
-
     try {
       await axios({
         url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/${userInfo._id}`,
@@ -45,7 +42,7 @@ function Leave() {
       });
       alert('탈퇴가 완료되었습니다.');
       sessionStorage.removeItem('token');
-      navigate('/');
+      window.location.replace('/');
     } catch (error) {
       alert(error.response.data.reason);
     }

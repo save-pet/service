@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from 'react';
 // import { LockClosedIcon } from '@heroicons/react/solid'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function RegisterContent() {
   const [values, setValues] = useState({
@@ -47,7 +46,6 @@ function RegisterContent() {
   }, [inputPhoneNumber]);
 
   const onClickRegister = async (event) => {
-    const navigate = useNavigate();
     event.preventDefault();
     if (inputId.length <= 4 && inputPassword <= 4) {
       alert('아이디, 비밀번호는 4글자 이상 작성해주세요.');
@@ -75,7 +73,7 @@ function RegisterContent() {
         },
       });
       alert('회원가입이 완료되었습니다.');
-      navigate('/');
+      window.location.replace('/');
       return;
     } catch (error) {
       alert(error.response.data.reason);
@@ -161,125 +159,128 @@ function RegisterContent() {
     </div>
   );
 }
-// <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-//   <div className="max-w-md w-full space-y-8">
-//     <div>
-//       <img
-//         className="mx-auto h-12 w-auto"
-//         src="https://i.ibb.co/JHTVpXr/logo.png"
-//         alt="Logo"
-//       />
-//       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">회원가입</h2>
-//       <p className="mt-2 text-center text-sm text-gray-600">
-//       </p>
-//     </div>
+      // <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      //   <div className="max-w-md w-full space-y-8">
+      //     <div>
+      //       <img
+      //         className="mx-auto h-12 w-auto"
+      //         src="https://i.ibb.co/JHTVpXr/logo.png" 
+      //         alt="Logo"
+      //       />
+      //       <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">회원가입</h2>
+      //       <p className="mt-2 text-center text-sm text-gray-600">
+      //       </p>
+      //     </div>
 
-//     <form className="mt-8 space-y-6" action="#" method="POST">
-//       <input type="hidden" name="remember" defaultValue="true" />
-//       <div className="rounded-md shadow-sm -space-y-px">
+      //     <form className="mt-8 space-y-6" action="#" method="POST">
+      //       <input type="hidden" name="remember" defaultValue="true" />
+      //       <div className="rounded-md shadow-sm -space-y-px">
+              
+      //         <div>
+      //           <label htmlFor="email-address" className="sr-only">
+      //             아이디 :
+      //           </label>
+      //           <input
+      //             type="text"
+              
+      //             required
+      //             name="inputId"
+      //             value={inputId}
+      //           onChange={handleNumber}
+      //             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+      //             placeholder="4자 이상의 영문 혹은 영문과 숫자를 조합"
+      //           />
+      //         </div>
 
-//         <div>
-//           <label htmlFor="email-address" className="sr-only">
-//             아이디 :
-//           </label>
-//           <input
-//             type="text"
+      //         <div>
+      //           <label htmlFor="email-address" className="sr-only">
+      //               이름 :
+      //             </label>
+      //             <input
+      //               type="text"
+      //               required
+      //               name="inputName"
+      //               value={inputName}
+      //               onChange={handleNumber}
+      //               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+      //               placeholder="이름을 입력해주세요"
+      //             />
+      //         </div>
+              
 
-//             required
-//             name="inputId"
-//             value={inputId}
-//           onChange={handleNumber}
-//             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-//             placeholder="4자 이상의 영문 혹은 영문과 숫자를 조합"
-//           />
-//         </div>
+      //         <div>
+      //           <label htmlFor="password" className="sr-only">
+      //             비밀번호 :
+      //           </label>
+      //           <input
+      //             type="password"
+      //             name="inputPassword"
+      //           value={inputPassword}
+      //           onChange={handleNumber}
+                  
+      //             required
+      //             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+      //             placeholder="비밀번호를 입력해주세요"
+      //           />
+      //         </div>
+      //       </div>
 
-//         <div>
-//           <label htmlFor="email-address" className="sr-only">
-//               이름 :
-//             </label>
-//             <input
-//               type="text"
-//               required
-//               name="inputName"
-//               value={inputName}
-//               onChange={handleNumber}
-//               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-//               placeholder="이름을 입력해주세요"
-//             />
-//         </div>
+      //       <div>
+      //           <label htmlFor="confirmPassword" className="sr-only">
+      //             비밀번호 확인 :
+      //           </label>
+      //           <input
+      //             type="password"
+      //             name="confirmPassword"
+      //           value={confirmPassword}
+      //           onChange={handleNumber}
+                  
+      //             required
+      //             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+      //             placeholder="비밀번호를 한번 더 입력해주세요"
+      //           />
+      //         </div>
+      //       </div>
 
-//         <div>
-//           <label htmlFor="password" className="sr-only">
-//             비밀번호 :
-//           </label>
-//           <input
-//             type="password"
-//             name="inputPassword"
-//           value={inputPassword}
-//           onChange={handleNumber}
+      //       <div>
+      //           <label htmlFor="inputPhoneNumber" className="sr-only">
+      //             전화번호 :
+      //           </label>
+      //           <input
+      //             type="text"
+      //             name="inputPhoneNumber"
+      //           value={inputPhoneNumber}
+      //           onChange={handleNumber}
+                  
+      //             required
+      //             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+      //             placeholder="010-0000-0000"
+      //           />
+      //         </div>
+      //       </div>
 
-//             required
-//             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-//             placeholder="비밀번호를 입력해주세요"
-//           />
-//         </div>
-//       </div>
+      //         <div className="text-sm">
+      //           <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+      //             아이디가 있으신가요?
+      //           </a>
+      //         </div>
+      //       </div>
 
-//       <div>
-//           <label htmlFor="confirmPassword" className="sr-only">
-//             비밀번호 확인 :
-//           </label>
-//           <input
-//             type="password"
-//             name="confirmPassword"
-//           value={confirmPassword}
-//           onChange={handleNumber}
+      //       <div>
+      //         <button
+      //           type="submit"
+      //           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      //         >
+      //           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+      //             <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
+      //           </span>
+      //           가입하기
+      //         </button>
+      //       </div>
+      //     </form>
+      //   </div>
+      // </div>
 
-//             required
-//             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-//             placeholder="비밀번호를 한번 더 입력해주세요"
-//           />
-//         </div>
-//       </div>
 
-//       <div>
-//           <label htmlFor="inputPhoneNumber" className="sr-only">
-//             전화번호 :
-//           </label>
-//           <input
-//             type="text"
-//             name="inputPhoneNumber"
-//           value={inputPhoneNumber}
-//           onChange={handleNumber}
-
-//             required
-//             className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-//             placeholder="010-0000-0000"
-//           />
-//         </div>
-//       </div>
-
-//         <div className="text-sm">
-//           <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-//             아이디가 있으신가요?
-//           </a>
-//         </div>
-//       </div>
-
-//       <div>
-//         <button
-//           type="submit"
-//           className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//         >
-//           <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-//             <LockClosedIcon className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
-//           </span>
-//           가입하기
-//         </button>
-//       </div>
-//     </form>
-//   </div>
-// </div>
 
 export default RegisterContent;
