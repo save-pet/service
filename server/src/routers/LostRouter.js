@@ -2,7 +2,7 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-plusplus */
 import { Router } from 'express';
-import is from '@sindresorhus/is';
+// import is from '@sindresorhus/is';
 import { loginRequired, checkEmpty } from '../middlewares/index.js';
 import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
 
