@@ -44,6 +44,12 @@ export class RescueModel {
     return rescues;
   }
 
+  // 5-2. 보호소 기준 동물수 조회(보호소 코드 기준 동물 수 조회)
+  async findCountByCareCode(carecode) {
+    const rescueCount = await Rescue.find({ careCode: carecode }).count();
+    return rescueCount;
+  }
+
   // 6. RescueSchema 정보 수정
   async update({ rescueId, update }) {
     const filter = { _id: rescueId };
