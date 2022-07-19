@@ -13,6 +13,8 @@ import LostPost from './components/post/LostPost';
 import LostDetail from './components/post/LostDetail';
 import LostList from './components/post/LostList';
 import ShelterList from './components/shelter/ShelterList';
+import RescueDetail from './components/map/RescueDetail';
+import LostEdit from './components/post/LostEdit';
 
 function App() {
   return (
@@ -29,8 +31,10 @@ function App() {
           <Route path="/admin/lost-list" element={<AdminLostList />} />
           <Route path="/lost/post" element={<LostPost />} />
           <Route path="/lost/:id" element={<LostDetail />} />
+          <Route path="/lost/:id/edit" element={<LostEdit />} />
           <Route path="/lost/list" element={<LostList />} />
           <Route path="/shelter/:shelter-id" element={<ShelterList />} />
+          <Route path="/rescue/:id" element={<RescueDetail />} />
         </Routes>
       </BrowserRouter>
     </div>
