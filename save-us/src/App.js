@@ -7,6 +7,7 @@ import Main from './pages/Main';
 import MapView from './components/map/MapView';
 import EditInfo from './components/mypage/EditInfo';
 import UserLostList from './components/mypage/LostList';
+import Leave from './components/mypage/Leave';
 import ManageUser from './components/admin/ManageUser';
 import AdminLostList from './components/admin/AdminLostList';
 import LostPost from './components/post/LostPost';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/lostMap" element={<MapView />} />
           <Route path="/mypage" element={<EditInfo />} />
           <Route path="/mypage/lost-list" element={<UserLostList />} />
+          <Route path="/mypage/leave" element={<Leave />} />
           <Route path="/admin" element={<ManageUser />} />
           <Route path="/admin/lost-list" element={<AdminLostList />} />
           <Route path="/lost/post" element={<LostPost />} />

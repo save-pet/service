@@ -92,9 +92,9 @@ function EditInfo() {
   return (
     <div className="container flex flex-row">
       <MenuBar />
-      <div className="mt-16 container flex flex-col mx-auto w-full items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow ">
-        <div className="px-20 py-5 sm:px-6 border-b w-full">
-          <h2 className="text-lg text-bold leading-6 font-medium text-gray-900 ">
+      <div className="mt-16 container flex flex-col mx-auto w-full items-center justify-center">
+        <div className="px-20 py-5 sm:px-6 border-b-2 border-gray-700 w-full">
+          <h2 className="text-lg text-bold leading-6 font-bold text-gray-900 ">
             개인 정보 수정
           </h2>
           <p className="mt-1 max-w-2xl text-sm text-gray-500 ">

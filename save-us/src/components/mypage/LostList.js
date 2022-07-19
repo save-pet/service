@@ -85,9 +85,9 @@ function LostList() {
   return (
     <div className="container flex flex-row">
       <MenuBar />
-      <div className=" mt-16 container flex flex-col mx-auto w-full items-center justify-center bg-white dark:bg-gray-800 rounded-lg shadow">
-        <div className="px-4 py-5 sm:px-6 border-b w-full">
-          <h2 className="text-lg text-bold leading-6 font-medium text-gray-900 ">
+      <div className=" mt-8 container flex flex-col mx-auto w-full items-center justify-center">
+        <div className="px-4 py-5 sm:px-6 border-b-2 border-gray-700 w-full">
+          <h2 className="text-lg text-bold leading-6 font-bold text-gray-900 ">
             분실 신고 리스트
           </h2>
           <p className="mt-1 max-w-2xl text-sm text-gray-500 ">
@@ -98,14 +98,14 @@ function LostList() {
         <ul className="flex flex-col divide divide-y w-full text-center">
           <li className="flex flex-row">
             <div className="select-none flex flex-1 items-center p-4">
-              <div className="font-medium dark:text-white w-full">이름</div>
-              <div className="font-medium dark:text-white w-full">
+              <div className="font-medium w-full">이름</div>
+              <div className="font-medium w-full">
                 실종 날짜
               </div>
-              <div className="font-medium dark:text-white w-full">상태</div>
-              <div className="font-medium dark:text-white w-full">-</div>
-              <div className="font-medium dark:text-white w-full">상세보기</div>
-              <div className="font-medium dark:text-white w-full">-</div>
+              <div className="font-medium w-full">상태</div>
+              <div className="font-medium w-full">-</div>
+              <div className="font-medium w-full">상세보기</div>
+              <div className="font-medium w-full">-</div>
             </div>
           </li>
 
@@ -115,16 +115,16 @@ function LostList() {
               <div key={shortId}>
                 <li className="flex flex-row">
                   <div className="select-none flex flex-1 items-center p-4 text-center">
-                    <div className="font-medium dark:text-white w-full">
+                    <div className="font-medium w-full">
                       {animalName}
                     </div>
-                    <div className="font-medium dark:text-white w-full">
+                    <div className="font-medium w-full">
                       {lostDate}
                     </div>
-                    <div className="font-medium dark:text-white w-full">
+                    <div className="font-medium w-full">
                       {processState === 'lost' ? '분실' : '완료'}
                     </div>
-                    <div className="font-medium dark:text-white w-full cursor-pointer">
+                    <div className="font-medium w-full cursor-pointer">
                       <button
                         type="button"
                         onClick={() => changeState(processState, shortId)}
@@ -132,12 +132,12 @@ function LostList() {
                         {processState === 'lost' ? '완료처리' : '분실처리'}
                       </button>
                     </div>
-                    <div className="font-medium dark:text-white w-full cursor-pointer">
+                    <div className="font-medium w-full cursor-pointer">
                       <Link to={`/lost/${shortId}`}>
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                       </Link>
                     </div>
-                    <div className="font-medium dark:text-white w-full cursor-pointer">
+                    <div className="font-medium w-full cursor-pointer">
                       <button
                         type="button"
                         onClick={() => deleteLostItem(list.shortId)}

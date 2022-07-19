@@ -7324,7 +7324,7 @@
   dependencies:
     "postcss-value-parser" "^4.2.0"
 
-"postcss-preset-env@^7.0.1":
+"postcss-preset-env@^7.0.1", "postcss-preset-env@^7.7.2":
   "integrity" "sha512-1q0ih7EDsZmCb/FMDRvosna7Gsbdx8CvYO5hYT120hcp2ZAuOHpSzibujZ4JpIUcAC02PG6b+eftxqjTFh5BNA=="
   "resolved" "https://registry.npmjs.org/postcss-preset-env/-/postcss-preset-env-7.7.2.tgz"
   "version" "7.7.2"
