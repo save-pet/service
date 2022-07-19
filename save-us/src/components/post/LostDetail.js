@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-// import { useLocation, Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+import axios from 'axios';
 
 function LostDetail() {
   const location = useLocation();
   const [lostList, setLostList] = useState([]);
   const locationId = location.pathname.split('/')[2];
   // console.log(location.pathname.split('/'));
+  const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleClickDelete() {
     if (
@@ -29,7 +32,27 @@ function LostDetail() {
     }
     return false;
   }
+  const getUserInfo = async () => {
+    setIsLoading(true);
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/`,
+        {
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            authorization: `Bearer ${sessionStorage.getItem('token')}`,
+          },
+        },
+      );
+      await setUserInfo(data);
 
+      console.log(userInfo);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
   async function getLost() {
     const res = await fetch(`http://localhost:5000/api/lost/${locationId}`, {
       method: 'GET',
@@ -47,27 +70,40 @@ function LostDetail() {
       setLostList(await getLost());
     };
     getLostFunc();
+    getUserInfo();
     console.log(locationId);
   }, []);
 
-  const { lostDate, address, animalName, detail, processState } = lostList;
-
+  const { lostDate, address, animalName, detail, processState, image } =
+    lostList;
+  if (isLoading) return <div>로딩중...</div>;
   return (
     <>
-      {/* <img src={filename} alt="rescued animal" /> */}
-      {/* <button>
-      <Link to=`${location}/edit`>수정</Link>
-
-      </button> */}
       <button type="button" onClick={handleClickDelete}>
         삭제
       </button>
-      <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
-        <div>접수일: {lostDate}</div>
-        <div>발견장소: {address}</div>
-        <div>이름: {animalName}</div>
-        <div>특이 사항: {detail}</div>
-        <div>현재 상태: {processState}</div>
+
+      <button type="button">
+        <Link to={`${locationId}/edit`}>수정</Link>
+      </button>
+      <div>
+        <img
+          src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
+          alt="rescued animal"
+          style={{
+            width: '350px',
+            height: '270px',
+            objectFit: 'cover',
+          }}
+        />
+        <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
+          <div>이름: {animalName}</div>
+
+          <div>접수일: {lostDate}</div>
+          <div>발견장소: {address}</div>
+          <div>특이 사항: {detail}</div>
+          <div>현재 상태: {processState}</div>
+        </div>
       </div>
     </>
   );
