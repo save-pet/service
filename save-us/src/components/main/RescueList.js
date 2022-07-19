@@ -11,7 +11,6 @@ function RescueList() {
   const [showList, setShowList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  // const [target, setTarget] = useState(null);
   const [toggleList, setToggleList] = useState(true);
   const [perPage, setPerPage] = useState(15);
   const navigate = useNavigate();
@@ -208,7 +207,6 @@ function RescueList() {
             </article>
           );
         })}
-        {/* <div ref={setTarget} /> */}
       </main>
       <div>
         <button type="button" onClick={pageHandler}>

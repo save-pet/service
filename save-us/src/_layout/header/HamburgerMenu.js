@@ -22,7 +22,6 @@ export default function HamburgerMenu() {
     },
     bmMenuWrap: {
       width: '270px',
-      top: '200px',
     },
     bmMenu: {
       background: '#FFD149',
