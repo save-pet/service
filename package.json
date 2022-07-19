@@ -2,7 +2,11 @@
   "scripts": {
     "server": "cd server && nodemon src/app",
     "client": "cd save-us && yarn start",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "root_setup": "npm install",
+    "server_setup": "cd server && npm install",
+    "client_setup": "cd save-us && npm install",
+    "setup": "concurrently --kill-others-on-fail \"yarn root_setup\" \"yarn server_setup\" \"yarn client_setup\""
   },
   "private": "true",
   "dependencies": {
