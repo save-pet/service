@@ -14,7 +14,7 @@ function AdminLostList() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -33,7 +33,7 @@ function AdminLostList() {
   const deleteLostItem = async (shortId) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${shortId}`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_DELETE}/${shortId}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +50,7 @@ function AdminLostList() {
 
   const changeState = async (processState, shortId) => {
     await axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_EDIT}/${shortId}`,
       {
         processState: processState === 'lost' ? 'done' : 'lost',
       },

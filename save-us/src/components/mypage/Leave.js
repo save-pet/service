@@ -11,7 +11,7 @@ function Leave() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -30,7 +30,7 @@ function Leave() {
   const deleteUserAccount = async () => {
     try {
       await axios({
-        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/${userInfo._id}`,
+        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}/${userInfo._id}`,
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

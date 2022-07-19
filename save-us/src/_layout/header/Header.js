@@ -14,7 +14,7 @@ function Header() {
   const getUserInfo = async () => {
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -32,7 +32,7 @@ function Header() {
     sessionStorage.removeItem('token');
     setDidLogin(null);
     alert('로그아웃 되었습니다.');
-    window.location.replace('/');
+    navigate('/');
   }
 
   function handleMypage() {

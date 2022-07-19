@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 // import useFetch from './useFetch';
 
 function RescueList() {
@@ -16,15 +17,13 @@ function RescueList() {
   const navigate = useNavigate();
 
   const getRescue = useCallback(() => {
-    fetch(
+    axios(
       `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}&perPage=${perPage}`,
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setRescueList(data.posts);
-        setTotalPage(data.totalPage);
-        setShowList(data.posts);
-      });
+    ).then(({ data }) => {
+      setRescueList(data.posts);
+      setTotalPage(data.totalPage);
+      setShowList(data.posts);
+    });
   }, [pageNum, perPage]);
   useEffect(() => getRescue(), [getRescue]);
 
@@ -51,9 +50,7 @@ function RescueList() {
   }
 
   useEffect(() => {
-    console.log('checked: ', checked);
     if (checked.length === 0) {
-      console.log('checked 빔');
       setShowList([...rescueList]);
       return;
     }
@@ -65,7 +62,6 @@ function RescueList() {
             newList.push(rescue);
           }
         });
-        console.log('newList: ', newList);
         return newList;
       });
     });
@@ -156,7 +152,7 @@ function RescueList() {
             imgUrl,
             sexCd,
             neuterYn,
-            desertionNo,
+            _id,
           } = rescue;
 
           let sex;
@@ -176,9 +172,9 @@ function RescueList() {
             neutralization = '미상';
           }
           return (
-            <article key={desertionNo}>
+            <article key={_id}>
               <Link
-                to={`/rescue/${desertionNo}`}
+                to={`/rescue/${_id}`}
                 style={{
                   display: 'flex',
                   flexDirection: 'column',
