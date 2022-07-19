@@ -1,8 +1,8 @@
 import { React } from 'react';
 import { Link } from 'react-router-dom';
 
-import Leave from '../Leave';
-import ModalButton from '../../modal/ModalButton';
+// import Leave from '../Leave';
+// import ModalButton from '../../modal/ModalButton';
 
 function MenuBar() {
   return (
@@ -17,11 +17,12 @@ function MenuBar() {
             <Link to="/mypage/lost-list">분실 신고 리스트</Link>
           </div>
           <div className="flex items-center p-2 text-base font-semibold text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-            <ModalButton
+          <Link to="/mypage/leave">계정 탈퇴</Link>
+            {/* <ModalButton
               buttonName="계정탈퇴"
               title="회원탈퇴안내"
               content={<Leave />}
-            />
+            /> */}
           </div>
         </div>
       </div>
