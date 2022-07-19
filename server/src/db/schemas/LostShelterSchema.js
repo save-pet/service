@@ -12,6 +12,10 @@ const LostShelterSchema = new mongoose.Schema(
       ref: 'Shelter',
       required: true,
     },    
+    careCode: {
+      type: String,
+      required: true,
+    },
     phoneNumber: {
       type: String,
       required: true,

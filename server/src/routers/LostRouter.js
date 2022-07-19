@@ -90,7 +90,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       latitude, 
       longitude,
     } = req.body;
-    radius = req.body.radius;
+    radius = Number(req.body.radius);
 
     const newLostPost = await lostService.addLostPost({
       userId,
@@ -98,6 +98,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       lostDate,
       address,
       detail,
+      radius,
       image,
       processState,
       latitude, 
@@ -108,15 +109,18 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
     const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
     const shelters = await shelterService.getShelters();
     let shelterId ;
+    let shelterCode;
     let distance ;
     
     for(let cnt = 0; cnt < shelters.length; cnt++) {
       shelterId = shelters[cnt]._id;
+      shelterCode = shelters[cnt].careCode;
       distance = await lostShelterService.getDistance(lostId, shelterId);
       if(distance < radius) { 
           let newLostShelterPost = await lostShelterService.addLostShelter({
               lostId,
               shelterId,
+              careCode: shelterCode,
               phoneNumber,
               distance,
           });

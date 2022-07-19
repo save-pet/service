@@ -42,6 +42,24 @@ lostShelterRouter.get('/shelter/:shelterId', loginRequired, adminRequired, async
   } catch (error) {
     next(error);
   }
-});
+  },
+);
+
+// 4. 특정 보호소 code 기준으로 목록 불러오기
+lostShelterRouter.get(
+  '/shelter-code/:careCode',
+  loginRequired,
+  adminRequired,
+  async (req, res, next) => {
+    try {
+      const careCode = req.params.careCode;
+      const postsByShelterCode =
+        await lostShelterService.getLostShelterByShelterCode(careCode);
+      res.status(200).json(postsByShelterCode);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 export { lostShelterRouter };
