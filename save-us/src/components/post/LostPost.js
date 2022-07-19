@@ -30,19 +30,18 @@ export default function InputData() {
 
   const saveImage = async () => {
     const formData = new FormData();
-    formData.append('file', image);
+    formData.append('image', image);
 
-    console.log(image.name);
-    console.log(formData);
+    console.log(image);
     try {
       await axios({
-        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/lost/upload}`,
+        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/upload`,
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
           authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
-        data: image.name,
+        data: formData,
       });
     } catch (error) {
       alert(error);
@@ -52,7 +51,7 @@ export default function InputData() {
   const getUserInfo = async () => {
     setIsLoading(true);
 
-    await axios
+    axios
       .get(
         `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
@@ -76,14 +75,15 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    await saveImage();
-    await axios('http://localhost:5000/api/lost/post', {
-      method: 'POST',
+    saveImage();
+    axios({
+      url: 'http://localhost:5000/api/lost/post',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
-      body: JSON.stringify({
+      data: {
         animalName,
         lostDate,
         address: addressName,
@@ -93,8 +93,10 @@ export default function InputData() {
         latitude: address.lat,
         longitude: address.lng,
         radius,
-      }),
-    }).then(console.log('등록 성공'));
+      },
+    })
+      .then(console.log('등록 성공'))
+      .catch((error) => console.log(error));
     console.log(addressName);
 
     // axios 활용한 분실등록 API
@@ -200,7 +202,7 @@ export default function InputData() {
         연락받을 반경 선택(km)
         <input type="number" value={radius} onChange={handleRadius} />
       </div>
-      <PostImg setImage={setImage} />
+      <PostImg image={image} setImage={setImage} />
       <button type="submit" onClick={onSubmit}>
         등록하기
       </button>
