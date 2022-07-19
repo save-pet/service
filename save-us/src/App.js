@@ -6,7 +6,7 @@ import HamburgerMenu from './_layout/header/HamburgerMenu';
 import RescueList from './components/main/RescueList';
 import MapView from './components/map/MapView';
 import EditInfo from './components/mypage/EditInfo';
-import UserLostList from './components/mypage/LostList';
+import UserLostList from './components/mypage/UserLostList';
 import ManageUser from './components/admin/ManageUser';
 import AdminLostList from './components/admin/AdminLostList';
 import LostPost from './components/post/LostPost';
