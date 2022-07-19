@@ -1,8 +1,7 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
-import axios from 'axios';
 
 function LostDetail() {
   const location = useLocation();
@@ -87,7 +86,7 @@ function LostDetail() {
       </button>
 
       <button type="button">
-        <Link to={`${locationId}/edit`}>수정</Link>
+        <Link to="edit">수정</Link>
       </button>
       <div>
         <img
