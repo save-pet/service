@@ -6,7 +6,7 @@ function FindPlaceName({ position, setAddressName }) {
   const [data, setData] = useState();
 
   const findLocationName = async (location) => {
-    const { result } = await axios(
+    await axios(
       `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location.lng}&y=${location.lat}`,
       {
         method: 'GET',
@@ -15,9 +15,10 @@ function FindPlaceName({ position, setAddressName }) {
           Authorization: 'KakaoAK 9af9de6fad57bca234b42bb02bcc14a2',
         },
       },
-    );
-    setData(result.documents[0].address.address_name);
-    return data;
+    ).then((res) => {
+      console.log(res);
+      setData(res.data.documents[0].address.address_name);
+    });
   };
   // console.log(findLocationName(position));
 

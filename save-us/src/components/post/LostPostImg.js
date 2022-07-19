@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function PostImg() {
+function PostImg({ setImage }) {
   const [fileImage, setFileImage] = useState('');
 
   const saveFileImage = (event) => {
     setFileImage(URL.createObjectURL(event.target.files[0]));
+    const uploadFile = event.target.files[0];
+    console.log(uploadFile);
+    setImage(uploadFile);
   };
 
   const deleteFileImage = () => {
@@ -29,5 +33,7 @@ function PostImg() {
     </>
   );
 }
-
+PostImg.propTypes = {
+  setImage: PropTypes.string.isRequired,
+};
 export default PostImg;
