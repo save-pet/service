@@ -31,7 +31,7 @@ export default function InputData() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -64,6 +64,7 @@ export default function InputData() {
         processState: 'lost',
         latitude: address.lat,
         longitude: address.lng,
+        radius,
       }),
     });
     console.log(result);
