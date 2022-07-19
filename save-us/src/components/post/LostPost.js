@@ -31,7 +31,7 @@ export default function InputData() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -49,7 +49,7 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const resp = await fetch('http://localhost:5000/api/lost/post', {
+    const { result } = await axios('http://localhost:5000/api/lost/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -64,9 +64,9 @@ export default function InputData() {
         processState: 'lost',
         latitude: address.lat,
         longitude: address.lng,
+        radius,
       }),
     });
-    const result = await resp.json();
     console.log(result);
     console.log(addressName);
 

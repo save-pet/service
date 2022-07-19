@@ -1,5 +1,10 @@
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faTrashCan,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import MenuBar from './menu/MenuBar';
@@ -12,7 +17,7 @@ function LostList() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/user`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}/user`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -31,7 +36,7 @@ function LostList() {
   const deleteLostItem = async (shortId) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${shortId}`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_DELETE}/${shortId}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -48,7 +53,7 @@ function LostList() {
 
   const changeState = async (processState, shortId) => {
     await axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${shortId}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_EDIT}/${shortId}`,
       {
         processState: processState === 'lost' ? 'done' : 'lost',
       },
@@ -78,41 +83,75 @@ function LostList() {
   if (isLoading) return <div>로딩중...</div>;
 
   return (
-    <div>
+    <div className="container flex flex-row">
       <MenuBar />
-      <div>
-        <h2 style={{ display: 'inline' }}>분실 신고 리스트</h2>
-        <span>회원님이 등록한 분실 신고 목록입니다.</span>
+      <div className=" mt-8 container flex flex-col mx-auto w-full items-center justify-center">
+        <div className="px-4 py-5 sm:px-6 border-b-2 border-gray-700 w-full">
+          <h2 className="text-lg text-bold leading-6 font-bold text-gray-900 ">
+            분실 신고 리스트
+          </h2>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500 ">
+            회원님이 등록한 분실 신고 목록입니다.
+          </p>
+        </div>
+
+        <ul className="flex flex-col divide divide-y w-full text-center">
+          <li className="flex flex-row">
+            <div className="select-none flex flex-1 items-center p-4">
+              <div className="font-medium w-full">이름</div>
+              <div className="font-medium w-full">
+                실종 날짜
+              </div>
+              <div className="font-medium w-full">상태</div>
+              <div className="font-medium w-full">-</div>
+              <div className="font-medium w-full">상세보기</div>
+              <div className="font-medium w-full">-</div>
+            </div>
+          </li>
+
+          {myLostList.map((list) => {
+            const { shortId, animalName, lostDate, processState } = list;
+            return (
+              <div key={shortId}>
+                <li className="flex flex-row">
+                  <div className="select-none flex flex-1 items-center p-4 text-center">
+                    <div className="font-medium w-full">
+                      {animalName}
+                    </div>
+                    <div className="font-medium w-full">
+                      {lostDate}
+                    </div>
+                    <div className="font-medium w-full">
+                      {processState === 'lost' ? '분실' : '완료'}
+                    </div>
+                    <div className="font-medium w-full cursor-pointer">
+                      <button
+                        type="button"
+                        onClick={() => changeState(processState, shortId)}
+                      >
+                        {processState === 'lost' ? '완료처리' : '분실처리'}
+                      </button>
+                    </div>
+                    <div className="font-medium w-full cursor-pointer">
+                      <Link to={`/lost/${shortId}`}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                      </Link>
+                    </div>
+                    <div className="font-medium w-full cursor-pointer">
+                      <button
+                        type="button"
+                        onClick={() => deleteLostItem(list.shortId)}
+                      >
+                        <FontAwesomeIcon icon={faTrashCan} /> 삭제
+                      </button>
+                    </div>
+                  </div>
+                </li>
+              </div>
+            );
+          })}
+        </ul>
       </div>
-      <hr
-        style={{
-          border: '1px solid black',
-          backgroundColor: 'black',
-          width: '450px',
-          margin: 0,
-        }}
-      />
-      <div>이름 실종 날짜 상태</div>
-      {myLostList.map((list) => {
-        const { shortId, animalName, lostDate, processState } = list;
-        return (
-          <div key={shortId}>
-            {animalName}
-            {lostDate}
-            {processState === 'lost' ? '분실' : '완료'}
-            <button
-              type="button"
-              onClick={() => changeState(processState, shortId)}
-            >
-              {processState === 'lost' ? '완료처리' : '분실처리'}
-            </button>
-            <button type="button" onClick={() => deleteLostItem(shortId)}>
-              삭제하기
-            </button>
-            <Link to={`/lost/${shortId}`}>상세보기</Link>
-          </div>
-        );
-      })}
     </div>
   );
 }

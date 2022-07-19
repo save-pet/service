@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
@@ -12,10 +13,11 @@ function LostDetail() {
   const [isLoading, setIsLoading] = useState(false);
 
   async function handleClickDelete() {
+    const navigate = useNavigate;
     if (
       window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
     ) {
-      const res = await fetch(
+      const { data } = await axios(
         `http://localhost:5000/api/lost/delete/${locationId}`,
         {
           method: 'DELETE',
@@ -24,8 +26,7 @@ function LostDetail() {
           },
         },
       );
-      const data = await res.json();
-      window.location.replace('/lost/list');
+      navigate('/lost/list');
 
       console.log(data);
       return data;
@@ -54,13 +55,15 @@ function LostDetail() {
     }
   };
   async function getLost() {
-    const res = await fetch(`http://localhost:5000/api/lost/${locationId}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const { data } = await axios(
+      `http://localhost:5000/api/lost/${locationId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
-    const data = await res.json();
+    );
     console.log(data);
     return data;
   }

@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-// import React from 'react';
 import PropTypes from 'prop-types';
-// import axios from 'axios';
+import axios from 'axios';
 
 function FindPlaceName({ position, setAddressName }) {
   const [data, setData] = useState();
 
   const findLocationName = async (location) => {
-    const resp = await fetch(
+    const { result } = await axios(
       `https://dapi.kakao.com/v2/local/geo/coord2address.json?x=${location.lng}&y=${location.lat}`,
       {
         method: 'GET',
@@ -17,7 +16,6 @@ function FindPlaceName({ position, setAddressName }) {
         },
       },
     );
-    const result = await resp.json();
     setData(result.documents[0].address.address_name);
     return data;
   };

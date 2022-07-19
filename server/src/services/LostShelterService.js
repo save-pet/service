@@ -27,6 +27,14 @@ class LostShelterService {
         return postByShelter;
     }
 
+  // 특정 보호소 code 관련 목록 조회
+  async getLostShelterByShelterCode(careCode) {
+    const postByShelterCode = await this.lostShelterModel.findByShelterCode(
+      careCode,
+    );
+    return postByShelterCode;
+  }
+
     // 전화번호 반환 -> schema에 phoneNumber 저장 안해도 될듯 
     async getPhoneNumber (lostId){
         const phoneNumber = await lostModel.findPhoneNumberByLostId(lostId);
@@ -54,7 +62,6 @@ class LostShelterService {
       const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
       const d = R * c;
       const Distance = d.toFixed(3);
-      console.log(Distance);
       return Distance;
     }
 
