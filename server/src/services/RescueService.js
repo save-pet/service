@@ -38,6 +38,12 @@ class RescueService {
         return rescues;
     }
 
+    //6-2. 보호소 코드 별 동물 수 검색
+    async findCountByCareCode(careCode){
+        const rescueCount = await this.rescueModel.findCountByCareCode(careCode);
+        return rescueCount;
+    }
+
     // 7. 보호 동물 정보 수정 (근데 API 사용하니까 수정할 일은 없을듯)
 
     // 8. 보호 동물 삭제
