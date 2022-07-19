@@ -102,7 +102,7 @@ function LostDetail() {
           <div>이름: {animalName}</div>
 
           <div>접수일: {lostDate}</div>
-          <div>발견장소: {address}</div>
+          <div>분실 장소: {address}</div>
           <div>특이 사항: {detail}</div>
           <div>현재 상태: {processState}</div>
         </div>
