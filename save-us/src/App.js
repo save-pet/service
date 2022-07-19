@@ -13,6 +13,7 @@ import LostPost from './components/post/LostPost';
 import LostDetail from './components/post/LostDetail';
 import LostList from './components/post/LostList';
 import ShelterList from './components/shelter/ShelterList';
+import RescueDetail from './components/map/RescueDetail';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <HamburgerMenu />
         <Routes>
           <Route path="/" element={<Main />} />
+          <Route path="/rescue/:id" element={<RescueDetail />} />
           <Route path="/lostMap" element={<MapView />} />
           <Route path="/mypage" element={<EditInfo />} />
           <Route path="/mypage/lost-list" element={<UserLostList />} />
