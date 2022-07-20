@@ -1,9 +1,9 @@
 /*eslint-disable */
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import axios from 'axios';
+import axios from 'axios';
 
 function InfoWindowContent({ data }) {
   return (
@@ -27,24 +27,25 @@ function InfoWindowContent({ data }) {
 }
 
 function getInfoWindowData(data) {
-  console.log(data);
-
   return data.map((obj) => {
     return {
       content: <InfoWindowContent data={obj}></InfoWindowContent>,
       latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
+      id: obj.careCode,
     };
   });
 }
 
-function EventMarkerContainer({ position, content }) {
+function EventMarkerContainer({ position, content, id }) {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
-
   return (
     <MapMarker
       position={position}
-      onClick={(marker) => map.panTo(marker.getPosition())}
+      onClick={(marker) => {
+        map.panTo(marker.getPosition());
+        window.location.href = `/shelter/${id}`;
+      }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
       image={{
@@ -78,45 +79,6 @@ function MapView() {
     isLoading: true,
   });
   const navigate = useNavigate();
-
-  // const _data = [
-  //   {
-  //     id: 1,
-  //     filename:
-  //       'http://www.animal.go.kr/files/shelter/2022/04/202207080907808_s.jpg',
-  //     sexCd: 'M',
-  //     neuterYn: 'N',
-  //     happenPlace: '대전 동구 가양1동',
-  //     specialMark: '경계심/넥카라착용중-넥카라 없으면, 앞발을 물어뜯음.',
-  //     kindCd: 'test1 key',
-  //     lat: 36.343024529567934,
-  //     lng: 127.4415250548001,
-  //   },
-  //   {
-  //     id: 2,
-  //     filename:
-  //       'http://www.animal.go.kr/files/shelter/2022/04/202207080907808_s.jpg',
-  //     sexCd: 'M',
-  //     neuterYn: 'N',
-  //     happenPlace: '대전 동구 가양2동',
-  //     specialMark: '경계심/넥카라착용중-넥카라 없으면, 앞발을 물어뜯음.',
-  //     kindCd: 'test2 key',
-  //     lat: 36.3482200788126,
-  //     lng: 127.45463973689542,
-  //   },
-  //   {
-  //     id: 3,
-  //     filename:
-  //       'http://www.animal.go.kr/files/shelter/2022/04/202207080907808_s.jpg',
-  //     sexCd: 'M',
-  //     neuterYn: 'N',
-  //     happenPlace: '대전 동구 자양동',
-  //     specialMark: '경계심/넥카라착용중-넥카라 없으면, 앞발을 물어뜯음.',
-  //     kindCd: 'test3 key',
-  //     lat: 36.33689689105572,
-  //     lng: 127.4495082397018,
-  //   },
-  // ];
   useEffect(() => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -150,41 +112,17 @@ function MapView() {
   }, []);
 
   const getRescueData = async () => {
-    const res = await fetch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
-    );
-    const data = await res.json();
-    setMakeRescueList(data);
+    await axios({
+      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
+      method: 'GET',
+    }).then((res) => {
+      setMakeRescueList(res.data);
+    });
   };
   getRescueData();
-  // happenPlace는 백엔드에서 위경도 좌표로 변환해야 함
-  // const [rescueList, setRescueList] = useState([]);
-
-  // async function getRescue() {
-  //   const {data} = await axios('/MockData.json', {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Accept: 'application/json',
-  //     },
-  //   });
-
-  //   return data;
-  // }
-  // useEffect(() => {
-  //   const getRescueFunc = async () => {
-  //     setRescueList(await getRescue());
-  //   };
-  //   getRescueFunc();
-  // }, []);
 
   // const rescueList = getInfoWindowData(_data);
   const rescueList = getInfoWindowData(makeRescueList);
-
-  // const _rescueList = rescueList.map(async (rescue) => {
-  //   const { lat, lng } = await SearchPlace(rescue.happenPlace);
-  //   return { ...rescue, latlng: { lat, lng } };
-  // });
-  // console.log(_rescueList);
 
   return (
     <>
@@ -232,6 +170,7 @@ function MapView() {
               key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
               position={rescue.latlng}
               content={rescue.content}
+              id={rescue.id}
             />
           </div>
         ))}
