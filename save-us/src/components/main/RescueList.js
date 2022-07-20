@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { React, useCallback, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import RenderList from './RenderList';
+import Map2ListToggle from './Map2ListToggle';
 // import useFetch from './useFetch';
 
 function RescueList() {
@@ -10,9 +10,7 @@ function RescueList() {
   const [showList, setShowList] = useState([]);
   const [pageNum, setPageNum] = useState(1);
   const [totalPage, setTotalPage] = useState(1);
-  const [toggleList, setToggleList] = useState(true);
   const [perPage, setPerPage] = useState(15);
-  const navigate = useNavigate();
 
   const getRescue = useCallback(() => {
     axios(
@@ -70,9 +68,12 @@ function RescueList() {
   }
   return (
     <>
-      <p className="text-3xl font-normal leading-normal px-16 py-7 text-slate-800">
-        구조 리스트
-      </p>
+      <div className="px-4 py-5 sm:px-6">
+        <div className="text-3xl font-bold text-gray-800">구조 목록</div>
+        <p className="mt-3 max-w-2xl text-sm text-gray-500 ">
+          구조되어 보호소에 있는 동물 목록입니다.
+        </p>
+      </div>
       <div className="flex flex-col items-center">
         <div className="flex justify-around items-center h-12">
           <div>
@@ -107,20 +108,7 @@ function RescueList() {
               기타
             </label>
           </div>
-          <button
-            type="button"
-            className="btn-light"
-            onClick={() => {
-              if (toggleList) {
-                navigate('/lostMap');
-              } else {
-                navigate('/');
-              }
-              setToggleList((toggle) => !toggle);
-            }}
-          >
-            {toggleList ? '지도 보기' : '리스트 보기'}
-          </button>
+          <Map2ListToggle />
           <div>
             <select className="dropdown" onChange={handleDropdown}>
               <option className="hover:bg-yellow" value="15">
