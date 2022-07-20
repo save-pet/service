@@ -2,9 +2,9 @@
 
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { useLocation, useNavigate } from 'react-router-dom';
-// import { useLocation } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function LostDetail() {
   const location = useLocation();
@@ -97,35 +97,57 @@ function LostDetail() {
     lostList;
   if (isLoading) return <div>로딩중...</div>;
   return (
-    <>
-      <button type="button" onClick={handleClickDelete}>
-        삭제
-      </button>
-
-      <button type="button" onClick={handleClickEdit}>
-        {/* <Link to="edit">수정</Link> */}
-        수정
-      </button>
-      <div>
+    <div>
+      <div className="flex justify-center pt-10">
         <img
           src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
           alt="rescued animal"
-          style={{
-            width: '350px',
-            height: '270px',
-            objectFit: 'cover',
-          }}
+          className="w-auto h-128"
         />
-        <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
-          <div>이름: {animalName}</div>
-
-          <div>접수일: {lostDate}</div>
-          <div>분실 장소: {address}</div>
-          <div>특이 사항: {detail}</div>
-          <div>현재 상태: {processState}</div>
+        <div className="grid gap-2 content-between w-1/2 ml-4 mr-4">
+          <div className="text-4xl font-bold tracking-tight text-gray-900 pl-4">
+            {animalName}
+          </div>
+          <div className="border-y w-full mb-40">
+            <div className="divide divide-y divide-gray-200">
+              <div className="grid grid-cols-3 p-4">
+                <div className="font-bold col-sapn-1">접수일</div>
+                <div>{lostDate}</div>
+              </div>
+              <div className="grid grid-cols-3 p-4">
+                <div className="font-bold col-sapn-1">분실 장소</div>
+                <div>{address}</div>
+              </div>
+              <div className="grid grid-cols-3 p-4">
+                <div className="font-bold col-sapn-1">특이 사항</div>
+                <div>{detail}</div>
+              </div>
+              <div className="grid grid-cols-3 p-4">
+                <div className="font-bold col-sapn-1">현재 상태</div>
+                <div>{processState}</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="py-2 px-4 mt-1 mr-2 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            >
+              <FontAwesomeIcon icon={faPencil} />
+              <Link to="edit">수정하기</Link>
+            </button>
+            <button
+              type="button"
+              onClick={handleClickDelete}
+              className="py-2 px-4 mt-1 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            >
+              <FontAwesomeIcon icon={faTrash} />
+              삭제하기
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

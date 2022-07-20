@@ -56,7 +56,7 @@ export default function LostList() {
                 </p>
                 <div
                   key={shortId}
-                  className="inline-flex items-center py-2 px-3 text-sm font-bold text-center bg-[#ffa000]  hover:bg-[#ffd149] text-white rounded-lg"
+                  className="inline-flex items-center py-2 px-3 text-sm font-bold text-center bg-[#ffa000]  hover:text-gray-700 text-white rounded-lg"
                 >
                   <Link to={`/lost/${shortId}`}>상세보기</Link>
                 </div>
