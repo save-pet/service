@@ -75,8 +75,8 @@ function RescueList() {
         </p>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex justify-around items-center h-12">
-          <div>
+        <div className="flex w-screen justify-between h-12">
+          <div className="self-end pl-5">
             <label className="checkbox-label">
               <input
                 type="checkbox"
@@ -109,7 +109,7 @@ function RescueList() {
             </label>
           </div>
           <Map2ListToggle />
-          <div>
+          <div className="self-end pr-3">
             <select className="dropdown" onChange={handleDropdown}>
               <option className="hover:bg-yellow" value="15">
                 15개씩 보기

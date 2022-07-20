@@ -30,10 +30,10 @@ export default function RenderList({ list }) {
         <Link to={`/rescue/${_id}`} className="w-full block h-full">
           <img
             src={imgUrl}
-            className="max-h-64 w-full object-cover"
+            className="h-64 w-full object-cover"
             alt="rescued animal"
           />
-          <section className="align-middle font-normal">
+          <section className="align-middle font-normal p-2">
             <div>접수일: {happenDate}</div>
             <div>발견장소: {happenPlace}</div>
             <div>품종: {kindCode}</div>

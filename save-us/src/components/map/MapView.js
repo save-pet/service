@@ -25,12 +25,7 @@ function InfoWindowContent({ data }) {
           <ul>
             <li className="font-semibold">{data.careName}</li>
             <li className="text-xs text-gray-400">최근 공고 {diffDate}일 전</li>
-            <img
-              src={data.imgUrl}
-              style={{
-                width: '200px',
-              }}
-            ></img>
+            <img src={data.imgUrl} className="w-[200px]"></img>
           </ul>
         </span>
       </div>
