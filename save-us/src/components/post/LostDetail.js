@@ -97,35 +97,55 @@ function LostDetail() {
     lostList;
   if (isLoading) return <div>로딩중...</div>;
   return (
-    <>
-      <button type="button" onClick={handleClickDelete}>
-        삭제
-      </button>
-
-      <button type="button" onClick={handleClickEdit}>
-        {/* <Link to="edit">수정</Link> */}
-        수정
-      </button>
-      <div>
+    <div>
+      <div className="flex justify-around">
         <img
           src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
           alt="rescued animal"
-          style={{
-            width: '350px',
-            height: '270px',
-            objectFit: 'cover',
-          }}
+          className="w-auto h-96"
         />
-        <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
-          <div>이름: {animalName}</div>
-
-          <div>접수일: {lostDate}</div>
-          <div>분실 장소: {address}</div>
-          <div>특이 사항: {detail}</div>
-          <div>현재 상태: {processState}</div>
+        <div className="border w-full">
+          <div className="mb-2 text-4xl font-bold tracking-tight text-gray-900">
+            {animalName}
+          </div>
+          <div className="border-y">
+            <div className="divide divide-y divide-gray-200">
+              <div className="grid grid-cols-2">
+                <div className="font-bold">접수일</div>
+                <div>{lostDate}</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="font-bold">분실 장소</div>
+                <div>{address}</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="font-bold">특이 사항</div>
+                <div>{detail}</div>
+              </div>
+              <div className="grid grid-cols-2">
+                <div className="font-bold">현재 상태</div>
+                <div>{processState}</div>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              onClick={handleClickDelete}
+              className="py-2 px-4 mt-1 mb-10 mr-2 bg-[#ffa000]  hover:text-gray-700 text-white w-20 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            >
+              삭제
+            </button>
+            <button
+              type="button"
+              className="py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:text-gray-700 text-white w-20 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            >
+              <Link to="edit">수정</Link>
+            </button>
+          </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

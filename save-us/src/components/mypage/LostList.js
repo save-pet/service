@@ -85,7 +85,7 @@ function LostList() {
   return (
     <div className="container flex flex-row">
       <MenuBar />
-      <div className=" mt-8 container flex flex-col mx-auto w-full items-center justify-center">
+      <div className=" mt-16 container flex flex-col mx-auto w-full items-center justify-center">
         <div className="px-4 py-5 sm:px-6 border-b-2 border-gray-700 w-full">
           <h2 className="text-lg text-bold leading-6 font-bold text-gray-900 ">
             분실 신고 리스트
