@@ -131,6 +131,7 @@ function LostDetail() {
           <div className="flex justify-end">
             <button
               type="button"
+              onClick={handleClickEdit}
               className="py-2 px-4 mt-1 mr-2 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
             >
               <FontAwesomeIcon icon={faPencil} />
