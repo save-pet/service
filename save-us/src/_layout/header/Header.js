@@ -50,12 +50,12 @@ function Header() {
       className="header-container"
       style={{
         backgroundColor: '#FFD149',
-        height: '15vh',
+        height: '20vh',
         display: 'flex',
         justifyContent: 'space-between',
         position: 'sticky',
-        paddingTop: '5vh',
-        top: '-5vh',
+        padding: '5vh 0 2vh 0',
+        top: '0',
       }}
     >
       <div style={{ width: '125px' }} />

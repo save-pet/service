@@ -9,7 +9,7 @@ import axios from 'axios';
 
 import MenuBar from './menu/MenuBar';
 
-function LostList() {
+function UserLostList() {
   const [myLostList, setmyLostList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -156,4 +156,4 @@ function LostList() {
   );
 }
 
-export default LostList;
+export default UserLostList;

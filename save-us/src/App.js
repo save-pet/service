@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
-import Main from './pages/Main';
+import RescueList from './components/main/RescueList';
 import MapView from './components/map/MapView';
 import EditInfo from './components/mypage/EditInfo';
-import UserLostList from './components/mypage/LostList';
+import UserLostList from './components/mypage/UserLostList';
 import Leave from './components/mypage/Leave';
 import ManageUser from './components/admin/ManageUser';
 import AdminLostList from './components/admin/AdminLostList';
@@ -24,7 +24,7 @@ function App() {
         <Header />
         <HamburgerMenu />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<RescueList />} />
           <Route path="/rescue/:id" element={<RescueDetail />} />
           <Route path="/lostMap" element={<MapView />} />
           <Route path="/mypage" element={<EditInfo />} />
@@ -36,8 +36,7 @@ function App() {
           <Route path="/lost/:id" element={<LostDetail />} />
           <Route path="/lost/:id/edit" element={<LostEdit />} />
           <Route path="/lost/list" element={<LostList />} />
-          <Route path="/shelter/:shelter-id" element={<ShelterList />} />
-          <Route path="/rescue/:id" element={<RescueDetail />} />
+          <Route path="/shelter/:id" element={<ShelterList />} />
         </Routes>
       </BrowserRouter>
     </div>
