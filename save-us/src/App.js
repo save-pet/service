@@ -36,8 +36,7 @@ function App() {
           <Route path="/lost/:id" element={<LostDetail />} />
           <Route path="/lost/:id/edit" element={<LostEdit />} />
           <Route path="/lost/list" element={<LostList />} />
-          <Route path="/shelter/:shelter-id" element={<ShelterList />} />
-          <Route path="/rescue/:id" element={<RescueDetail />} />
+          <Route path="/shelter/:id" element={<ShelterList />} />
         </Routes>
       </BrowserRouter>
     </div>
