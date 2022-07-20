@@ -5,7 +5,7 @@ const Lost = mongoose.model('losts', LostSchema);
 
 export class LostModel {
   async findAllLostPosts() {
-    const orders = await Lost.find({});
+    const orders = await Lost.find({}).sort({ "createdAt": -1 });
     return orders;
   }
 
