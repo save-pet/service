@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable react/void-dom-elements-no-children */
-/* eslint-disable no-unused-vars */
 import { React, useCallback, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import './RescueList.css';
+import RenderList from './RenderList';
 // import useFetch from './useFetch';
 
 function RescueList() {
@@ -17,7 +17,7 @@ function RescueList() {
 
   const getRescue = useCallback(() => {
     axios(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/rescues?page=${pageNum}&perPage=${perPage}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues?page=${pageNum}&perPage=${perPage}`,
     ).then(({ data }) => {
       setRescueList(data.posts);
       setTotalPage(data.totalPage);
@@ -69,7 +69,6 @@ function RescueList() {
   function handleDropdown(e) {
     setPerPage(e.target.value);
   }
-
   return (
     <>
       <h2>구조 리스트</h2>
@@ -143,7 +142,8 @@ function RescueList() {
           padding: '20px',
         }}
       >
-        {showList.map((rescue) => {
+        <RenderList list={showList} />
+        {/* {showList.map((rescue) => {
           const {
             happenDate,
             happenPlace,
@@ -206,7 +206,7 @@ function RescueList() {
               </Link>
             </article>
           );
-        })}
+        })} */}
       </main>
       <div>
         <button type="button" onClick={pageHandler}>
