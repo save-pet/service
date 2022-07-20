@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
 import MENU_ICON from './MenuIcon.png';
 
 export default function HamburgerMenu() {
+  const [isOpen, setIsOpen] = useState(false);
   const styles = {
     bmBurgerButton: {
       position: 'fixed',
@@ -44,27 +45,57 @@ export default function HamburgerMenu() {
       paddingTop: '5vh',
     },
   };
+
+  const handlStateChange = (state) => {
+    setIsOpen(state.isOpen);
+  };
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
   return (
     <Menu
       width="20%"
       customBurgerIcon={<img src={MENU_ICON} alt="hamburger menu" />}
       styles={styles}
+      isOpen={isOpen}
+      onStateChange={(state) => handlStateChange(state)}
     >
-      <h3>찾아줘😿</h3>
-      <Link className="menu-item" to="/lost/post">
-        분실 등록
-      </Link>
-      <Link className="menu-item" to="/lost/list">
-        분실 목록
-      </Link>
-      <br />
-      <h3>찾았어😹</h3>
-      <Link className="menu-item" to="/">
-        구조 리스트
-      </Link>
-      <Link className="menu-item" to="/lostMap">
-        구조 지도
-      </Link>
+      <div>
+        <h3 className="text-2xl py-3 font-semibold">찾아줘😿</h3>
+        <Link
+          className="menu-item block pl-3 hover:text-brown leading-relaxed"
+          to="/lost/post"
+          onClick={closeMenu}
+        >
+          분실 등록
+        </Link>
+        <Link
+          className="menu-item block pl-3 hover:text-brown leading-relaxed"
+          to="/lost/list"
+          onClick={closeMenu}
+        >
+          분실 목록
+        </Link>
+      </div>
+      <div className="pt-10">
+        <h3 className="text-2xl py-3 font-semibold">찾았어😹</h3>
+        <Link
+          className="menu-item block pl-3 hover:text-brown leading-relaxed"
+          to="/"
+          onClick={closeMenu}
+        >
+          구조 목록
+        </Link>
+        <Link
+          className="menu-item block pl-3 hover:text-brown leading-relaxed"
+          to="/lostMap"
+          onClick={closeMenu}
+        >
+          구조 지도
+        </Link>
+      </div>
     </Menu>
   );
 }
