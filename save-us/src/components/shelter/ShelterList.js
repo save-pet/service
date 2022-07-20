@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -14,7 +13,6 @@ export default function ShelterList() {
         const { data } = await axios(
           `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/care-code/${careCode}`,
         );
-        console.log(data);
         setRescueList(data);
       };
       asyncGetRescue();

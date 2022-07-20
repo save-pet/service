@@ -22,7 +22,6 @@ export default function RenderList({ list }) {
     } else {
       neutralization = '미상';
     }
-    console.log(sex);
     return (
       <article key={_id}>
         <Link
