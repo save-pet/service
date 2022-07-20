@@ -1,6 +1,5 @@
 import { React } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import './App.css';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
 import RescueList from './components/main/RescueList';
