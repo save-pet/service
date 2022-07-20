@@ -14,6 +14,7 @@ export default function InputData() {
   const [address, setAddress] = useState('');
   const [addressName, setAddressName] = useState('');
   const [radius, setRadius] = useState();
+  const [image, setImage] = useState();
 
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +28,31 @@ export default function InputData() {
   const handleDetail = ({ target: { value } }) => setDetail(value);
   const handleRadius = ({ target: { value } }) => setRadius(value);
 
+  const saveImage = async () => {
+    const formData = new FormData();
+    formData.append('image', image);
+
+    console.log(image);
+    try {
+      await axios({
+        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/upload`,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        data: formData,
+      });
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   const getUserInfo = async () => {
     setIsLoading(true);
-    try {
-      const { data } = await axios.get(
+
+    axios
+      .get(
         `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
@@ -38,36 +60,43 @@ export default function InputData() {
             authorization: `Bearer ${sessionStorage.getItem('token')}`,
           },
         },
-      );
-      setUserInfo(data);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
+      )
+      .then((res) => {
+        console.log(res);
+        setUserInfo(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    const { result } = await axios('http://localhost:5000/api/lost/post', {
-      method: 'POST',
+    saveImage();
+    axios({
+      url: 'http://localhost:5000/api/lost/post',
+      method: 'post',
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${sessionStorage.getItem('token')}`,
       },
-      body: JSON.stringify({
+      data: {
         animalName,
         lostDate,
         address: addressName,
         detail,
-        image: 'ss',
+        image: image.name,
         processState: 'lost',
         latitude: address.lat,
         longitude: address.lng,
         radius,
-      }),
-    });
-    console.log(result);
+      },
+    })
+      .then(console.log('등록 성공'))
+      .catch((error) => console.log(error));
     console.log(addressName);
 
     // axios 활용한 분실등록 API
@@ -173,7 +202,7 @@ export default function InputData() {
         연락받을 반경 선택(km)
         <input type="number" value={radius} onChange={handleRadius} />
       </div>
-      <PostImg />
+      <PostImg image={image} setImage={setImage} />
       <button type="submit" onClick={onSubmit}>
         등록하기
       </button>

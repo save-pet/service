@@ -67,6 +67,19 @@ rescueRouter.get('/care-code/:careCode', async (req, res, next) => {
 }
 );
 
+// 4-2. 보호소에 보호되고 있는 동물수 조회
+rescueRouter.get('/care-code/count/:careCode', async (req, res, next) => {
+  try {
+    const { careCode } = req.params;
+    const rescueCount = await rescueService.findCountByCareCode(careCode);
+
+    res.status(200).json(rescueCount);
+  } catch (error) {
+    next(error);
+  }
+}
+);
+
 // 5. 보호 동물 정보 수정 -> api 를 불러오기 때문에 수정할일 없음
   
 
