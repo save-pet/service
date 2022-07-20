@@ -23,16 +23,14 @@ export default function ShelterList() {
 
   return (
     <>
-      {shelterList.length > 0 && <h2>{shelterList[0].careName}</h2>}
-      <main
-        style={{
-          display: 'inline-flex',
-          flexWrap: 'wrap',
-          justifyContent: 'flex-start',
-          gap: '20px',
-          padding: '20px',
-        }}
-      >
+      {shelterList.length > 0 && (
+        <div className="px-4 py-5 sm:px-6">
+          <div className="text-2xl font-semibold text-gray-800">
+            {shelterList[0].careName}
+          </div>
+        </div>
+      )}
+      <main className="inline-flex flex-wrap justify-start gap-[20px] p-[20px]">
         <RenderList list={shelterList} />
       </main>
     </>

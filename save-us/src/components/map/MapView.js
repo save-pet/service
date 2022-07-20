@@ -4,21 +4,28 @@ import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import axios from 'axios';
+import Map2ListToggle from '../main/Map2ListToggle';
 
 function InfoWindowContent({ data }) {
+  const latest = data.noticeStartDate;
+  const latestDate = new Date(
+    `${latest.substring(0, 4)}-${latest.substring(4, 6)}-${latest.substring(
+      6,
+    )}`,
+  );
+  const today = new Date();
+  const diffDate = Math.ceil(
+    (latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24),
+  );
+
   return (
     <InfoWindowDiv>
       <div style={{ color: '#000' }}>
         <span className="notranslate">
           <ul>
-            <img
-              src={data.imgUrl}
-              style={{
-                width: '200px',
-              }}
-            ></img>
-
-            <li>보호소 : {data.careName}</li>
+            <li className="font-semibold">{data.careName}</li>
+            <li className="text-xs text-gray-400">최근 공고 {diffDate}일 전</li>
+            <img src={data.imgUrl} className="w-[200px]"></img>
           </ul>
         </span>
       </div>
@@ -39,12 +46,13 @@ function getInfoWindowData(data) {
 function EventMarkerContainer({ position, content, id }) {
   const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
+  const navigate = useNavigate();
   return (
     <MapMarker
       position={position}
       onClick={(marker) => {
         map.panTo(marker.getPosition());
-        window.location.href = `/shelter/${id}`;
+        navigate(`/shelter/${id}`);
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -126,55 +134,38 @@ function MapView() {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          height: '50px',
-        }}
-      >
-        <button
-          type="button"
-          style={{ height: '40px' }}
-          onClick={() => {
-            if (toggleMap) {
-              navigate('/');
-            } else {
-              navigate('/lostMap');
-            }
-            setToggleMap((toggle) => !toggle);
-          }}
+      <p className="mx-2 my-1 text-sm text-gray-400">
+        *핀 위에 마우스를 올리면 해당 보호소의 최신 공고를 볼 수 있으며, 핀을
+        클릭하면 보호소 구조 목록으로 이동합니다.
+      </p>
+      <div className="relative">
+        <div className=" h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
+          <Map2ListToggle />
+        </div>
+
+        <Map // 지도를 표시할 Container
+          // center={{
+          //   // 지도의 중심좌표
+          //   // lat: 36.33689689105572,
+          //   // lng: 127.4495082397018,
+          //   state.center;
+          // }}
+          center={state.center}
+          className="w-full h-[80vh]"
+          level={3} // 지도의 확대 레벨
         >
-          {toggleMap ? '리스트 보기' : '지도 보기'}
-        </button>
+          {rescueList.map((rescue, index) => (
+            <div key={index}>
+              <EventMarkerContainer
+                key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
+                position={rescue.latlng}
+                content={rescue.content}
+                id={rescue.id}
+              />
+            </div>
+          ))}
+        </Map>
       </div>
-      <Map // 지도를 표시할 Container
-        // center={{
-        //   // 지도의 중심좌표
-        //   // lat: 36.33689689105572,
-        //   // lng: 127.4495082397018,
-        //   state.center;
-        // }}
-        center={state.center}
-        style={{
-          // 지도의 크기
-          width: '100%',
-          height: '100vh',
-        }}
-        level={3} // 지도의 확대 레벨
-      >
-        {rescueList.map((rescue, index) => (
-          <div key={index}>
-            <EventMarkerContainer
-              key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-              position={rescue.latlng}
-              content={rescue.content}
-              id={rescue.id}
-            />
-          </div>
-        ))}
-      </Map>
     </>
   );
 }
@@ -183,7 +174,7 @@ export default MapView;
 
 const InfoWindowDiv = styled.div`
   padding: 15px 20px;
-  width: 350px;
+  width: 220px;
   text-align: left;
   font-family: notosanskr, Malgun Gothic, 맑은 고딕, Dotum, 돋움, sans-serif;
 `;

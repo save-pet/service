@@ -46,52 +46,40 @@ function Header() {
   }, [didLogin]);
 
   return (
-    <header
-      className="header-container"
-      style={{
-        backgroundColor: '#FFD149',
-        height: '20vh',
-        display: 'flex',
-        justifyContent: 'space-between',
-        position: 'sticky',
-        padding: '5vh 0 2vh 0',
-        top: '0',
-      }}
-    >
-      <div style={{ width: '125px' }} />
-      <Link
-        to="/"
-        style={{ display: 'flex', justifyContent: 'center', width: '150px' }}
-      >
+    <header className="bg-yellow h-[15vh] flex justify-between sticky pt-[3vh] pb-[2vh] top-0">
+      <div className="w-[180px]" />
+      <Link to="/" className="flex justify-center w-[150px]">
         <img
-          className="main-LOGO"
+          className="max-w-full object-scale-down"
           src={LOGO}
           alt="Main LOGO that has a cat and a dog in a box"
-          style={{ maxWidth: '100%', objectFit: 'scale-down' }}
         />
       </Link>
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <div className="flex justify-end">
+        <div className="px-2 hover:text-brown">
           {didLogin ? (
             <button type="button" onClick={handleLogout}>
               로그아웃
             </button>
           ) : (
             <ModalButton
-              buttonName="로그인"
-              title="로그인"
-              content={<LoginContent />}
+              buttonName="회원가입"
+              title="회원가입"
+              content={<RegisterContent />}
             />
           )}
+        </div>
+
+        <div className="px-2 hover:text-brown">
           {didLogin ? (
             <button type="button" onClick={handleMypage}>
               마이페이지
             </button>
           ) : (
             <ModalButton
-              buttonName="회원가입"
-              title="회원가입"
-              content={<RegisterContent />}
+              buttonName="로그인"
+              title="로그인"
+              content={<LoginContent />}
             />
           )}
         </div>
