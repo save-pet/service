@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -135,7 +135,7 @@ function LostDetail() {
               className="py-2 px-4 mt-1 mr-2 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
             >
               <FontAwesomeIcon icon={faPencil} />
-              <Link to="edit">수정하기</Link>
+              수정하기
             </button>
             <button
               type="button"
