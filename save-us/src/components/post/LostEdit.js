@@ -25,15 +25,6 @@ function LostEdit() {
     } finally {
       setIsLoading(false);
     }
-    // const res = await fetch(`http://localhost:5000/api/lost/${locationId}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
-    // const data = await res.json();
-    // console.log(data);
-    // return data;
   };
 
   const handleChangeLost = (event) => {
