@@ -102,11 +102,17 @@ function LostDetail() {
   if (isLoading) return <div>로딩중...</div>;
   return (
     <div>
+      <div className="px-4 py-5 sm:px-6 flex items-end">
+        <div className="text-3xl font-bold text-gray-800">분실 상세</div>
+        <p className="ml-2 max-w-2xl text-sm text-gray-500 ">
+          회원님이 등록한 분실 신고를 확인할 수 있습니다.
+        </p>
+      </div>
       <div className="flex justify-center pt-10">
         <img
           src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
           alt="rescued animal"
-          className="w-auto h-128"
+          className="w-96 h-auto"
         />
         <div className="grid gap-2 content-between w-1/2 ml-4 mr-4">
           <div className="text-4xl font-bold tracking-tight text-gray-900 pl-4">
@@ -136,7 +142,7 @@ function LostDetail() {
             <button
               type="button"
               onClick={handleClickEdit}
-              className="py-2 px-4 mt-1 mr-2 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+              className="mr-2 btn-submit"
             >
               <FontAwesomeIcon icon={faPencil} />
               수정하기
@@ -144,7 +150,7 @@ function LostDetail() {
             <button
               type="button"
               onClick={handleClickDelete}
-              className="py-2 px-4 mt-1 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+              className="btn-submit"
             >
               <FontAwesomeIcon icon={faTrash} />
               삭제하기

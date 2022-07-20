@@ -197,7 +197,7 @@ function EditInfo() {
               </div>
               <button
                 type="submit"
-                className="ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+                className="float-right btn-submit"
               >
                 수정하기
               </button>

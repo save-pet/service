@@ -72,82 +72,76 @@ function LostEdit() {
   return (
     <div>
       {lostDetail && (
-        <form>
-          <img
-            src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${lostDetail.image}`}
-            alt="rescued animal"
-            style={{
-              width: '350px',
-              height: '270px',
-              objectFit: 'cover',
-            }}
-          />
-          <div style={{ backgroundColor: '#ffd149', fontStyle: 'none' }}>
-            <div>
-              이름:{' '}
-              <input
-                name="animalName"
-                type="text"
-                value={lostDetail.animalName}
-                placeholder="이름"
-                onChange={handleChangeLost}
-              />
-            </div>
-            <div>
-              접수일:{' '}
-              <input
-                name="lostDate"
-                type="date"
-                value={lostDetail.lostDate}
-                placeholder="접수일"
-                onChange={handleChangeLost}
-                readOnly
-                disabled
-              />
-            </div>
-            <div>
-              실종 장소 :
-              {/* <ModalButton
-            buttonName="지도 열기"
-            title="지도"
-            content={
-              <LostPostMap
-                address={address}
-                setAddress={setAddress}
-                addressName={addressName}
-                setAddressName={setAddressName}
-              />
-            }
-          />
-          {addressName} */}
-            </div>
+        <div>
+        <div className="px-4 py-5 sm:px-6 flex items-end">
+          <div className="text-3xl font-bold text-gray-800">분실 수정</div>
+          <p className="ml-2 max-w-2xl text-sm text-gray-500 ">
+            회원님이 등록한 분실 신고를 수정할 수 있습니다.
+          </p>
+        </div>
+          <form className="flex justify-center pt-10">
+            <img
+              src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${lostDetail.image}`}
+              alt="rescued animal"
+              className="w-96 h-auto"
+            />
+            <div className="grid gap-2 content-between w-1/2 ml-4 mr-4">
+              <div className="text-4xl font-bold tracking-tight text-gray-900 pl-4">
+                {lostDetail.animalName}
+              </div>
+              <div className="border-y w-full mb-40">
+                <div className="divide divide-gray-200">
+                  <div className="grid grid-cols-3 p-4">
+                    <div className="font-bold col-sapn-1">접수일</div>
+                    <div>{lostDetail.lostDate}</div>
+                  </div>
+                  <div className="grid grid-cols-3 p-4">
+                    <div className="font-bold col-sapn-1">실종장소</div>
+                    <input />
+                    {/* <ModalButton
+                    buttonName="지도 열기"
+                    title="지도"
+                    content={
+                      <LostPostMap
+                        address={address}
+                        setAddress={setAddress}
+                        addressName={addressName}
+                        setAddressName={setAddressName}
+                      />
+                    }
+                              />
+                              {addressName} */}
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 p-4">
+                  <div className="font-bold col-sapn-1">특이사항</div>
+                  <input
+                    name="detail"
+                    type="text"
+                    value={lostDetail.detail}
+                    placeholder="특이사항"
+                    onChange={handleChangeLost}
+                  />
+                </div>
+                <div className="grid grid-cols-3 p-4">
+                  <div className="font-bold col-sapn-1">현재상태</div>
+                  <div>{lostDetail.processState}</div>
+                </div>
+              </div>
 
-            <div>
-              특이 사항:{' '}
-              <input
-                name="detail"
-                type="text"
-                value={lostDetail.detail}
-                placeholder="특이사항"
-                onChange={handleChangeLost}
-              />
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  onClick={onSubmit}
+                  className="btn-submit"
+                >
+                  등록하기
+                </button>
+              </div>
+
             </div>
-            <div>
-              현재 상태:{' '}
-              <input
-                name="processState"
-                type="text"
-                value={lostDetail.processState}
-                placeholder="현재 상태"
-                readOnly
-                disabled
-              />
-            </div>
-          </div>
-          <button type="submit" onClick={onSubmit}>
-            등록하기
-          </button>
-        </form>
+          </form>
+        </div>
       )}
     </div>
   );
