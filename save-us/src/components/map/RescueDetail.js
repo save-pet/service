@@ -64,21 +64,21 @@ function LostDetail() {
           }}
         />
         <div>나이: {age}</div>
-        <div>보호소: {careName}</div>
-        <div>보호소 주소: {careAddress}</div>
-        <div>보호소 코드: {careCode}</div>
-        <div>보호소 전화번호: {officeTel}</div>
         <div>색: {colorCode}</div>
         <div>종: {kindCode}</div>
         <div>성별: {sexCode}</div>
         <div>몸무게: {weight}</div>
-        <div>desertionNo: {desertionNo}</div>
+        <div>유기번호: {desertionNo}</div>
         <div>발견 장소: {happenPlace}</div>
         <div>발견 날짜: {happenDate}</div>
         <div>특이 사항: {specialMark}</div>
         <div>현재 상태: {processState}</div>
         <div>공고 시작일: {noticeStartDate}</div>
         <div>공고 종료일: {noticeEndDate}</div>
+        <div>보호소: {careName}</div>
+        <div>보호소 주소: {careAddress}</div>
+        <div>보호소 코드: {careCode}</div>
+        <div>보호소 전화번호: {officeTel}</div>
       </div>
     </>
   );
