@@ -1,6 +1,9 @@
+/* eslint no-underscore-dangle: "warn" */
+
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useLocation, Link, useNavigate } from 'react-router-dom';
+// import { useLocation, Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 // import { useLocation } from 'react-router-dom';
 
 function LostDetail() {
@@ -11,27 +14,41 @@ function LostDetail() {
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
+  const checkId = () => {
+    if (userInfo._id === lostList.userId) {
+      return true;
+    }
+    return false;
+  };
   async function handleClickDelete() {
     const navigate = useNavigate;
-    if (
-      window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
-    ) {
-      const { data } = await axios(
-        `http://localhost:5000/api/lost/delete/${locationId}`,
-        {
+    if (checkId()) {
+      if (
+        window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
+      ) {
+        await axios(`http://localhost:5000/api/lost/delete/${locationId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
           },
-        },
-      );
-      navigate('/lost/list');
-
-      console.log(data);
-      return data;
+        });
+        navigate('/lost/list');
+      }
+    } else {
+      alert('본인이 작성한 게시물만 삭제할 수 있습니다.');
+      return false;
     }
     return false;
   }
+  const handleClickEdit = () => {
+    // const navigate = useNavigate();
+    if (checkId()) {
+      // navigate('edit');
+      window.location.href = `${locationId}/edit`;
+    } else {
+      alert('본인이 작성한 게시물만 수정할 수 있습니다.');
+    }
+  };
   const getUserInfo = async () => {
     setIsLoading(true);
     try {
@@ -44,8 +61,8 @@ function LostDetail() {
           },
         },
       );
-      await setUserInfo(data);
 
+      await setUserInfo(data);
       console.log(userInfo);
     } catch (error) {
       console.error(error);
@@ -53,7 +70,7 @@ function LostDetail() {
       setIsLoading(false);
     }
   };
-  async function getLost() {
+  const getLost = async () => {
     const { data } = await axios(
       `http://localhost:5000/api/lost/${locationId}`,
       {
@@ -63,17 +80,17 @@ function LostDetail() {
         },
       },
     );
-    console.log(data);
-    return data;
-  }
+    setLostList(data);
+    console.log(lostList);
+  };
 
   useEffect(() => {
-    const getLostFunc = async () => {
-      setLostList(await getLost());
+    const asyncFn = async () => {
+      await getLost();
+      await getUserInfo();
     };
-    getLostFunc();
-    getUserInfo();
-    console.log(locationId);
+
+    asyncFn().then();
   }, []);
 
   const { lostDate, address, animalName, detail, processState, image } =
@@ -85,8 +102,9 @@ function LostDetail() {
         삭제
       </button>
 
-      <button type="button">
-        <Link to="edit">수정</Link>
+      <button type="button" onClick={handleClickEdit}>
+        {/* <Link to="edit">수정</Link> */}
+        수정
       </button>
       <div>
         <img
