@@ -4,6 +4,7 @@ import axios from 'axios';
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
 import LostPostMap from './LostPostMap';
+import Loading from '../../_layout/loading/Loading';
 
 export default function InputData() {
   const [animalName, setAnimalName] = useState();
@@ -75,137 +76,120 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
+    if (!animalName || !lostDate || !addressName || !detail || !image) {
+      alert('빈칸을 작성해주세요.');
+      return;
+    }
+
     saveImage();
-    axios({
-      url: 'http://localhost:5000/api/lost/post',
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: `Bearer ${sessionStorage.getItem('token')}`,
-      },
-      data: {
-        animalName,
-        lostDate,
-        address: addressName,
-        detail,
-        image: image.name,
-        processState: 'lost',
-        latitude: address.lat,
-        longitude: address.lng,
-        radius,
-      },
-    })
-      .then(console.log('등록 성공'))
-      .catch((error) => console.log(error));
+    setIsLoading(true);
+    try {
+      setIsLoading(false);
+
+      axios({
+        url: 'http://localhost:5000/api/lost/post',
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        data: {
+          animalName,
+          lostDate,
+          address: addressName,
+          detail,
+          image: image.name,
+          processState: 'lost',
+          latitude: address.lat,
+          longitude: address.lng,
+          radius,
+        },
+      }).then(() => {
+        console.log('등록 성공');
+        alert('분실 등록이 성공적으로 완료되었습니다.');
+      });
+    } catch (error) {
+      console.log(error);
+    }
     console.log(addressName);
-
-    // axios 활용한 분실등록 API
-    // if (!animalName || !lostDate || !addressName || !detail) {
-    //   alert('빈칸을 작성해주세요.');
-    //   return;
-    // }
-
-    // try {
-    //   await axios({
-    //     url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/lost/post}`,
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json; charset=utf-8',
-    //       authorization: `Bearer ${sessionStorage.getItem('token')}`,
-    //     },
-    //     data: {
-    //       animalName,
-    //       lostDate,
-    //       address: addressName,
-    //       detail,
-    //       image: 'ss',
-    //       processState: 'lost',
-    //       latitude: address.lat,
-    //       longitude: address.lng,
-    //     },
-    //   });
-    //   alert('분실 등록이 되었습니다.');
-    //   return;
-    // } catch (error) {
-    //   alert(error.response.data.reason);
-    // }
   };
 
   useEffect(() => {
     getUserInfo();
   }, []);
 
-  if (isLoading) return <div>로딩중...</div>;
-
   return (
-    <form>
-      <div>
-        반려 동물 이름 :
-        <input
-          name="반려 동물 이름"
-          value={animalName}
-          type="string"
-          onChange={handleChangeAnimalName}
-        />
-      </div>
-      <div>
-        품종 :
-        <input
-          type="text"
-          list="animalSpecies"
-          value={animalSpecies}
-          onChange={handleAnimalSpecies}
-        />
-      </div>
-      <datalist id="animalSpecies">
-        <option value="믹스견">믹스견</option>
-        <option value="푸들">푸들</option>
-        <option value="비숑">비숑</option>
-      </datalist>
-      <div>
-        실종 날짜 :
-        <input type="date" value={lostDate} onChange={handleLostDate} />
-      </div>
-      <div>
-        실종 장소 :
-        <ModalButton
-          buttonName="지도 열기"
-          title="지도"
-          content={
-            <LostPostMap
-              address={address}
-              setAddress={setAddress}
-              addressName={addressName}
-              setAddressName={setAddressName}
-            />
-          }
-        />
-        {addressName}
-      </div>
-      <div>
-        보호자 연락처1 :
-        <input type="tel" value={userInfo.phoneNumber} readOnly disabled />
-      </div>
-      <div>
-        보호자 연락처2 :
-        <input
-          type="phoneNumber"
-          value={phoneNumber2}
-          onChange={handlePhoneNumber2}
-          placeholder="010-1234-5678"
-        />
-      </div>
-      <div>
-        특이 사항 <input type="text" value={detail} onChange={handleDetail} />
-      </div>
-      <div>
-        연락받을 반경 선택(km)
-        <input type="number" value={radius} onChange={handleRadius} />
-      </div>
-      <PostImg image={image} setImage={setImage} />
-      <button type="submit" onClick={onSubmit}>
-        등록하기
-      </button>
-    </form>
+    <div>
+      {isLoading ? <Loading /> : null}
+      <form>
+        <div>
+          반려 동물 이름 :
+          <input
+            name="반려 동물 이름"
+            value={animalName}
+            type="string"
+            onChange={handleChangeAnimalName}
+          />
+        </div>
+        <div>
+          품종 :
+          <input
+            type="text"
+            list="animalSpecies"
+            value={animalSpecies}
+            onChange={handleAnimalSpecies}
+          />
+        </div>
+        <datalist id="animalSpecies">
+          <option value="믹스견">믹스견</option>
+          <option value="푸들">푸들</option>
+          <option value="비숑">비숑</option>
+        </datalist>
+        <div>
+          실종 날짜 :
+          <input type="date" value={lostDate} onChange={handleLostDate} />
+        </div>
+        <div>
+          실종 장소 :
+          <ModalButton
+            buttonName="지도 열기"
+            title="지도"
+            content={
+              <LostPostMap
+                address={address}
+                setAddress={setAddress}
+                addressName={addressName}
+                setAddressName={setAddressName}
+              />
+            }
+          />
+          {addressName}
+        </div>
+        <div>
+          보호자 연락처1 :
+          <input type="tel" value={userInfo.phoneNumber} readOnly disabled />
+        </div>
+        <div>
+          보호자 연락처2 :
+          <input
+            type="phoneNumber"
+            value={phoneNumber2}
+            onChange={handlePhoneNumber2}
+            placeholder="010-1234-5678"
+          />
+        </div>
+        <div>
+          특이 사항 <input type="text" value={detail} onChange={handleDetail} />
+        </div>
+        <div>
+          연락받을 반경 선택(km)
+          <input type="number" value={radius} onChange={handleRadius} />
+        </div>
+        <PostImg image={image} setImage={setImage} />
+        <button type="submit" onClick={onSubmit}>
+          등록하기
+        </button>
+      </form>
+    </div>
   );
 }

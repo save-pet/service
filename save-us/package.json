@@ -19,6 +19,7 @@
     "react-geocode": "^0.2.3",
     "react-icons": "^4.4.0",
     "react-kakao-maps-sdk": "^1.1.1",
+    "react-loading": "^2.0.3",
     "react-modal": "^3.15.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
