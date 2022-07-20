@@ -87,7 +87,7 @@ export default function InputData() {
       setIsLoading(false);
 
       axios({
-        url: 'http://localhost:5000/api/lost/post',
+        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/post`,
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

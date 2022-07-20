@@ -2,7 +2,8 @@
 
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+// import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 
@@ -21,18 +22,21 @@ function LostDetail() {
     return false;
   };
   async function handleClickDelete() {
-    const navigate = useNavigate;
+    // const navigate = useNavigate;
     if (checkId()) {
       if (
         window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
       ) {
-        await axios(`http://localhost:5000/api/lost/delete/${locationId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
+        await axios(
+          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${locationId}`,
+          {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
           },
-        });
-        navigate('/lost/list');
+        ).then((window.location.href = '/lost/list'));
+        // navigate('/lost/list');
       }
     } else {
       alert('본인이 작성한 게시물만 삭제할 수 있습니다.');
@@ -72,7 +76,7 @@ function LostDetail() {
   };
   const getLost = async () => {
     const { data } = await axios(
-      `http://localhost:5000/api/lost/${locationId}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/${locationId}`,
       {
         method: 'GET',
         headers: {
