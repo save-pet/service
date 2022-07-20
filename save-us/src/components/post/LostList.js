@@ -33,33 +33,32 @@ export default function LostList() {
           const { shortId, animalName, detail, lostDate, address, image } =
             rescue;
           return (
-            <div className="flex flex-col items-center bg-white rounded-lg border shadow-md md:flex-row md:max-w-xl">
-              <div>
-                <img
-                  src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
-                  alt="lost animal"
-                  className="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
-                />
-              </div>
-              <div className="p-5">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                  이름 : {animalName}
-                </h5>
-                <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
-                  분실 일시: {lostDate}
-                </p>
-                <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
-                  분실 장소: {address}
-                </p>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                  특징: {detail}
-                </p>
-                <div
-                  key={shortId}
-                  className="inline-flex items-center py-2 px-3 text-sm font-bold text-center bg-[#ffa000]  hover:text-gray-700 text-white rounded-lg"
-                >
-                  <Link to={`/lost/${shortId}`}>상세보기</Link>
-                </div>
+            <div className="inline-flex flex-wrap justify-center p-5 gap-5">
+              <div
+                key={shortId}
+                className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 cursor-pointer m-auto"
+              >
+                <Link to={`/lost/${shortId}`} className="w-full block h-full">
+                  <img
+                    src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
+                    alt="lost animal"
+                    className="max-h-64 w-full object-cover"
+                  />
+                  <div className="m-4">
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                      {animalName}
+                    </h5>
+                    <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
+                      분실 일시: {lostDate}
+                    </p>
+                    <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
+                      분실 장소: {address}
+                    </p>
+                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                      특징: {detail}
+                    </p>
+                  </div>
+                </Link>
               </div>
             </div>
           );
