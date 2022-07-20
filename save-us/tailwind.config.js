@@ -3,8 +3,13 @@ module.exports = {
   theme: {
     extend: {
       spacing: {
-        '128': '32rem',
-      }
+        128: '32rem',
+      },
+      colors: {
+        yellow: '#ffd149',
+        orange: '#ffa000',
+        brown: '#c67100',
+      },
     },
   },
   plugins: [],

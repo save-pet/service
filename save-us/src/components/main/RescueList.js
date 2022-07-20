@@ -70,19 +70,43 @@ function RescueList() {
   }
   return (
     <>
-      <h2>구조 리스트</h2>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-around',
-          alignItems: 'center',
-          height: '50px',
-        }}
-      >
-        <div />
+      <p className="text-2xl">구조 리스트</p>
+      <div className="flex justify-around items-center h-12">
+        <div>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              className="checkbox-input"
+              name="animal"
+              value="개"
+              onChange={checkHandler}
+            />
+            개
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              className="checkbox-input"
+              name="animal"
+              value="고양이"
+              onChange={checkHandler}
+            />
+            고양이
+          </label>
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              className="checkbox-input"
+              name="animal"
+              value="기타"
+              onChange={checkHandler}
+            />
+            기타
+          </label>
+        </div>
         <button
           type="button"
-          style={{ height: '40px' }}
+          className="btn-light"
           onClick={() => {
             if (toggleList) {
               navigate('/lostMap');
@@ -95,39 +119,16 @@ function RescueList() {
           {toggleList ? '지도 보기' : '리스트 보기'}
         </button>
         <div>
-          <label>
-            <input
-              type="checkbox"
-              name="animal"
-              value="개"
-              onChange={checkHandler}
-            />
-            개
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="animal"
-              value="고양이"
-              onChange={checkHandler}
-            />
-            고양이
-          </label>
-          <label>
-            <input
-              type="checkbox"
-              name="animal"
-              value="기타"
-              onChange={checkHandler}
-            />
-            기타
-          </label>
-        </div>
-        <div>
-          <select onChange={handleDropdown}>
-            <option value="15">15개</option>
-            <option value="30">30개</option>
-            <option value="50">50개</option>
+          <select className="dropdown" onChange={handleDropdown}>
+            <option className="hover:bg-yellow" value="15">
+              15개씩 보기
+            </option>
+            <option className="hover:bg-yellow" value="30">
+              30개씩 보기
+            </option>
+            <option className="hover:bg-yellow" value="60">
+              60개씩 보기
+            </option>
           </select>
         </div>
       </div>
