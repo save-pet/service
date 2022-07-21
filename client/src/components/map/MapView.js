@@ -3,6 +3,7 @@ import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { SpinningCircles } from 'react-loading-icons';
 import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
@@ -86,7 +87,19 @@ function MapView() {
     errMsg: null,
     isLoading: true,
   });
-  useEffect(() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const getRescueData = async () => {
+    setIsLoading(true);
+    await axios({
+      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
+      method: 'GET',
+    }).then((res) => {
+      setMakeRescueList(res.data);
+      setIsLoading(false);
+      console.log(res.data);
+    });
+  };
+  const findMyLocation = () => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
@@ -116,21 +129,26 @@ function MapView() {
         isLoading: false,
       }));
     }
-  }, []);
-
-  const getRescueData = async () => {
-    await axios({
-      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
-      method: 'GET',
-    }).then((res) => {
-      setMakeRescueList(res.data);
-    });
   };
-  getRescueData();
+  useEffect(() => {
+    const asyncGetData = async () => {
+      await getRescueData();
+    };
+    findMyLocation();
+    asyncGetData().then();
+    console.log(state);
+
+    // setLoadingMyLocation(true);
+  }, []);
 
   // const rescueList = getInfoWindowData(_data);
   const rescueList = getInfoWindowData(makeRescueList);
-
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center	 w-100 h-screen">
+        <SpinningCircles fill="#EDA900" stroke="#997000" />
+      </div>
+    );
   return (
     <>
       <p className="mx-2 my-1 text-sm text-gray-400">
@@ -153,6 +171,14 @@ function MapView() {
           className="w-full h-[80vh]"
           level={3} // 지도의 확대 레벨
         >
+          {!state.isLoading && (
+            <MapMarker position={state.center}>
+              <div style={{ padding: '5px', color: '#000' }}>
+                {state.errMsg ? state.errMsg : '현재 위치'}
+              </div>
+            </MapMarker>
+          )}
+
           {rescueList.map((rescue) => (
             <div key={rescueList.desertionNo}>
               <EventMarkerContainer
