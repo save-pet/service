@@ -85,7 +85,6 @@ function LostDetail() {
       },
     );
     setLostList(data);
-    console.log(lostList);
   };
 
   useEffect(() => {
@@ -97,7 +96,13 @@ function LostDetail() {
     asyncFn().then();
   }, []);
 
-  const { lostDate, address, animalName, detail, processState, image } =
+  useEffect(() => {
+    const asyncFn = async () => {
+      await getLost();
+    };
+    asyncFn();
+  }, [lostList]);
+  const { lostDate, address, animalName, detail, processState, image, radius } =
     lostList;
   if (isLoading) return <div>로딩중...</div>;
   return (
@@ -121,7 +126,7 @@ function LostDetail() {
           <div className="border-y w-full mb-40">
             <div className="divide divide-y divide-gray-200">
               <div className="grid grid-cols-3 p-4">
-                <div className="font-bold col-sapn-1">접수일</div>
+                <div className="font-bold col-sapn-1">실종일</div>
                 <div>{lostDate}</div>
               </div>
               <div className="grid grid-cols-3 p-4">
@@ -131,6 +136,10 @@ function LostDetail() {
               <div className="grid grid-cols-3 p-4">
                 <div className="font-bold col-sapn-1">특이 사항</div>
                 <div>{detail}</div>
+              </div>
+              <div className="grid grid-cols-3 p-4">
+                <div className="font-bold col-sapn-1">연락받을 반경(km)</div>
+                <div>{radius}</div>
               </div>
               <div className="grid grid-cols-3 p-4">
                 <div className="font-bold col-sapn-1">현재 상태</div>

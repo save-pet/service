@@ -27,7 +27,7 @@ function FindPlaceName({ position, setAddressName }) {
   }, [position]);
   setAddressName(data);
   return (
-    { data } && (
+    data && (
       <p className="mx-2 my-1 text-sm text-[#ffa000]">
         반려동물을 잃어버린 장소는 {data} 부근입니다.
       </p>
