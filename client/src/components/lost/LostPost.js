@@ -8,7 +8,7 @@ import Loading from '../../_layout/loading/Loading';
 
 export default function InputData() {
   const BTN_CLASS =
-    'ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg';
+    'ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:font-extrabold text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg';
   const BTN_CLASS_DISABLED =
     'ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg';
 

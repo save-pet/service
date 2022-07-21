@@ -1,5 +1,4 @@
-import { React, useState, useEffect } from 'react';
-// import { LockClosedIcon } from '@heroicons/react/solid'
+import { React, useState } from 'react';
 import axios from 'axios';
 
 function RegisterContent() {
@@ -28,23 +27,6 @@ function RegisterContent() {
     });
   };
 
-  useEffect(() => {
-    if (inputPhoneNumber === 11) {
-      setValues({
-        inputPhoneNumber: inputPhoneNumber.replace(
-          /(\d{3})(\d{4})(\d{4})/,
-          '$1-$2-$3',
-        ),
-      });
-    } else if (inputPhoneNumber === 13) {
-      setValues({
-        inputPhoneNumber: inputPhoneNumber
-          .replace(/-/g, '')
-          .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
-      });
-    }
-  }, [inputPhoneNumber]);
-
   const onClickRegister = async (event) => {
     event.preventDefault();
     if (inputId.length <= 4 && inputPassword <= 4) {
@@ -53,6 +35,10 @@ function RegisterContent() {
     }
     if (!inputName || !confirmPassword || !inputPhoneNumber) {
       alert('빈칸을 작성해주세요.');
+      return;
+    }
+    if(inputPhoneNumber !== 11){
+      alert('번호를 양식에 맞추어 작성해주세요.')
       return;
     }
     if (inputPassword !== confirmPassword) {
@@ -144,7 +130,7 @@ function RegisterContent() {
                 전화번호
                 <input
                   type="text"
-                  placeholder="010-0000-0000"
+                  placeholder="-없이 번호만 입력해주세요"
                   name="inputPhoneNumber"
                   value={inputPhoneNumber}
                   onChange={handleNumber}
