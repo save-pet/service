@@ -8,7 +8,6 @@ import Loading from '../../_layout/loading/Loading';
 
 export default function InputData() {
   const [animalName, setAnimalName] = useState();
-  const [animalSpecies, setAnimalSpecies] = useState('');
   const [lostDate, setLostDate] = useState('');
   const [phoneNumber2, setPhoneNumber2] = useState();
   const [detail, setDetail] = useState('');
@@ -22,8 +21,7 @@ export default function InputData() {
 
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
-  const handleAnimalSpecies = ({ target: { value } }) =>
-    setAnimalSpecies(value);
+
   const handleLostDate = ({ target: { value } }) => setLostDate(value);
   const handlePhoneNumber2 = ({ target: { value } }) => setPhoneNumber2(value);
   const handleDetail = ({ target: { value } }) => setDetail(value);
@@ -119,74 +117,126 @@ export default function InputData() {
   }, []);
 
   return (
-    <div>
+    <div className="flex flex-row justify-center z-0">
       {isLoading ? <Loading /> : null}
-      <form>
-        <div>
-          반려 동물 이름 :
-          <input
-            name="반려 동물 이름"
-            value={animalName}
-            type="string"
-            onChange={handleChangeAnimalName}
-          />
+      <form className="mt-8">
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              반려 동물 이름
+            </span>
+            <input
+              name="반려 동물 이름"
+              value={animalName}
+              type="string"
+              onChange={handleChangeAnimalName}
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <div>
-          품종 :
-          <input
-            type="text"
-            list="animalSpecies"
-            value={animalSpecies}
-            onChange={handleAnimalSpecies}
-          />
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              실종 날짜
+            </span>
+
+            <input
+              type="date"
+              value={lostDate}
+              onChange={handleLostDate}
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <datalist id="animalSpecies">
-          <option value="믹스견">믹스견</option>
-          <option value="푸들">푸들</option>
-          <option value="비숑">비숑</option>
-        </datalist>
-        <div>
-          실종 날짜 :
-          <input type="date" value={lostDate} onChange={handleLostDate} />
-        </div>
-        <div>
-          실종 장소 :
-          <ModalButton
-            buttonName="지도 열기"
-            title="지도"
-            content={
-              <LostPostMap
-                address={address}
-                setAddress={setAddress}
-                addressName={addressName}
-                setAddressName={setAddressName}
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              실종 장소
+            </span>
+            <button
+              type="button"
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            >
+              <ModalButton
+                buttonName="지도 열기"
+                title="지도"
+                content={
+                  <LostPostMap
+                    address={address}
+                    setAddress={setAddress}
+                    addressName={addressName}
+                    setAddressName={setAddressName}
+                  />
+                }
               />
-            }
-          />
-          {addressName}
+            </button>
+
+            {addressName}
+          </div>
         </div>
-        <div>
-          보호자 연락처1 :
-          <input type="tel" value={userInfo.phoneNumber} readOnly disabled />
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              보호자 연락처1
+            </span>
+
+            <input
+              type="tel"
+              value={userInfo.phoneNumber}
+              readOnly
+              disabled
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <div>
-          보호자 연락처2 :
-          <input
-            type="phoneNumber"
-            value={phoneNumber2}
-            onChange={handlePhoneNumber2}
-            placeholder="010-1234-5678"
-          />
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              보호자 연락처2
+            </span>
+            <input
+              type="phoneNumber"
+              value={phoneNumber2}
+              onChange={handlePhoneNumber2}
+              placeholder="010-1234-5678"
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <div>
-          특이 사항 <input type="text" value={detail} onChange={handleDetail} />
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              특이 사항
+            </span>
+            <input
+              type="text"
+              value={detail}
+              onChange={handleDetail}
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <div>
-          연락받을 반경 선택(km)
-          <input type="number" value={radius} onChange={handleRadius} />
+        <div className="flex flex-col mb-2">
+          <div className="flex relative">
+            <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
+              연락받을 반경(km)
+            </span>
+            <input
+              type="number"
+              value={radius}
+              onChange={handleRadius}
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+            />
+          </div>
         </div>
-        <PostImg image={image} setImage={setImage} />
-        <button type="submit" onClick={onSubmit}>
+        <div className="flex flex-col mb-2">
+          <PostImg image={image} setImage={setImage} />
+        </div>
+        <button
+          type="submit"
+          onClick={onSubmit}
+          className="ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+        >
           등록하기
         </button>
       </form>
