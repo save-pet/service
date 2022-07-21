@@ -26,7 +26,6 @@ function LostDetail() {
       setLostList(await getLost());
     };
     getLostFunc();
-    console.log(locationId);
   }, []);
 
   const {

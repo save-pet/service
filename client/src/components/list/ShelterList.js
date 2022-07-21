@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import RenderList from '../main/RenderList';
+import RenderList from './RenderList';
 
 export default function ShelterList() {
   const [shelterList, setShelterList] = useState([]);

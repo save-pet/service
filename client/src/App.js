@@ -2,19 +2,19 @@ import { React } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './_layout/header/Header';
 import HamburgerMenu from './_layout/header/HamburgerMenu';
-import RescueList from './components/main/RescueList';
+import RescueList from './components/list/RescueList';
 import MapView from './components/map/MapView';
 import EditInfo from './components/mypage/EditInfo';
 import UserLostList from './components/mypage/UserLostList';
 import Leave from './components/mypage/Leave';
 import ManageUser from './components/admin/ManageUser';
 import AdminLostList from './components/admin/AdminLostList';
-import LostPost from './components/post/LostPost';
-import LostDetail from './components/post/LostDetail';
-import LostList from './components/post/LostList';
-import ShelterList from './components/shelter/ShelterList';
-import RescueDetail from './components/map/RescueDetail';
-import LostEdit from './components/post/LostEdit';
+import LostPost from './components/lost/LostPost';
+import LostDetail from './components/lost/LostDetail';
+import LostList from './components/list/LostList';
+import ShelterList from './components/list/ShelterList';
+import RescueDetail from './components/list/RescueDetail';
+import LostEdit from './components/lost/LostEdit';
 
 function App() {
   return (

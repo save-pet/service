@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LOGO from './MainLogo.png';
 import ModalButton from '../../components/modal/ModalButton';
-import LoginContent from '../../components/main/LoginContent';
-import RegisterContent from '../../components/main/RegisterContent';
+import LoginContent from './LoginContent';
+import RegisterContent from './RegisterContent';
 
 function Header() {
   const navigate = useNavigate();

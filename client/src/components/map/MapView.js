@@ -3,7 +3,7 @@ import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Map2ListToggle from '../main/Map2ListToggle';
+import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
   const latest = data.noticeStartDate;

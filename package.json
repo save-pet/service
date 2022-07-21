@@ -1,11 +1,11 @@
 {
   "scripts": {
     "server": "cd server && nodemon src/app",
-    "client": "cd save-us && yarn start",
+    "client": "cd client && yarn start",
     "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "root_setup": "npm install",
     "server_setup": "cd server && npm install",
-    "client_setup": "cd save-us && npm install",
+    "client_setup": "cd client && npm install",
     "setup": "concurrently --kill-others-on-fail \"yarn root_setup\" \"yarn server_setup\" \"yarn client_setup\""
   },
   "private": "true",
@@ -18,6 +18,8 @@
     "concurrently": "^7.2.2",
     "express": "^4.18.1",
     "nodemon": "^2.0.19",
+    "svgo": "^2.8.0",
+    "uuid": "^8.3.2",
     "yarn": "^1.22.19"
   }
 }

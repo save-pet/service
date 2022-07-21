@@ -1,9 +1,7 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import { React, useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderList from './RenderList';
-import Map2ListToggle from './Map2ListToggle';
-// import useFetch from './useFetch';
+import Map2ListToggle from '../map/Map2ListToggle';
 
 function RescueList() {
   const [rescueList, setRescueList] = useState([]);
@@ -77,30 +75,33 @@ function RescueList() {
       <div className="flex flex-col items-center">
         <div className="flex w-screen justify-between h-12">
           <div className="self-end pl-5">
-            <label className="checkbox-label">
+            <label className="checkbox-label" htmlFor="dog-checkbox">
               <input
                 type="checkbox"
                 className="checkbox-input"
+                id="dog-checkbox"
                 name="animal"
                 value="개"
                 onChange={checkHandler}
               />
               개
             </label>
-            <label className="checkbox-label">
+            <label className="checkbox-label" htmlFor="cat-checkbox">
               <input
                 type="checkbox"
                 className="checkbox-input"
+                id="cat-checkbox"
                 name="animal"
                 value="고양이"
                 onChange={checkHandler}
               />
               고양이
             </label>
-            <label className="checkbox-label">
+            <label className="checkbox-label" htmlFor="others-checkbox">
               <input
                 type="checkbox"
                 className="checkbox-input"
+                id="others-checkbox"
                 name="animal"
                 value="기타"
                 onChange={checkHandler}
