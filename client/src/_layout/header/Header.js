@@ -56,7 +56,7 @@ function Header() {
         />
       </Link>
       <div className="flex justify-end">
-        <div className="px-2 hover:text-brown">
+        <div className="px-2 font-bold text-[#c67100] hover:font-black">
           {didLogin ? (
             <button type="button" onClick={handleLogout}>
               로그아웃
@@ -70,7 +70,7 @@ function Header() {
           )}
         </div>
 
-        <div className="pr-4 pl-1 hover:text-brown">
+        <div className="pr-4 pl-1 font-bold text-[#c67100] hover:font-black">
           {didLogin ? (
             <button type="button" onClick={handleMypage}>
               마이페이지

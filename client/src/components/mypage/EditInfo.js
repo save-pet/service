@@ -56,7 +56,7 @@ function EditInfo() {
       );
       setUserInfo(data);
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.reason);
     } finally {
       setIsLoading(false);
     }
