@@ -9,7 +9,9 @@ const { kakao } = window;
 
 const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
 
+//
 function FindLocation({ address, setAddress, setAddressName }) {
+  console.log(address);
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
