@@ -27,7 +27,7 @@
 }
 .modal > section > header {
   position: relative;
-  padding: 16px 64px 16px 16px;
+  padding: 16px 50px;
   background-color: #f1f1f1;
   font-weight: 700;
 }
@@ -43,7 +43,6 @@
   background-color: transparent;
 }
 .modal > section > main {
-  padding: 16px;
   border-bottom: 1px solid #dee2e6;
   border-top: 1px solid #dee2e6;
 }

@@ -7,7 +7,7 @@ function ModalWindow({ open, close, header, content }) {
     <div className={open ? 'openModal modal' : 'modal'}>
       {open && (
         <section>
-          <header>
+          <header className="text-lg text-gray-900">
             {header}
             <button type="button" className="close" onClick={close}>
               &times;
