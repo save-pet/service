@@ -27,7 +27,7 @@ function UserLostList() {
       );
       setmyLostList(data);
     } catch (error) {
-      console.error(error);
+      alert(error.response.data.reason);
     } finally {
       setIsLoading(false);
     }
@@ -47,7 +47,7 @@ function UserLostList() {
       setmyLostList(myLostList.filter((item) => item.shortId !== shortId));
       alert('게시글이 삭제 되었습니다.');
     } catch (error) {
-      console.log(error);
+      alert(error.response.data.reason);
     }
   };
 
