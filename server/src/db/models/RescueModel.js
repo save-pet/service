@@ -36,14 +36,14 @@ export class RescueModel {
     return rescuesInRange;
   }
 
-  async getInRangeByKind(page, perPage, kindNum) {
+  async getInRangeByKind(page, perPage, kindCd) {
     let rescuesInRange ;
     if (page === 1){
-      rescuesInRange = await Rescue.find({}).limit(perPage); 
+      rescuesInRange = await Rescue.find({'kindCodeByNum' : kindCd}).limit(perPage); 
     } else {
-      const rescuesInPreRange = await Rescue.find({'kindCodeByNum' : kindNum}).limit(perPage * (page - 1));
+      const rescuesInPreRange = await Rescue.find({'kindCodeByNum' : kindCd}).limit(perPage * (page - 1));
       const lastId = rescuesInPreRange[perPage * (page - 1) -1]._id;
-      rescuesInRange = await Rescue.find({ '_id': {'$gt': lastId}, 'kindCodeByNum' : kindNum})
+      rescuesInRange = await Rescue.find({ '_id': {'$gt': lastId}, 'kindCodeByNum' : kindCd})
         .limit(perPage);
     }
     return rescuesInRange;

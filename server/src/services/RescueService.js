@@ -34,7 +34,7 @@ class RescueService {
 
     // 4-1. 특정 페이지 위치한 개체별 보호 동물 정보 조회 (pagination)
     async getRangeRescuesByKind(page, perPage, kindCd){
-        const rangedRescuesInfoByKind = await this.rescueModel.getRangeRescuesByKind(page, perPage, kindCd);
+        const rangedRescuesInfoByKind = await this.rescueModel.getInRangeByKind(page, perPage, kindCd);
         return rangedRescuesInfoByKind;
     }
 

@@ -46,12 +46,13 @@ rescueRouter.get('/rescues/:kindCode', async (req, res, next) => {
   try {
     const page = Number(req.query.page) || 1;
     const perPage = Number(req.query.perPage) || 12;
-    const kindCode = req.params.kindCode;
+    const kindCode = Number(req.params.kindCode);
 
     const [total, posts] = await Promise.all([
-      await rescueService.countRescueByKind(),
+      await rescueService.countRescueByKind(kindCode),
       await rescueService.getRangeRescuesByKind(page, perPage, kindCode)
     ]);
+    
     const totalPage = Math.ceil(total / perPage);
     
     res.status(200).json({ posts, page, perPage, totalPage, total });
