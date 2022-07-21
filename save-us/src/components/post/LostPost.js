@@ -1,8 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-import { useNavigate } from 'react-router-dom';
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
 import LostPostMap from './LostPostMap';
@@ -81,7 +79,6 @@ export default function InputData() {
       });
   };
 
-  const navigate = useNavigate();
   const onSubmit = async (event) => {
     event.preventDefault();
     console.log(event.target.innerText);
