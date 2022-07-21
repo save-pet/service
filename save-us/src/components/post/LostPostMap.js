@@ -26,6 +26,7 @@ function FindLocation({ address, setAddress, setAddressName }) {
     event.preventDefault();
 
     setAddress(position);
+    alert('위치 등록이 완료되었습니다. 지도를 닫아주세요.');
     console.log(address);
   };
   useEffect(() => {
@@ -120,7 +121,11 @@ function FindLocation({ address, setAddress, setAddressName }) {
       </Map>
 
       <FindPlaceName position={position} setAddressName={setAddressName} />
-      <button type="submit" onClick={handleClickSubmit}>
+      <button
+        className="btn-light border-1 border-gray-200"
+        type="submit"
+        onClick={handleClickSubmit}
+      >
         확인
       </button>
     </>

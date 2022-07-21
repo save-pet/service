@@ -46,7 +46,7 @@ function Header() {
   }, [didLogin]);
 
   return (
-    <header className="bg-yellow h-[15vh] flex justify-between sticky pt-[3vh] pb-[2vh] top-0">
+    <header className="bg-yellow h-[15vh] flex justify-between sticky pt-[2vh] pb-[1vh] top-0 z-50">
       <div className="w-[180px]" />
       <Link to="/" className="flex justify-center w-[150px]">
         <img
@@ -70,7 +70,7 @@ function Header() {
           )}
         </div>
 
-        <div className="px-2 hover:text-brown">
+        <div className="pr-4 pl-1 hover:text-brown">
           {didLogin ? (
             <button type="button" onClick={handleMypage}>
               마이페이지

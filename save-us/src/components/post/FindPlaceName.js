@@ -26,7 +26,13 @@ function FindPlaceName({ position, setAddressName }) {
     findLocationName(position);
   }, [position]);
   setAddressName(data);
-  return <p>반려동물을 잃어버린 장소는 {data} 부근 입니다.</p>;
+  return (
+    <p className="my-1">
+      반려동물을 잃어버린 장소는
+      <br />
+      {data} 부근 입니다.
+    </p>
+  );
 }
 
 FindPlaceName.propTypes = {

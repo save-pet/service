@@ -25,7 +25,7 @@ export default function RenderList({ list }) {
     return (
       <article
         key={_id}
-        className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 cursor-pointer m-auto"
+        className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 cursor-pointer m-3"
       >
         <Link to={`/rescue/${_id}`} className="w-full block h-full">
           <img
