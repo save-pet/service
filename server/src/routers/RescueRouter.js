@@ -16,7 +16,7 @@ rescueRouter.get('/', async (req, res, next) => {
   }
 });
 
-// 2. 페이지네이션 된 보호동물 리스트 조회 (페이지네이션 적용)
+// 2. 페이지네이션 된 보호동물 리스트 조회
 rescueRouter.get('/rescues', async (req, res, next) => {
   try {
 
@@ -40,6 +40,25 @@ rescueRouter.get('/rescues', async (req, res, next) => {
     next(error);
   }
   });
+
+// 2-1. 개체별 페이지네이션 된 보호동물 리스트 조회
+rescueRouter.get('/rescues/:kindCode', async (req, res, next) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const perPage = Number(req.query.perPage) || 12;
+    const kindCode = req.params.kindCode;
+
+    const [total, posts] = await Promise.all([
+      await rescueService.countRescueByKind(),
+      await rescueService.getRangeRescuesByKind(page, perPage, kindCode)
+    ]);
+    const totalPage = Math.ceil(total / perPage);
+    
+    res.status(200).json({ posts, page, perPage, totalPage, total });
+  } catch(error) {
+    next(error);
+  }
+})
 
 // 3. _id 이용 단일 보호 동물 조회
 rescueRouter.get('/:rescueId', async (req, res, next) => {

@@ -4,18 +4,22 @@ import { RescueSchema } from '../schemas/RescueSchema.js';
 const Rescue = mongoose.model('Rescue', RescueSchema);
 
 export class RescueModel {
-  // // 1. 유기동물 정보 저장 -> 필요없을듯
-
-  // 2. 전체 유기동물 목록 조회
+  // 1. 전체 유기동물 목록 조회
   async findAll() {
     const rescues = await Rescue.find({});    
     return rescues;
   }
 
-  // 3-1. 전체 유기동물 수 조회(SKU)
+  // 2-1. 전체 유기동물 수 조회(SKU)
   async countAll(){
     const rescueSKU = await Rescue.countDocuments({});
     return rescueSKU;
+  }
+
+  // 2-2. 개체별 유기동물 수 조회
+  async countAllByKind(kindCd){
+    const rescueByKind = await Rescue.countDocuments({'kindCodeByNum' : kindCd});
+    return rescueByKind;
   }
 
   // 3. 특정 범위(페이지)에 위치한 동물 정보 조회
@@ -27,6 +31,19 @@ export class RescueModel {
       const rescuesInPreRange = await Rescue.find({}).limit(perPage * (page - 1));
       const lastId = rescuesInPreRange[perPage * (page - 1) -1]._id;
       rescuesInRange = await Rescue.find({ '_id': {'$gt': lastId}})
+        .limit(perPage);
+    }
+    return rescuesInRange;
+  }
+
+  async getInRangeByKind(page, perPage, kindNum) {
+    let rescuesInRange ;
+    if (page === 1){
+      rescuesInRange = await Rescue.find({}).limit(perPage); 
+    } else {
+      const rescuesInPreRange = await Rescue.find({'kindCodeByNum' : kindNum}).limit(perPage * (page - 1));
+      const lastId = rescuesInPreRange[perPage * (page - 1) -1]._id;
+      rescuesInRange = await Rescue.find({ '_id': {'$gt': lastId}, 'kindCodeByNum' : kindNum})
         .limit(perPage);
     }
     return rescuesInRange;
