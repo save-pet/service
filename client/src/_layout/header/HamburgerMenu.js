@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { slide as Menu } from 'react-burger-menu';
-import MENU_ICON from './MenuIcon.png';
+import MENU_ICON from './Hamburger.png';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
