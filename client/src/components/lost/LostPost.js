@@ -33,7 +33,6 @@ export default function InputData() {
   const handlePhoneNumber2 = ({ target: { value } }) => setPhoneNumber2(value);
   const handleDetail = ({ target: { value } }) => setDetail(value);
   const handleRadius = ({ target: { value } }) => setRadius(value);
-
   const saveImage = async () => {
     const formData = new FormData();
     formData.append('image', image);
@@ -81,12 +80,16 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    console.log(event.target.innerText);
 
     if (!animalName || !radius || !addressName || !image || !lostDate) {
       alert('빈칸을 작성해주세요.');
       return;
     }
+    if (radius > 400 || radius < 1) {
+      alert('0부터 400까지의 숫자 중에 입력해주세요.');
+      return;
+    }
+
     setBtnText('등록중...');
     setIsLoading(true);
     setBtnDisabled(true);
@@ -240,10 +243,21 @@ export default function InputData() {
             </span>
             <input
               type="number"
+              min="0"
+              max="400"
               value={radius}
               onChange={handleRadius}
               className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
             />
+          </div>
+          <div className="flex flex-col mb-2">
+            <div className="flex relative justify-center">
+              <p className="mx-2 my-1 text-sm text-gray-400 text-start">
+                반경은 최소 0에서 최대 400까지 입력 가능합니다. <br />
+                서울 ~ 부산의 거리는 약 400km입니다. <br />
+                신중하게 반경을 작성해주세요.
+              </p>
+            </div>
           </div>
         </div>
         <div className="flex flex-col mb-2">
