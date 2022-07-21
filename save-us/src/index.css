@@ -32,20 +32,26 @@ code {
   .checkbox-input {
     @apply w-4 h-4 text-yellow accent-yellow bg-gray-100 rounded border-gray-300 focus:ring-orange dark:focus:ring-orange dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
   }
-  .btn-submit{
-    @apply py-2 px-4 mt-1 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg
+  .btn-submit {
+    @apply py-2 px-4 mt-1 bg-[#ffa000]  hover:text-gray-700 text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg;
   }
-  .input-content{
-    @apply text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-96 py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000] focus:border-transparent
+  .input-content {
+    @apply text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-96 py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000] focus:border-transparent;
   }
-  .input-title{
-    @apply text-center rounded-l-md flex-1 appearance-none border-t border-l border-b border-gray-300 w-32 py-2 font-semibold bg-white  text-gray-700 shadow-sm text-sm text-base 
+  .input-title {
+    @apply text-center rounded-l-md flex-1 appearance-none border-t border-l border-b border-gray-300 w-32 py-2 font-semibold bg-white  text-gray-700 shadow-sm text-sm text-base;
   }
-  .grid-head{
-    @apply grid grid-cols-8 p-4
+  .grid-head {
+    @apply grid grid-cols-8 p-4;
   }
-  .grid-content{
-    @apply font-bold
+  .grid-content {
+    @apply font-bold;
+  }
+  .modal-input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#c67100] focus:border-[#c67100] block w-full p-2.5;
+  }
+  .modal-label {
+    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
   }
 }
 
