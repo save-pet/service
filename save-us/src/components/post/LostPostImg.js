@@ -41,7 +41,7 @@ function PostImg({ setImage }) {
             file:rounded-full file:border-0
             file:text-sm file:font-semibold
             file:bg-[#ffffff] file:text-[#ffa000]
-            hover:file:bg-violet-100
+            hover:file:bg-[#ffd149]
           "
           />
           <div>
