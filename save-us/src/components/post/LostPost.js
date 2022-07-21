@@ -1,5 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
@@ -7,6 +8,11 @@ import LostPostMap from './LostPostMap';
 import Loading from '../../_layout/loading/Loading';
 
 export default function InputData() {
+  const BTN_CLASS =
+    'ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg';
+  const BTN_CLASS_DISABLED =
+    'ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg';
+
   const [animalName, setAnimalName] = useState();
   const [lostDate, setLostDate] = useState('');
   const [phoneNumber2, setPhoneNumber2] = useState();
@@ -15,10 +21,12 @@ export default function InputData() {
   const [addressName, setAddressName] = useState('');
   const [radius, setRadius] = useState();
   const [image, setImage] = useState();
+  const [btnText, setBtnText] = useState('등록하기');
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
-
+  const navigate = useNavigate();
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
 
@@ -74,13 +82,17 @@ export default function InputData() {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    if (!animalName || !lostDate || !addressName || !detail || !image) {
+    console.log(event.target.innerText);
+
+    if (!animalName || !radius || !addressName || !image || !lostDate) {
       alert('빈칸을 작성해주세요.');
       return;
     }
+    setBtnText('등록중...');
+    setIsLoading(true);
+    setBtnDisabled(true);
 
     saveImage();
-    setIsLoading(true);
     try {
       setIsLoading(false);
 
@@ -105,6 +117,7 @@ export default function InputData() {
       }).then(() => {
         console.log('등록 성공');
         alert('분실 등록이 성공적으로 완료되었습니다.');
+        navigate('/lost/list');
       });
     } catch (error) {
       console.log(error);
@@ -170,8 +183,13 @@ export default function InputData() {
                 }
               />
             </button>
-
-            {addressName}
+          </div>
+          <div className="flex relative">
+            {addressName && (
+              <p className="mx-2 my-1 text-sm text-[#ffa000] text-center">
+                반려동물을 잃어버린 장소는 {addressName} 부근입니다.
+              </p>
+            )}
           </div>
         </div>
         <div className="flex flex-col mb-2">
@@ -235,9 +253,10 @@ export default function InputData() {
         <button
           type="submit"
           onClick={onSubmit}
-          className="ml-80 py-2 px-4 mt-1 mb-10 bg-[#ffa000]  hover:bg-[#ffd149] text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+          disabled={btnDisabled}
+          className={btnDisabled ? BTN_CLASS_DISABLED : BTN_CLASS}
         >
-          등록하기
+          {btnText}
         </button>
       </form>
     </div>
