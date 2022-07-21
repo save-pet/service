@@ -28,12 +28,12 @@ export default function LostList() {
           회원들이 등록한 분실 신고 목록입니다.
         </p>
       </div>
-      <div className="grid gap-4 grid-cols-3 mx-4">
+      <div className="grid grid-cols-3 mx-4">
         {lostList.map((rescue) => {
           const { shortId, animalName, detail, lostDate, address, image } =
             rescue;
           return (
-            <div className="inline-flex flex-wrap justify-center p-5 gap-5">
+            <div className="inline-flex flex-wrap justify-center p-4 gap-5">
               <div
                 key={shortId}
                 className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 cursor-pointer m-auto"

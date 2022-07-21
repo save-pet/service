@@ -1,8 +1,7 @@
-/*eslint-disable */
+/* eslint-disable react/prop-types */
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
-import { useNavigate, Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Map2ListToggle from '../main/Map2ListToggle';
 
@@ -19,28 +18,30 @@ function InfoWindowContent({ data }) {
   );
 
   return (
-    <InfoWindowDiv>
+    <div className="px-[20px] py-[15px] w-[220px] text-left">
       <div style={{ color: '#000' }}>
         <span className="notranslate">
           <ul>
             <li className="font-semibold">{data.careName}</li>
             <li className="text-xs text-gray-400">최근 공고 {diffDate}일 전</li>
-            <img src={data.imgUrl} className="w-[200px]"></img>
+            <img
+              src={data.imgUrl}
+              className="w-[200px]"
+              alt="latest update in this shelter"
+            />
           </ul>
         </span>
       </div>
-    </InfoWindowDiv>
+    </div>
   );
 }
 
 function getInfoWindowData(data) {
-  return data.map((obj) => {
-    return {
-      content: <InfoWindowContent data={obj}></InfoWindowContent>,
-      latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
-      id: obj.careCode,
-    };
-  });
+  return data.map((obj) => ({
+    content: <InfoWindowContent data={obj} />,
+    latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
+    id: obj.careCode,
+  }));
 }
 
 function EventMarkerContainer({ position, content, id }) {
@@ -76,7 +77,6 @@ function EventMarkerContainer({ position, content, id }) {
 }
 
 function MapView() {
-  const [toggleMap, setToggleMap] = useState(true);
   const [makeRescueList, setMakeRescueList] = useState([]);
   const [state, setState] = useState({
     center: {
@@ -86,7 +86,6 @@ function MapView() {
     errMsg: null,
     isLoading: true,
   });
-  const navigate = useNavigate();
   useEffect(() => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -154,8 +153,8 @@ function MapView() {
           className="w-full h-[80vh]"
           level={3} // 지도의 확대 레벨
         >
-          {rescueList.map((rescue, index) => (
-            <div key={index}>
+          {rescueList.map((rescue) => (
+            <div key={rescueList.desertionNo}>
               <EventMarkerContainer
                 key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
                 position={rescue.latlng}
@@ -171,10 +170,3 @@ function MapView() {
 }
 
 export default MapView;
-
-const InfoWindowDiv = styled.div`
-  padding: 15px 20px;
-  width: 220px;
-  text-align: left;
-  font-family: notosanskr, Malgun Gothic, 맑은 고딕, Dotum, 돋움, sans-serif;
-`;

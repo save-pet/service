@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
 import LostPostMap from './LostPostMap';
@@ -72,6 +73,7 @@ export default function InputData() {
       });
   };
 
+  const navigate = useNavigate();
   const onSubmit = async (event) => {
     event.preventDefault();
     if (!animalName || !lostDate || !addressName || !detail || !image) {
@@ -105,6 +107,7 @@ export default function InputData() {
       }).then(() => {
         console.log('등록 성공');
         alert('분실 등록이 성공적으로 완료되었습니다.');
+        navigate('/lost/list');
       });
     } catch (error) {
       console.log(error);

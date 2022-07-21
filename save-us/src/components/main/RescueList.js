@@ -109,7 +109,7 @@ function RescueList() {
             </label>
           </div>
           <Map2ListToggle />
-          <div className="self-end pr-3">
+          <div className="self-end pr-10">
             <select className="dropdown" onChange={handleDropdown}>
               <option className="hover:bg-yellow" value="15">
                 15개씩 보기
@@ -124,7 +124,7 @@ function RescueList() {
           </div>
         </div>
 
-        <main className="inline-flex flex-wrap justify-center p-5 gap-5">
+        <main className="inline-flex flex-wrap justify-center p-5">
           <RenderList list={showList} />
         </main>
 

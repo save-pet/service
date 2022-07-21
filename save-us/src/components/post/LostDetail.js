@@ -134,7 +134,7 @@ function LostDetail() {
               </div>
               <div className="grid grid-cols-3 p-4">
                 <div className="font-bold col-sapn-1">현재 상태</div>
-                <div>{processState}</div>
+                <div>{processState === 'lost' ? '분실' : '완료'}</div>
               </div>
             </div>
           </div>
