@@ -13,6 +13,7 @@ import LostPost from './components/lost/LostPost';
 import LostDetail from './components/lost/LostDetail';
 import LostList from './components/list/LostList';
 import ShelterList from './components/list/ShelterList';
+import ShelterCodeList from './components/list/ShelterCodeList';
 import RescueDetail from './components/list/RescueDetail';
 import LostEdit from './components/lost/LostEdit';
 
@@ -35,7 +36,8 @@ function App() {
           <Route path="/lost/:id" element={<LostDetail />} />
           <Route path="/lost/:id/edit" element={<LostEdit />} />
           <Route path="/lost/list" element={<LostList />} />
-          <Route path="/shelter/:id" element={<ShelterList />} />
+          <Route path="/shelter" element={<ShelterList />} />
+          <Route path="/shelter/:id" element={<ShelterCodeList />} />
         </Routes>
       </BrowserRouter>
     </div>
