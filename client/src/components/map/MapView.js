@@ -2,7 +2,8 @@
 /* eslint no-underscore-dangle: "warn" */
 
 import { React, useEffect, useState } from 'react';
-import { Map, MapMarker, useMap, MarkerClusterer } from 'react-kakao-maps-sdk';
+// import { Map, MapMarker, useMap, MarkerClusterer } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
@@ -91,7 +92,7 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-  const [positions, setPositions] = useState([]);
+  // const [positions, setPositions] = useState([]);
 
   const getRescueData = async () => {
     setIsLoading(true);
@@ -137,17 +138,17 @@ function MapView() {
     }
   };
 
-  const makeSetPositions = () => {
-    makeRescueList.map((item) =>
-      setPositions([
-        ...positions,
-        {
-          lat: item.happenLatitude,
-          lng: item.happenLongitude,
-        },
-      ]),
-    );
-  };
+  // const makeSetPositions = () => {
+  //   makeRescueList.map((item) =>
+  //     setPositions([
+  //       ...positions,
+  //       {
+  //         lat: item.happenLatitude,
+  //         lng: item.happenLongitude,
+  //       },
+  //     ]),
+  //   );
+  // };
 
   useEffect(() => {
     const asyncGetData = async () => {
@@ -155,11 +156,9 @@ function MapView() {
     };
     findMyLocation();
     asyncGetData().then();
-    makeSetPositions();
-    console.log(state);
+    // makeSetPositions();
   }, []);
 
-  // const rescueList = getInfoWindowData(_data);
   const rescueList = getInfoWindowData(makeRescueList);
   if (isLoading)
     return (
@@ -196,18 +195,18 @@ function MapView() {
               </div>
             </MapMarker>
           )}
-          <MarkerClusterer averageCenter="true" minLevel={10}>
-            {rescueList.map((rescue) => (
-              <div key={rescueList.desertionNo}>
-                <EventMarkerContainer
-                  key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-                  position={rescue.latlng}
-                  content={rescue.content}
-                  id={rescue.id}
-                />
-              </div>
-            ))}
-          </MarkerClusterer>
+          {/* <MarkerClusterer averageCenter="true" minLevel={10}> */}
+          {rescueList.map((rescue) => (
+            <div key={rescueList.desertionNo}>
+              <EventMarkerContainer
+                key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
+                position={rescue.latlng}
+                content={rescue.content}
+                id={rescue.id}
+              />
+            </div>
+          ))}
+          {/* </MarkerClusterer> */}
         </Map>
       </div>
     </>
