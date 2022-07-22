@@ -65,7 +65,9 @@ function Header() {
             <ModalButton
               buttonName="회원가입"
               title="회원가입"
-              content={<RegisterContent />}
+              content={
+                <RegisterContent locationPath={window.location.pathname} />
+              }
             />
           )}
         </div>
