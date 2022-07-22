@@ -6,19 +6,18 @@ import { Link } from 'react-router-dom';
 export default function LostList() {
   const [lostList, setLostList] = useState([]);
 
-  async function getRescue() {
+  async function getData() {
     useEffect(() => {
-      const asyncGetRescue = async () => {
+      const asyncGetData = async () => {
         const { data } = await axios(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost`,
+          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}`,
         );
-        console.log(data);
         setLostList(data);
       };
-      asyncGetRescue();
+      asyncGetData();
     }, []);
   }
-  getRescue();
+  getData();
 
   return (
     <div>

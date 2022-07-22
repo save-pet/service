@@ -38,38 +38,34 @@ function LostEdit() {
       ...lostDetail,
       [name]: value,
     });
-    console.log(lostDetail);
   };
 
   const onSubmit = () => {
-    axios
-      .patch(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${locationId}`,
-        {
-          address: addressName,
-          animalName: lostDetail.animalName,
-          createdAt: lostDetail.createdAt,
-          detail: lostDetail.detail,
-          image: lostDetail.image,
-          latitude: address.lat,
-          longitude: address.lng,
-          lostDate: lostDetail.lostDate,
-          processState: 'lost',
-          radius: lostDetail.radius,
-          shortId: lostDetail.shortId,
-          updatedAt: lostDetail.updatedAt,
-          userId: lostDetail.userId,
-          __v: 0,
+    axios.patch(
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${locationId}`,
+      {
+        address: addressName,
+        animalName: lostDetail.animalName,
+        createdAt: lostDetail.createdAt,
+        detail: lostDetail.detail,
+        image: lostDetail.image,
+        latitude: address.lat,
+        longitude: address.lng,
+        lostDate: lostDetail.lostDate,
+        processState: 'lost',
+        radius: lostDetail.radius,
+        shortId: lostDetail.shortId,
+        updatedAt: lostDetail.updatedAt,
+        userId: lostDetail.userId,
+        __v: 0,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          authorization: `Bearer ${sessionStorage.getItem('token')}`,
         },
-        {
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            authorization: `Bearer ${sessionStorage.getItem('token')}`,
-          },
-        },
-      )
-      .then((res) => console.log(res));
-    console.log('변경되었습니다.');
+      },
+    );
     navigate(`/lost/${locationId}`);
   };
   useEffect(() => {

@@ -11,7 +11,6 @@ function LostDetail() {
   const location = useLocation();
   const [lostList, setLostList] = useState([]);
   const locationId = location.pathname.split('/')[2];
-  // console.log(location.pathname.split('/'));
   const [userInfo, setUserInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
@@ -66,8 +65,7 @@ function LostDetail() {
         },
       );
 
-      await setUserInfo(data);
-      console.log(userInfo);
+      setUserInfo(data);
     } catch (error) {
       console.error(error);
     } finally {

@@ -7,7 +7,6 @@ function PostImg({ setImage }) {
   const saveFileImage = (event) => {
     setFileImage(URL.createObjectURL(event.target.files[0]));
     const uploadFile = event.target.files[0];
-    console.log(uploadFile);
     setImage(uploadFile);
   };
 

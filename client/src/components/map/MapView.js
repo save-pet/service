@@ -10,7 +10,6 @@ import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
   const { happenDate } = data;
-  console.log(happenDate);
   const latestDate = new Date(
     `${happenDate.substring(0, 4)}-${happenDate.substring(
       4,
@@ -44,7 +43,6 @@ function InfoWindowContent({ data }) {
 }
 
 function getInfoWindowData(data) {
-  console.log(data);
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
@@ -105,7 +103,6 @@ function MapView() {
     }).then((res) => {
       setMakeRescueList(res.data);
       setIsLoading(false);
-      console.log(res.data);
     });
   };
 
@@ -160,7 +157,6 @@ function MapView() {
     findMyLocation();
     asyncGetData().then();
     makeSetPositions();
-    console.log(state);
   }, []);
 
   // const rescueList = getInfoWindowData(_data);

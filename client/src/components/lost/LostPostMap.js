@@ -9,9 +9,7 @@ const { kakao } = window;
 
 const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
 
-//
 function FindLocation({ address, setAddress, setAddressName }) {
-  console.log(address);
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
@@ -21,7 +19,6 @@ function FindLocation({ address, setAddress, setAddressName }) {
     errMsg: null,
     isLoading: true,
   });
-  // const [modalOpen, setModalOpen] = useState(true);
 
   const [locationName, setLocationName] = useState();
   const handleClickSubmit = (event) => {
@@ -29,7 +26,6 @@ function FindLocation({ address, setAddress, setAddressName }) {
 
     setAddress(position);
     alert('위치 등록이 완료되었습니다. 지도를 닫아주세요.');
-    console.log(address);
   };
   useEffect(() => {
     if (navigator.geolocation) {
