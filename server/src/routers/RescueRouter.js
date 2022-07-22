@@ -61,6 +61,60 @@ rescueRouter.get('/rescues/:kindCode', async (req, res, next) => {
   }
 })
 
+// 2-2. 개체 다중 선택, 후 페이지네이션 해 리스트 조회
+rescueRouter.get('/rescues/kind/:dog/:cat/:etc', async (req, res, next) => {
+  try {
+    const page = Number(req.query.page) || 1;
+    const perPage = Number(req.query.perPage) || 12;
+    const dog = Number(req.params.dog) || 0; // 0은 선택 안된걸로 간주, 1은 선택 된걸로 간주
+    const cat = Number(req.params.cat) || 0; 
+    const etc = Number(req.params.etc) || 0;
+
+    const kindCode = dog + cat + etc;
+
+    if (kindCode === 0 ){ 
+      const [total, posts] = await Promise.all([
+        await rescueService.countRescue(),
+        await rescueService.getRangeRescues(page, perPage)
+      ]);
+      const totalPage = Math.ceil(total / perPage);
+      res.status(200).json({ posts, page, perPage, totalPage, total });    
+     } else {
+      let total = 0;
+      const posts = [];
+      if(dog === 1){
+        const [dogTotal, dogPosts] = await Promise.all([
+          await rescueService.countRescueByKind(0),
+          await rescueService.getRangeRescuesByKind(page, perPage, 0)
+        ]);
+        total += dogTotal;
+        posts.push(...dogPosts);
+      }
+      if(cat === 1){
+        const [catTotal, catPosts] = await Promise.all([
+          await rescueService.countRescueByKind(1),
+          await rescueService.getRangeRescuesByKind(page, perPage, 1)
+        ]);
+        total += catTotal;
+        posts.push(...catPosts);
+      }
+      if(etc === 1){
+        const [etcTotal, etcPosts] = await Promise.all([
+          await rescueService.countRescueByKind(2),
+          await rescueService.getRangeRescuesByKind(page, perPage, 2)
+        ]);
+        total += etcTotal;
+        posts.push(...etcPosts);
+      }
+
+      const totalPage = Math.ceil(total / perPage);
+      res.status(200).json({ posts, page, perPage, totalPage, total });    
+    }
+  } catch(error) {
+    next(error);
+  }
+});
+
 // 3. _id 이용 단일 보호 동물 조회
 rescueRouter.get('/:rescueId', async (req, res, next) => {
   try {
