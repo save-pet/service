@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
+/* eslint no-underscore-dangle: "warn" */
+
 import { React, useEffect, useState } from 'react';
-import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, useMap, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { SpinningCircles } from 'react-loading-icons';
 import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
@@ -37,10 +40,11 @@ function InfoWindowContent({ data }) {
 }
 
 function getInfoWindowData(data) {
+  console.log(data);
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
-    id: obj.careCode,
+    id: obj._id,
   }));
 }
 
@@ -53,7 +57,7 @@ function EventMarkerContainer({ position, content, id }) {
       position={position}
       onClick={(marker) => {
         map.panTo(marker.getPosition());
-        navigate(`/shelter/${id}`);
+        navigate(`/rescue/${id}`);
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -86,7 +90,22 @@ function MapView() {
     errMsg: null,
     isLoading: true,
   });
-  useEffect(() => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [positions, setPositions] = useState([]);
+
+  const getRescueData = async () => {
+    setIsLoading(true);
+    await axios({
+      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
+      method: 'GET',
+    }).then((res) => {
+      setMakeRescueList(res.data);
+      setIsLoading(false);
+      console.log(res.data);
+    });
+  };
+
+  const findMyLocation = () => {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
@@ -116,21 +135,38 @@ function MapView() {
         isLoading: false,
       }));
     }
-  }, []);
-
-  const getRescueData = async () => {
-    await axios({
-      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
-      method: 'GET',
-    }).then((res) => {
-      setMakeRescueList(res.data);
-    });
   };
-  getRescueData();
+
+  const makeSetPositions = () => {
+    makeRescueList.map((item) =>
+      setPositions([
+        ...positions,
+        {
+          lat: item.happenLatitude,
+          lng: item.happenLongitude,
+        },
+      ]),
+    );
+  };
+
+  useEffect(() => {
+    const asyncGetData = async () => {
+      await getRescueData();
+    };
+    findMyLocation();
+    asyncGetData().then();
+    makeSetPositions();
+    console.log(state);
+  }, []);
 
   // const rescueList = getInfoWindowData(_data);
   const rescueList = getInfoWindowData(makeRescueList);
-
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center	 w-100 h-screen">
+        <SpinningCircles fill="#EDA900" stroke="#997000" />
+      </div>
+    );
   return (
     <>
       <p className="mx-2 my-1 text-sm text-gray-400">
@@ -153,16 +189,25 @@ function MapView() {
           className="w-full h-[80vh]"
           level={3} // 지도의 확대 레벨
         >
-          {rescueList.map((rescue) => (
-            <div key={rescueList.desertionNo}>
-              <EventMarkerContainer
-                key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-                position={rescue.latlng}
-                content={rescue.content}
-                id={rescue.id}
-              />
-            </div>
-          ))}
+          {!state.isLoading && (
+            <MapMarker position={state.center}>
+              <div style={{ padding: '5px', color: '#000' }}>
+                {state.errMsg ? state.errMsg : '현재 위치'}
+              </div>
+            </MapMarker>
+          )}
+          <MarkerClusterer averageCenter="true" minLevel={10}>
+            {rescueList.map((rescue) => (
+              <div key={rescueList.desertionNo}>
+                <EventMarkerContainer
+                  key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
+                  position={rescue.latlng}
+                  content={rescue.content}
+                  id={rescue.id}
+                />
+              </div>
+            ))}
+          </MarkerClusterer>
         </Map>
       </div>
     </>
