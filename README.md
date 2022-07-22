@@ -1,9 +1,8 @@
-
 # 구해줘 댕냥스 🐶🐱
 
 > 잃어버린 우리 댕냥이<br />
 > 하루종일 보호소 공고 확인하셨다구요?<br />
-> 보호소에서 찾는건 <b>구해줘 댕냥스</b>에게 맡겨주세요!🍳<br />
+> 보호소에서 찾는건 <b>구해줘 댕냥스</b>에게 맡겨주세요!🔍<br />
 > 잃어버린 위치 주변에서 찾은 댕냥이들을 알려줄게요🦾 <br />
 
 <br/>
@@ -85,7 +84,7 @@
 - 사용자는 마이페이지에서 분실신고 리스트에서 분실 게시글 상세를 확인하고 수정 할 수 있다.
 - 사용자는 메인 페이지 및 햄버거메뉴 구조리스트에서 보호소에서 올라온 공고들을 확인할 수 있다.
 - 사용자는 메인 페이지 및 햄버거메뉴 구조리스트에서 보호소에서 올라온 공고들을 종별로 필터링 할 수 있다.
-- 사용자는 메인 페이지 지보보기 버튼 토글 및 햄버거메뉴 구조지도에서 보호소에서 지도 페이지로 전환 할 수 있다.
+- 사용자는 메인 페이지 지도보기 버튼 토글 및 햄버거메뉴 구조지도에서 보호소에서 지도 페이지로 전환 할 수 있다.
 - 관리자는 관라자페이지에서 회원정보관리, 분실신고 리스트 확인을 할 수있다.
 - 관리자는 회원정보 관리에서 회원을 삭제할 수 있다.
 - 관리자는 분실 신고 리스트에서 분실신고를 삭제할 수 있다.
@@ -93,8 +92,14 @@
 <br/>
 
 > ## 구현 기능 명세
+>
+> <br/>
 
-#### 1. 메인페이지-구조 목록<br>
+#### 1. 메인페이지-구조 목록
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7396416d-32dc-4575-89bd-7f5e08de49c1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045935Z&X-Amz-Expires=86400&X-Amz-Signature=e6ece64d1ad4cb4a82d92c3ca6d25c64d7c4f93c1ae3ad9eaab45e129a7ba1df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     1.1 사용자가 선택한 개수씩 목록 보기
 
@@ -106,7 +111,14 @@
 
     1.5 반응형 페이지 디자인
 
+<br/>
+
 #### 2. 회원가입, 로그인 페이지
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6eefe2cc-c835-4ce1-89be-6cbc24c0602a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045942Z&X-Amz-Expires=86400&X-Amz-Signature=6493c8c46acd82321ed7565dc6d7116e0b211061f632fd8e692eae2fddf3ac16&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9a019220-218d-4778-91f0-c70f2963a603/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045946Z&X-Amz-Expires=86400&X-Amz-Signature=61c21d19aa379bd508e15bf8219437f784dae20adcd6c0c3783732a9e2cf05ed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     2.1 아이디, 비밀번호, 전화번호 유효성 검증
 
@@ -114,7 +126,13 @@
 
     —> 로그인한 계정에 따라 마이페이지 연결시 일반회원>마이페이지 관리자>관리자페이지 연결
 
+<br/>
+
 #### 3. 마이페이지
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bdbfa09c-1b3b-4d2f-8bd6-9ba561c9c75b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045949Z&X-Amz-Expires=86400&X-Amz-Signature=7972ddd845e4d7e708522d3f4ee0c08a0dff6abd0a21ce94b7eb5089c8650bbf&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     3.1 회원정보 수정 유효성 검증
 
@@ -124,13 +142,25 @@
 
     —> 비밀번호 일치여부에 따라 계정 삭제 가능
 
+<br/>
+
 #### 4. 관리자페이지
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1e867431-6f1d-4c68-982f-3413dbe7905f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045954Z&X-Amz-Expires=86400&X-Amz-Signature=553fc794459615027f0b2c34d07693e9b5724e8e7041e087b1676b0963a28f92&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     3.1 모든 회원정보 확인 가능
 
     3.2 신고된 분실목록 전체 조회 가능
 
+<br/>
+
 #### 5. 분실 등록
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/497ef6af-7d8b-4ca0-9ff0-3d48f288eb94/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045957Z&X-Amz-Expires=86400&X-Amz-Signature=a58c04d277136b8434514872d85c02384b6c1862c324775cca745df8dca7dce0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     4.1 카카오 지도를 이용하여 분실 위치 받기
 
@@ -142,43 +172,62 @@
 
     4.5 분실 등록 수정
 
+<br/>
+
 #### 6. 분실 상세
 
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/20da20ac-035f-4527-9600-9e05b786194e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050001Z&X-Amz-Expires=86400&X-Amz-Signature=87e0b75e74373029eca192afe9db66383117a7b7cead3289cf5b51daed2b3679&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
+<br/>
+
 #### 7. 구조 지도
+
+<br/>
+
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/65ee0cf6-bc30-414b-92f3-84b49366a497/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050004Z&X-Amz-Expires=86400&X-Amz-Signature=63f0f970e8f1acb7dc7ba25851d4bbb38a1e5049954b073e556789910b36607d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
 
     7.1 현재 위치 기준으로 주변의 구조된 동물 발견 위치 맵핑(카카오 map api 사용)
 
     7.2 info window로 구조 사진 및 간단한 정보 표시
 
+<br/>
+
 #### 8. 기타
+
+<br/>
 
     8.1 localStorage에 token 저장하여 로그인 시 nav바 메뉴 변경
 
     8.2 sticky header와 hamburger menu 적용
 
     8.2 근처에 구조된 새로운 내역이 있다면 SMS으로 알림 표시 (twilio 사용)
+
     8.3 데이터 파이프라인 실시간 현황 페이지
 
-### [데이터 파이프라인 실시간 현황 페이지](http://34.83.15.156/)
+    8.4 문자 알림
 
 <br/>
 
-> ## 주요 기능 스크린샷
+##### 데이터 파이프라인 실시간 현황 웹페이지
 
-### 구조 지도
+<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a5a4a29-b07e-4acc-a0cc-e111003ff78d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050008Z&X-Amz-Expires=86400&X-Amz-Signature=230fbf96ef512ad9cc88643ff13d9eb0553542a0638ef773e1c388c61b0eccbe&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.15.156/)
+<br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/c9d5b77e-b187-488f-8013-009bc0c42dc6/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T023849Z&X-Amz-Expires=86400&X-Amz-Signature=131eae2db6f8f0c1a8430f37d9ef2350c82eb885f1e1c91e17e4075cc38c87ee&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
-
-### 문자알림
+##### 문자알림
 
 <img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/394fb85c-bfc6-4870-aec3-725fbdf4f3c1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T023953Z&X-Amz-Expires=86400&X-Amz-Signature=2c7d981ca7a4d2ba70c5db243404031071fed5cf24fcdebafe531a27a52b9292&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<br/>
+
+<br/>
 
 > ## 실행방법
 
 ```bash
 @~project-templet> npm install --global yarn
-@~project-templet> npm install
-@~project-templet> yarn setup
+@~project-templet> npm install && yarn setup # yarn setup는 client server 각 폴더에 자동으로 패키지를 설치하는 사용자 정의 명령어입니다.
 @~project-templet> yarn start
 
 ```
@@ -205,7 +254,6 @@
 
 > ## 해당 스택들을 사용한 목적을 간단히 알려주세요
 
-
 - React:
   - 다급한 사용자를 위해 한페이지에서 해결할 수 있도록 (UX)
   - 여러 중복되는 컴포넌트 재사용
@@ -222,7 +270,7 @@
   - Linux에 기본으로 있는 기본기능이라 설치하거나 설정하는 큰 번거로움이 없다.
   - Airflow와 달리 상태를 확인하기 어려운데 코드 실행시 각 단계를 자동으로 html에 write 하여 웹을 통해 상태를 살펴 볼수 있도록 구축했다.
 - Apach
-  - APM setup 이라 불릴만큼 고전적이지만 익숙하고 기본적인 웹서버이기 때문이다.
+  - APM setup 이라 불릴 만큼 고전적이지만 익숙하고 기본적인 웹서버이기 때문이다.
 - twillio
   - 네이버 문자와 다르게 자동결제 되지 않는다.
   - 무료 크레딧으로 네이버 50건에 비해 약 300건 많은 발송이 가능하다.
@@ -245,28 +293,3 @@
 | 이진서 | <img src="https://img.shields.io/badge/BE-000000?style=flat-square"/> | 로그인, 회원가입, 구조동물, 분실동물 관련, 데이터 구축, 서버연결                                              |
 
 <br/>
-
-> ## 개발 과정에서 마주친 어려움, 해결방법, 결과
-
-<br/>
-
-- <img src="https://img.shields.io/badge/FE-06B6D4?style=flat-square"/> 재민 : 장소데이터가 정확하지 않아 kakao map api를 통해 위경도 좌표로 변환하는 과정이 어려웠습니다. 장소는 해당 장소 키워드가 포함된 15개 장소를 반환 받아 평균 좌표로 중간 좌표를 산출해내는 방식을 사용했습니다. 장소검색(place2coords)이 되지 않을 경우 보호소 주소를 바탕으로 주소검색(address2coords)을 통해 위경도로 표시했고 주소에서 시, 도 명을 추출하여 장소 검색으로 어떻게든 해보려 했지만 안되는 경우 포기하고 독도로 표기해두었습니다. 나중에는 정규표현식을 공부하여 개선하고 싶습니다.
-  <br/>
-
-  - 예를 들어 주소검색을 통해 서울특별시 어쩌구 저쩌동 100-1 이 없는 주소일 경우 정규식을 통해 서울특별시/도, 어쩌구/시/읍/군, 저쩌동/리을 분리하여 세부 지역 부터 장소검색을 할것입니다.
-
-<br/>
-
-- <img src="https://img.shields.io/badge/FE-06B6D4?style=flat-square"/> 채림 : 구조리스트 필터 구현할 때 필터 컴포넌트와 리스트 컴포넌트 간 state 공유에 어려움이 있었습니다. 상위 컴포넌트를 만들어 state 끌어올리기를 하려고 했으나 fetch 과정에서 처음의 빈 데이터 리턴이 props로 넘어가는 문제가 있었습니다. useFetch 커스텀 훅을 만들려고 했으나 [오피스아워 이슈] 이유로 실패했고 필터 컴포넌트 내부에서 fetch받아서 하위의 리스트 컴포넌트의 props로 넘겨서 해결하였습니다.
-
-<br/>
-
-- <img src="https://img.shields.io/badge/BE-000000?style=flat-square"/> 진서 : 구조동물 모두 비교가 아니라 보호소 비교 이슈로 기획 축소했던 부분이 있었습니다. 알림 서비스를 구현하는 과정에서 분실한 위치를 입력 받은 후에 등록된 모든 구조동물의 위치와 비교하려 하였습니다. 하지만 너무 오랜 시간이 예상 되어 구조된 동물이 보호되고 있는 보호소 위치와 비교하는 방식으로 기획 수정하였습니다.
-
-<br/>
-
-- <img src="https://img.shields.io/badge/FE-06B6D4?style=flat-square"/> 연주 : 유저 정보를 불러오는 api를 페이지마다 중복으로 불러와야했는데 context api를 쓰다보니 페이지를 새로고침 할 때마다 로그아웃되는 문제가 있었습니다. 유저관련 api모듈을 만들어서 필요할 때 마다 데이터를 불러오는 식으로 해결할 수 있었습니다.
-
-<br/>
-
-- <img src="https://img.shields.io/badge/FE-06B6D4?style=flat-square"/> 소리 : 분실동물을 등록할 때 사용자 위치를 등록하는 기능 개발에 어려움이 있었습니다. 위경도를 주소로 바꿔주는 카카오 지도 api를 사용했습니다. 끝내 카카오 dev console에서 사용자의 ip를 모두 허용해야 등록되어야 해당 api를 사용할 수 있다는 것을 알고 해결했습니다. 사진 등록 시 사진등록 컴포넌트와 상위 컴포넌트끼리 state를 공유하는 것에 문제가 생겨서 사진등록에 어려움을 겪었으나 하위 컴포넌트로 props를 넘겨서 해결하였습니다.
