@@ -213,6 +213,7 @@
 ##### 데이터 파이프라인 실시간 현황 웹페이지
 
 <img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a5a4a29-b07e-4acc-a0cc-e111003ff78d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050008Z&X-Amz-Expires=86400&X-Amz-Signature=230fbf96ef512ad9cc88643ff13d9eb0553542a0638ef773e1c388c61b0eccbe&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+
 #### [데이터 파이프라인 실시간 현황 페이지](http://34.83.15.156/)
 <br/>
 
