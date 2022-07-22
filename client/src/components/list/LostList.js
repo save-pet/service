@@ -48,13 +48,13 @@ export default function LostList() {
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                       {animalName}
                     </h5>
-                    <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
+                    <p className="mb-1 font-normal text-gray-700">
                       분실 일시: {lostDate}
                     </p>
-                    <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">
+                    <p className="mb-1 font-normal text-gray-700">
                       분실 장소: {address}
                     </p>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    <p className="mb-3 font-normal text-gray-700">
                       특징: {detail}
                     </p>
                   </div>
