@@ -25,9 +25,12 @@ export default function ShelterCodeList() {
     <>
       {shelterList.length > 0 && (
         <div className="px-4 py-5 sm:px-6">
-          <div className="text-2xl font-semibold text-gray-800">
+          <div className="text-3xl font-bold text-gray-800">
             {shelterList[0].careName}
           </div>
+          <p className="mt-1 max-w-2xl text-sm text-gray-500 ">
+            {shelterList[0].careName}에서 보호중인 동물입니다.
+          </p>
         </div>
       )}
       <main className="inline-flex flex-wrap justify-start gap-[20px] p-[20px]">
