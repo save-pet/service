@@ -10,15 +10,18 @@ function RescueList() {
   const [totalPage, setTotalPage] = useState(1);
   const [perPage, setPerPage] = useState(15);
 
-  const getRescue = useCallback(() => {
-    axios(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues?page=${pageNum}&perPage=${perPage}`,
-    ).then(({ data }) => {
-      setRescueList(data.posts);
-      setTotalPage(data.totalPage);
-      setShowList(data.posts);
-    });
-  }, [pageNum, perPage]);
+  const getRescue = useCallback(
+    (kind) => {
+      axios(
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues//?page=${pageNum}&perPage=${perPage}`,
+      ).then(({ data }) => {
+        setRescueList(data.posts);
+        setTotalPage(data.totalPage);
+        setShowList(data.posts);
+      });
+    },
+    [pageNum, perPage],
+  );
   useEffect(() => getRescue(), [getRescue]);
 
   function pageHandler(e) {
