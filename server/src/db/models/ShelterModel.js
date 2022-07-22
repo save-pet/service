@@ -20,7 +20,7 @@ export class ShelterModel {
 
   // 3. 특정 범위(페이지)에 위치한 보호소 조회 
   async getInRange(page, perPage) {
-    const sheltersInRange = await Shelter.find({}).sort({ createdAt: -1 }).skip(perPage * (page - 1)).limit(perPage)
+    const sheltersInRange = await Shelter.find({}).sort({ 'careName': 1 }).skip(perPage * (page - 1)).limit(perPage)
     return sheltersInRange;
   }
 
