@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+/* eslint no-underscore-dangle: "warn" */
+
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
@@ -38,10 +40,11 @@ function InfoWindowContent({ data }) {
 }
 
 function getInfoWindowData(data) {
+  console.log(data);
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
-    id: obj.careCode,
+    id: obj._id,
   }));
 }
 
@@ -54,7 +57,7 @@ function EventMarkerContainer({ position, content, id }) {
       position={position}
       onClick={(marker) => {
         map.panTo(marker.getPosition());
-        navigate(`/shelter/${id}`);
+        navigate(`/rescue/${id}`);
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
