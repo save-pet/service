@@ -65,9 +65,7 @@ function Header() {
             <ModalButton
               buttonName="회원가입"
               title="회원가입"
-              content={
-                <RegisterContent locationPath={window.location.pathname} />
-              }
+              content={<RegisterContent />}
             />
           )}
         </div>
@@ -81,7 +79,7 @@ function Header() {
             <ModalButton
               buttonName="로그인"
               title="로그인"
-              content={<LoginContent />}
+              content={<LoginContent locationPath={window.location.pathname} />}
             />
           )}
         </div>
