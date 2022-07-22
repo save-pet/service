@@ -175,7 +175,7 @@ function MapView() {
     <>
       <p className="mx-2 my-1 text-sm text-gray-400">
         *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며, 핀을
-        클릭하면 구조 동물이 인계된 보호소로 이동합니다.
+        클릭하면 구조 동물 상세로 이동합니다.
       </p>
       <div className="relative">
         <div className=" h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
