@@ -7,15 +7,17 @@ import { SpinningCircles } from 'react-loading-icons';
 import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
-  const latest = data.noticeStartDate;
+  const { happenDate } = data;
+  console.log(happenDate);
   const latestDate = new Date(
-    `${latest.substring(0, 4)}-${latest.substring(4, 6)}-${latest.substring(
+    `${happenDate.substring(0, 4)}-${happenDate.substring(
+      4,
       6,
-    )}`,
+    )}-${happenDate.substring(6)}`,
   );
   const today = new Date();
-  const diffDate = Math.ceil(
-    (latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24),
+  const diffDate = Math.abs(
+    Math.ceil((latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)),
   );
 
   return (
@@ -23,13 +25,15 @@ function InfoWindowContent({ data }) {
       <div style={{ color: '#000' }}>
         <span className="notranslate">
           <ul>
-            <li className="font-semibold">{data.careName}</li>
-            <li className="text-xs text-gray-400">최근 공고 {diffDate}일 전</li>
             <img
               src={data.imgUrl}
               className="w-[200px]"
               alt="latest update in this shelter"
             />
+            <li className="text-xs text-gray-400">
+              이 위치에서 {diffDate}일 전 발견
+            </li>
+            <li className="text-sm">{data.careName}에서 보호 중</li>
           </ul>
         </span>
       </div>
@@ -152,8 +156,8 @@ function MapView() {
   return (
     <>
       <p className="mx-2 my-1 text-sm text-gray-400">
-        *핀 위에 마우스를 올리면 해당 보호소의 최신 공고를 볼 수 있으며, 핀을
-        클릭하면 보호소 구조 목록으로 이동합니다.
+        *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며, 핀을
+        클릭하면 구조 동물이 인계된 보호소로 이동합니다.
       </p>
       <div className="relative">
         <div className=" h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
