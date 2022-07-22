@@ -24,6 +24,9 @@ const RescueSchema = new mongoose.Schema (
       kindCode: {
         type: String,
       },
+      kindCodeByNum : {
+        type: Number,
+      },
       colorCode: {
         type: String,
       },

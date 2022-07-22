@@ -1,0 +1,60 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-orange {
+    @apply py-2 px-4 bg-orange hover:bg-yellow text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg;
+  }
+  .btn-light {
+    @apply py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-orange focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700;
+  }
+  .dropdown {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange dark:focus:border-orange;
+  }
+  .checkbox-label {
+    @apply inline-flex items-center ml-3 text-sm font-medium text-gray-900 dark:text-gray-300;
+  }
+  .checkbox-input {
+    @apply w-4 h-4 text-yellow accent-yellow bg-gray-100 rounded border-gray-300 focus:ring-orange dark:focus:ring-orange dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600;
+  }
+  .btn-submit {
+    @apply py-2 px-4 mt-1 bg-[#ffa000]  hover:font-extrabold text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg;
+  }
+  .input-content {
+    @apply text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-96 py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000] focus:border-transparent;
+  }
+  .input-title {
+    @apply text-center rounded-l-md flex-1 appearance-none border-t border-l border-b border-gray-300 w-32 py-2 font-semibold bg-white  text-gray-700 shadow-sm text-sm text-base;
+  }
+  .grid-head {
+    @apply grid grid-cols-8 p-4;
+  }
+  .grid-content {
+    @apply font-bold;
+  }
+  .modal-input {
+    @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#c67100] focus:border-[#c67100] block w-full p-2.5;
+  }
+  .modal-label {
+    @apply block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300;
+  }
+}
+
+[type='checkbox']:checked {
+  background-image: url('data:image/svg+xml,<svg viewBox="0 0 16 16" fill="rgb(198, 113, 0)" xmlns="http://www.w3.org/2000/svg"><path d="M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z"/></svg>') !important;
+}

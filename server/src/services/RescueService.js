@@ -20,10 +20,22 @@ class RescueService {
         return rescueQty;
     }
 
+    // 3-1. 개체별 구조 동물 수 조회
+    async countRescueByKind(kindCd){
+        const rescueQty = await this.rescueModel.countAllByKind(kindCd);
+        return rescueQty;
+    }
+
     // 4. 특정 페이지 위치한 보호 동물 정보 조회 (pagination)
     async getRangeRescues(page, perPage){
         const rangedRescuesInfo = await this.rescueModel.getInRange(page, perPage);
         return rangedRescuesInfo;
+    }
+
+    // 4-1. 특정 페이지 위치한 개체별 보호 동물 정보 조회 (pagination)
+    async getRangeRescuesByKind(page, perPage, kindCd){
+        const rangedRescuesInfoByKind = await this.rescueModel.getInRangeByKind(page, perPage, kindCd);
+        return rangedRescuesInfoByKind;
     }
 
     // 5. _id 이용 단일 보호 동물 조회
@@ -38,7 +50,7 @@ class RescueService {
         return rescues;
     }
 
-    //6-2. 보호소 코드 별 동물 수 검색
+    // 6-2. 보호소 코드 별 동물 수 검색
     async findCountByCareCode(careCode){
         const rescueCount = await this.rescueModel.findCountByCareCode(careCode);
         return rescueCount;

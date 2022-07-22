@@ -4,7 +4,12 @@
 import { Router } from 'express';
 // import is from '@sindresorhus/is';
 import { loginRequired, checkEmpty } from '../middlewares/index.js';
-import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
+import {
+  lostService,
+  userService,
+  lostShelterService,
+  shelterService,
+} from '../services/index.js';
 
 // 이미지 업로드시 필요 모듈 ES6문법으로 변환
 import formidable from 'formidable';
@@ -87,7 +92,7 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       detail,
       image,
       processState,
-      latitude, 
+      latitude,
       longitude,
     } = req.body;
     radius = Number(req.body.radius);
@@ -101,31 +106,31 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
       radius,
       image,
       processState,
-      latitude, 
+      latitude,
       longitude,
     });
 
     const lostId = newLostPost._id;
     const phoneNumber = await lostShelterService.getPhoneNumber(lostId);
     const shelters = await shelterService.getShelters();
-    let shelterId ;
+    let shelterId;
     let shelterCode;
-    let distance ;
-    
-    for(let cnt = 0; cnt < shelters.length; cnt++) {
+    let distance;
+
+    for (let cnt = 0; cnt < shelters.length; cnt++) {
       shelterId = shelters[cnt]._id;
       shelterCode = shelters[cnt].careCode;
       distance = await lostShelterService.getDistance(lostId, shelterId);
-      if(distance < radius) { 
-          let newLostShelterPost = await lostShelterService.addLostShelter({
-              lostId,
-              shelterId,
-              careCode: shelterCode,
-              phoneNumber,
-              distance,
-          });
+      if (distance < radius) {
+        let newLostShelterPost = await lostShelterService.addLostShelter({
+          lostId,
+          shelterId,
+          careCode: shelterCode,
+          phoneNumber,
+          distance,
+        });
       }
-    } 
+    }
     res.status(200).json(newLostPost);
   } catch (error) {
     next(error);
@@ -133,47 +138,54 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
 });
 
 // 6. 분실 게시글 수정 (shortId로 게시글 불러옴)
-lostRouter.patch('/edit/:shortid', loginRequired, checkEmpty, async (req, res, next) => {
-  try {
-    const { shortid } = req.params;
-    if (!shortid) {
-      throw new Error(
-        '해당 게시글이 존재하지 않습니다. 게시글 shortId를 다시 확인해주세요.',
-      );
+lostRouter.patch(
+  '/edit/:shortid',
+  loginRequired,
+  checkEmpty,
+  async (req, res, next) => {
+    try {
+      const { shortid } = req.params;
+      if (!shortid) {
+        throw new Error(
+          '해당 게시글이 존재하지 않습니다. 게시글 shortId를 다시 확인해주세요.',
+        );
+      }
+
+      const userId = req.currentUserId;
+      const {
+        animalName,
+        lostDate,
+        address,
+        detail,
+        image,
+        processState,
+        latitude,
+        longitude,
+        radius,
+      } = req.body;
+
+      // 전화번호랑 날짜 형식 validator 만들기
+      const toUpdate = {
+        ...(userId && { userId }),
+        ...(animalName && { animalName }),
+        ...(lostDate && { lostDate }),
+        ...(address && { address }),
+        ...(detail && { detail }),
+        ...(image && { image }),
+        ...(processState && { processState }),
+        ...(latitude && { latitude }),
+        ...(longitude && { longitude }),
+        ...(radius && { radius }),
+      };
+
+      const updatedLost = await lostService.updateLost(shortid, toUpdate);
+
+      res.status(201).json(updatedLost);
+    } catch (error) {
+      next(error);
     }
-    
-    const userId = req.currentUserId;
-    const {
-      animalName,
-      lostDate,
-      address,
-      detail,
-      image,
-      processState,
-      latitude, 
-      longitude,
-    } = req.body;
-
-    // 전화번호랑 날짜 형식 validator 만들기
-    const toUpdate = {
-      ...(userId && { userId }),
-      ...(animalName && { animalName }),
-      ...(lostDate && { lostDate }),
-      ...(address && { address }),
-      ...(detail && { detail }),
-      ...(image && { image }),
-      ...(processState && { processState }),
-      ...(latitude && { latitude }),
-      ...(longitude && { longitude }),
-    };
-
-    const updatedLost = await lostService.updateLost(shortid, toUpdate);
-
-    res.status(201).json(updatedLost);
-  } catch (error) {
-    next(error);
-  }
-});
+  },
+);
 
 // 분실 글 삭제("id에 shortId가 들어가야됨") adminRequired,
 lostRouter.delete('/delete/:shortid', async (req, res, next) => {
@@ -185,7 +197,9 @@ lostRouter.delete('/delete/:shortid', async (req, res, next) => {
 
     await lostService.deleteLost(shortid);
 
-    res.status(200).json({ data: shortid, message: '게시글이 삭제 되었습니다.' });
+    res
+      .status(200)
+      .json({ data: shortid, message: '게시글이 삭제 되었습니다.' });
   } catch (error) {
     next(error);
   }
