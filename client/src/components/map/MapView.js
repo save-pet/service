@@ -2,7 +2,6 @@
 /* eslint no-underscore-dangle: "warn" */
 
 import { React, useEffect, useState } from 'react';
-// import { Map, MapMarker, useMap, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -11,7 +10,6 @@ import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
   const { happenDate } = data;
-  console.log(happenDate);
   const latestDate = new Date(
     `${happenDate.substring(0, 4)}-${happenDate.substring(
       4,
@@ -45,7 +43,6 @@ function InfoWindowContent({ data }) {
 }
 
 function getInfoWindowData(data) {
-  console.log(data);
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
@@ -96,7 +93,6 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-  // const [positions, setPositions] = useState([]);
 
   const getRescueData = async () => {
     setIsLoading(true);
@@ -106,7 +102,6 @@ function MapView() {
     }).then((res) => {
       setMakeRescueList(res.data);
       setIsLoading(false);
-      console.log(res.data);
     });
   };
 
@@ -142,25 +137,12 @@ function MapView() {
     }
   };
 
-  // const makeSetPositions = () => {
-  //   makeRescueList.map((item) =>
-  //     setPositions([
-  //       ...positions,
-  //       {
-  //         lat: item.happenLatitude,
-  //         lng: item.happenLongitude,
-  //       },
-  //     ]),
-  //   );
-  // };
-
   useEffect(() => {
     const asyncGetData = async () => {
       await getRescueData();
     };
     findMyLocation();
     asyncGetData().then();
-    // makeSetPositions();
   }, []);
 
   const rescueList = getInfoWindowData(makeRescueList);
@@ -182,12 +164,6 @@ function MapView() {
         </div>
 
         <Map // 지도를 표시할 Container
-          // center={{
-          //   // 지도의 중심좌표
-          //   // lat: 36.33689689105572,
-          //   // lng: 127.4495082397018,
-          //   state.center;
-          // }}
           center={state.center}
           className="w-full h-[80vh]"
           level={3} // 지도의 확대 레벨
@@ -199,7 +175,6 @@ function MapView() {
               </div>
             </MapMarker>
           )}
-          {/* <MarkerClusterer averageCenter="true" minLevel={10}> */}
           {rescueList.map((rescue) => (
             <div key={rescueList.desertionNo}>
               <EventMarkerContainer
@@ -210,7 +185,6 @@ function MapView() {
               />
             </div>
           ))}
-          {/* </MarkerClusterer> */}
         </Map>
       </div>
     </>

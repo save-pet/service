@@ -16,11 +16,9 @@ function FindPlaceName({ position, setAddressName }) {
         },
       },
     ).then((res) => {
-      console.log(res);
       setData(res.data.documents[0].address.address_name);
     });
   };
-  // console.log(findLocationName(position));
 
   useEffect(() => {
     findLocationName(position);
