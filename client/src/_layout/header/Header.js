@@ -79,7 +79,7 @@ function Header() {
             <ModalButton
               buttonName="로그인"
               title="로그인"
-              content={<LoginContent />}
+              content={<LoginContent locationPath={window.location.pathname} />}
             />
           )}
         </div>

@@ -1,7 +1,8 @@
 import { React, useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
-function LoginContent() {
+function LoginContent({ locationPath }) {
   const [inputId, setInputId] = useState('');
   const [inputPassword, setInputPassword] = useState('');
 
@@ -28,7 +29,7 @@ function LoginContent() {
       return;
     }
     alert('정상적으로 로그인 되었습니다.');
-    window.location.replace('/');
+    window.location.replace(`${locationPath}`);
   };
 
   return (
@@ -71,5 +72,9 @@ function LoginContent() {
     </div>
   );
 }
+
+LoginContent.propTypes = {
+  locationPath: PropTypes.string.isRequired,
+};
 
 export default LoginContent;
