@@ -20,8 +20,26 @@ function RescueList() {
 
   const getRescue = useCallback(
     ({ dog, cat, etc }) => {
+      let dogNum;
+      let catNum;
+      let etcNum;
+      if (dog === false) {
+        dogNum = 0;
+      } else {
+        dogNum = 1;
+      }
+      if (cat === false) {
+        catNum = 0;
+      } else {
+        catNum = 1;
+      }
+      if (etc === false) {
+        etcNum = 0;
+      } else {
+        etcNum = 1;
+      }
       axios(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues/kind/0/1/1?page=${pageNum}&perPage=${perPage}`,
+        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues/kind/${dogNum}/${catNum}/${etcNum}?page=${pageNum}&perPage=${perPage}`,
       ).then(({ data }) => {
         setRescueList(data.posts);
         setTotalPage(data.totalPage);
@@ -34,6 +52,7 @@ function RescueList() {
   }, [getRescue, checked]);
 
   function checkHandler(e) {
+    console.log(e.target);
     setChecked((prev) => ({
       ...prev,
       [e.target.value]: !prev[e.target.value],
@@ -42,7 +61,7 @@ function RescueList() {
   function handleDropdown(e) {
     setPerPage(e.target.value);
   }
-
+  console.log(checked);
   return (
     <>
       <div className="px-4 py-5 sm:px-6">
@@ -54,6 +73,19 @@ function RescueList() {
       <div className="flex flex-col items-center">
         <div className="flex w-screen justify-between h-12">
           <div className="self-end pl-5">
+            {/* <button type="button" className="btn-light" onClick={selectHandler}>
+              전체
+            </button>
+            <button type="button" className="btn-light" onClick={selectHandler}>
+              개
+            </button>
+            <button type="button" className="btn-light" onClick={selectHandler}>
+              고양이
+            </button>
+            <button type="button" className="btn-light" onClick={selectHandler}>
+              기타
+            </button> */}
+
             <label className="checkbox-label" htmlFor="dog-checkbox">
               <input
                 type="checkbox"
