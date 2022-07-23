@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
 import LostPostMap from './LostPostMap';
-import Loading from '../../_layout/loading/Loading';
+import LoginContent from '../../_layout/header/LoginContent';
+import ModalWindow from '../modal/ModalWindow';
 
 export default function InputData() {
   const BTN_CLASS =
@@ -22,9 +23,10 @@ export default function InputData() {
   const [image, setImage] = useState();
   const [btnText, setBtnText] = useState('등록하기');
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
 
   const [userInfo, setUserInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLogIn, setIsLogIn] = useState(true);
   const navigate = useNavigate();
   const handleChangeAnimalName = ({ target: { value } }) =>
     setAnimalName(value);
@@ -53,8 +55,6 @@ export default function InputData() {
   };
 
   const getUserInfo = async () => {
-    setIsLoading(true);
-
     axios
       .get(
         `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
@@ -70,9 +70,6 @@ export default function InputData() {
       })
       .catch((error) => {
         console.error(error);
-      })
-      .finally(() => {
-        setIsLoading(false);
       });
   };
 
@@ -89,13 +86,10 @@ export default function InputData() {
     }
 
     setBtnText('등록중...');
-    setIsLoading(true);
     setBtnDisabled(true);
 
     saveImage();
     try {
-      setIsLoading(false);
-
       axios({
         url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/post`,
         method: 'post',
@@ -124,13 +118,24 @@ export default function InputData() {
   };
 
   useEffect(() => {
-    getUserInfo();
+    if (sessionStorage.getItem('token')) {
+      setIsLogIn(false);
+      getUserInfo();
+    }
   }, []);
-
+  if (isLogIn)
+    return (
+      <ModalWindow
+        open={modalOpen}
+        close={() => setModalOpen(false)}
+        header="로그인"
+        content={<LoginContent locationPath={window.location.pathname} />}
+      >
+        {' '}
+      </ModalWindow>
+    );
   return (
     <div className="flex flex-row justify-center z-0">
-      {isLoading ? <Loading /> : null}
-
       <form className="mt-8">
         <div className="px-4 py-5 sm:px-6">
           <div className="text-3xl font-bold text-gray-800">분실 등록</div>

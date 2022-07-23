@@ -95,6 +95,13 @@ export default function HamburgerMenu() {
         >
           구조 지도
         </Link>
+        <Link
+          className="menu-item block pl-3 hover:text-brown leading-relaxed"
+          to="/shelter"
+          onClick={closeMenu}
+        >
+          보호소 리스트
+        </Link>
       </div>
     </Menu>
   );
