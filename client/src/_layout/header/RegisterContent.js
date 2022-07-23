@@ -37,7 +37,7 @@ function RegisterContent() {
       alert('빈칸을 작성해주세요.');
       return;
     }
-    if(inputPhoneNumber !== 11){
+    if(inputPhoneNumber.length !== 11){
       alert('번호를 양식에 맞추어 작성해주세요.')
       return;
     }
