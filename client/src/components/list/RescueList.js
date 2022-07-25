@@ -57,13 +57,13 @@ function RescueList() {
       </div>
       <div className="flex flex-col items-center">
         <div className="flex w-screen justify-between h-12">
-          <div className="self-end pl-5">
-            <button type="button" className="btn-light" onClick={selectHandler}>
+          <div className="flex flex-wrap self-end basis-1/3 text-sm ml-8 font-medium text-center text-gray-800 dark:text-gray-400">
+            <button type="button" className="btn-tab " onClick={selectHandler}>
               전체
             </button>
             <button
               type="button"
-              className="btn-light"
+              className="btn-tab"
               onClick={selectHandler}
               id="dog"
             >
@@ -71,7 +71,7 @@ function RescueList() {
             </button>
             <button
               type="button"
-              className="btn-light"
+              className="btn-tab"
               onClick={selectHandler}
               id="cat"
             >
@@ -79,49 +79,15 @@ function RescueList() {
             </button>
             <button
               type="button"
-              className="btn-light"
+              className="btn-tab"
               onClick={selectHandler}
               id="etc"
             >
               기타
             </button>
-
-            {/* <label className="checkbox-label" htmlFor="dog-checkbox">
-              <input
-                type="checkbox"
-                className="checkbox-input"
-                id="dog-checkbox"
-                name="animal"
-                value="dog"
-                onChange={checkHandler}
-              />
-              개
-            </label>
-            <label className="checkbox-label" htmlFor="cat-checkbox">
-              <input
-                type="checkbox"
-                className="checkbox-input"
-                id="cat-checkbox"
-                name="animal"
-                value="cat"
-                onChange={checkHandler}
-              />
-              고양이
-            </label>
-            <label className="checkbox-label" htmlFor="others-checkbox">
-              <input
-                type="checkbox"
-                className="checkbox-input"
-                id="others-checkbox"
-                name="animal"
-                value="etc"
-                onChange={checkHandler}
-              />
-              기타
-            </label> */}
           </div>
-          <Map2ListToggle />
-          <div className="self-end pr-10">
+          <Map2ListToggle className="basis-1/3" />
+          <div className="flex justify-end self-end pr-10 basis-1/3">
             <select className="dropdown" onChange={handleDropdown}>
               <option className="hover:bg-yellow" value="15">
                 15개씩 보기
