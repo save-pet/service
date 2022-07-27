@@ -1,6 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import { React, useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import RenderList from './RenderList';

@@ -1,4 +1,4 @@
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 import { React, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser, faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -90,7 +90,7 @@ function EditInfo() {
   if (isLoading) return <div>로딩중...</div>;
 
   return (
-    <div className="container flex flex-row">
+    <div className="container flex flex-row pb-7">
       <MenuBar />
       <div className="mt-16 container flex flex-col mx-auto w-full items-center justify-center">
         <div className="px-20 py-5 sm:px-6 border-b-2 border-gray-700 w-full">
@@ -195,10 +195,7 @@ function EditInfo() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="float-right btn-submit"
-              >
+              <button type="submit" className="float-right btn-submit">
                 수정하기
               </button>
             </form>

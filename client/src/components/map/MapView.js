@@ -1,12 +1,11 @@
-/* eslint-disable react/prop-types */
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 
 import { React, useEffect, useState } from 'react';
-// import { Map, MapMarker, useMap, MarkerClusterer } from 'react-kakao-maps-sdk';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
+import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
@@ -24,7 +23,7 @@ function InfoWindowContent({ data }) {
 
   return (
     <div className="px-[20px] py-[15px] w-[220px] text-left">
-      <div style={{ color: '#000' }}>
+      <div className="text-black">
         <span className="notranslate">
           <ul>
             <img
@@ -94,7 +93,6 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-  // const [positions, setPositions] = useState([]);
 
   const getRescueData = async () => {
     setIsLoading(true);
@@ -139,25 +137,12 @@ function MapView() {
     }
   };
 
-  // const makeSetPositions = () => {
-  //   makeRescueList.map((item) =>
-  //     setPositions([
-  //       ...positions,
-  //       {
-  //         lat: item.happenLatitude,
-  //         lng: item.happenLongitude,
-  //       },
-  //     ]),
-  //   );
-  // };
-
   useEffect(() => {
     const asyncGetData = async () => {
       await getRescueData();
     };
     findMyLocation();
     asyncGetData().then();
-    // makeSetPositions();
   }, []);
 
   const rescueList = getInfoWindowData(makeRescueList);
@@ -174,29 +159,22 @@ function MapView() {
         클릭하면 구조 동물 상세로 이동합니다.
       </p>
       <div className="relative">
-        <div className=" h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
+        <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
           <Map2ListToggle />
         </div>
 
         <Map // 지도를 표시할 Container
-          // center={{
-          //   // 지도의 중심좌표
-          //   // lat: 36.33689689105572,
-          //   // lng: 127.4495082397018,
-          //   state.center;
-          // }}
           center={state.center}
           className="w-full h-[80vh]"
           level={3} // 지도의 확대 레벨
         >
           {!state.isLoading && (
             <MapMarker position={state.center}>
-              <div style={{ padding: '5px', color: '#000' }}>
+              <div className="p-[5px] text-black">
                 {state.errMsg ? state.errMsg : '현재 위치'}
               </div>
             </MapMarker>
           )}
-          {/* <MarkerClusterer averageCenter="true" minLevel={10}> */}
           {rescueList.map((rescue) => (
             <div key={rescueList.desertionNo}>
               <EventMarkerContainer
@@ -207,7 +185,6 @@ function MapView() {
               />
             </div>
           ))}
-          {/* </MarkerClusterer> */}
         </Map>
       </div>
     </>
@@ -215,3 +192,12 @@ function MapView() {
 }
 
 export default MapView;
+
+InfoWindowContent.propTypes = {
+  data: PropTypes.shape.isRequired,
+};
+EventMarkerContainer.propTypes = {
+  position: PropTypes.shape.isRequired,
+  content: PropTypes.element.isRequired,
+  id: PropTypes.number.isRequired,
+};

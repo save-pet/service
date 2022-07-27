@@ -1,22 +1,29 @@
-/* eslint-disable prefer-const */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-plusplus */
 import { Router } from 'express';
 import { loginRequired, adminRequired } from '../middlewares/index.js';
-import { lostService, userService, lostShelterService, shelterService } from '../services/index.js';
+import {
+  lostService,
+  userService,
+  lostShelterService,
+  shelterService,
+} from '../services/index.js';
 
 const lostShelterRouter = Router();
 
 // 1.전체 목록 조회
-lostShelterRouter.get('/', loginRequired, adminRequired, async (req, res, next) => {
-  try {
-    const lostShelters = await lostShelterService.getLostShelters();
+lostShelterRouter.get(
+  '/',
+  loginRequired,
+  adminRequired,
+  async (req, res, next) => {
+    try {
+      const lostShelters = await lostShelterService.getLostShelters();
 
-    res.status(200).json(lostShelters);
-  } catch (error) {
-    next(error);
-  }
-});
+      res.status(200).json(lostShelters);
+    } catch (error) {
+      next(error);
+    }
+  },
+);
 
 // 2. 사용자가 작성한 분실 글에 대한 목록 조회
 lostShelterRouter.get('/:lostId', loginRequired, async (req, res, next) => {
@@ -34,14 +41,20 @@ lostShelterRouter.get('/:lostId', loginRequired, async (req, res, next) => {
 });
 
 // 3. 특정 보호소 기준으로 목록 불러오기
-lostShelterRouter.get('/shelter/:shelterId', loginRequired, adminRequired, async (req, res, next) => {
-  try {
-    const shelterId = req.params.shelterId;
-    const postsByShelter = await lostShelterService.getLostShelterByShelter(shelterId);
-    res.status(200).json(postsByShelter);
-  } catch (error) {
-    next(error);
-  }
+lostShelterRouter.get(
+  '/shelter/:shelterId',
+  loginRequired,
+  adminRequired,
+  async (req, res, next) => {
+    try {
+      const shelterId = req.params.shelterId;
+      const postsByShelter = await lostShelterService.getLostShelterByShelter(
+        shelterId,
+      );
+      res.status(200).json(postsByShelter);
+    } catch (error) {
+      next(error);
+    }
   },
 );
 

@@ -1,4 +1,4 @@
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 import { React, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
@@ -93,9 +93,12 @@ function Leave() {
                 />
               </div>
             </div>
-            <button type="submit"
-            className="ml-10 py-2 px-4 mt-1 mb-10 bg-[#ff3d3d]  hover:font-bold text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
-            >탈퇴하기</button>
+            <button
+              type="submit"
+              className="ml-10 py-2 px-4 mt-1 mb-10 bg-[#ff3d3d]  hover:font-bold text-white w-28 transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg"
+            >
+              탈퇴하기
+            </button>
           </form>
         </div>
       </div>
