@@ -42,7 +42,7 @@ function LostEdit() {
 
   const onSubmit = () => {
     axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/edit/${locationId}`,
+      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_EDIT}/${locationId}`,
       {
         address: addressName,
         animalName: lostDetail.animalName,
@@ -66,7 +66,6 @@ function LostEdit() {
         },
       },
     );
-    alert('변경되었습니다.');
     navigate(`/lost/${locationId}`);
   };
   useEffect(() => {

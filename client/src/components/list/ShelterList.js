@@ -23,7 +23,6 @@ function ShelterList() {
       setShelterList(data.posts);
       if (page !== 1) return;
       setPage(data.page);
-      // setPerPage(data.perPage);
       setTotalPage(data.totalPage);
     } catch (error) {
       alert(error.response.data.reason);
@@ -75,7 +74,7 @@ function ShelterList() {
             })}
         </ul>
       </div>
-      <div className="py-2 flex flex-row items-center justify-center">
+      <div className="pt-2 pb-5 flex flex-row items-center justify-center">
         <button
           className={`inline-flex items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 ${
             page === 1

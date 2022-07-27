@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import axios from 'axios';
 import { React, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,19 +5,18 @@ import { Link } from 'react-router-dom';
 export default function LostList() {
   const [lostList, setLostList] = useState([]);
 
-  async function getRescue() {
+  async function getData() {
     useEffect(() => {
-      const asyncGetRescue = async () => {
+      const asyncGetData = async () => {
         const { data } = await axios(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost`,
+          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}`,
         );
-        console.log(data);
         setLostList(data);
       };
-      asyncGetRescue();
+      asyncGetData();
     }, []);
   }
-  getRescue();
+  getData();
 
   return (
     <div>
@@ -36,7 +34,7 @@ export default function LostList() {
             <div className="inline-flex flex-wrap justify-center p-4 gap-5">
               <div
                 key={shortId}
-                className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 cursor-pointer m-auto"
+                className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 min-w-full cursor-pointer m-auto"
               >
                 <Link to={`/lost/${shortId}`} className="w-full block h-full">
                   <img

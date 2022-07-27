@@ -62,7 +62,7 @@
   - 필터 기능
     <br/>
 
-### [구해줘 댕냥쓰 보러 가실까요!](http://kdt-sw2-seoul-team04.elicecoding.com/)
+### [구해줘 댕냥쓰 보러 가실까요!](http://35.197.45.240/)
 
 <br/>
 
@@ -98,14 +98,13 @@
 #### 1. 메인페이지-구조 목록
 
 <br/>
-
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7396416d-32dc-4575-89bd-7f5e08de49c1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045935Z&X-Amz-Expires=86400&X-Amz-Signature=e6ece64d1ad4cb4a82d92c3ca6d25c64d7c4f93c1ae3ad9eaab45e129a7ba1df&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="mainPage" src="https://ifh.cc/g/AATNmb.jpg">
 
     1.1 사용자가 선택한 개수씩 목록 보기
 
     1.2 페이지네이션 적용
 
-    1.3 동물 종류에 따른 체크박스 필터 기능
+    1.3 동물 종류에 따른 카테고리 기능
 
     1.4 구조 목록-구조 지도 전환 토글 버튼
 
@@ -117,8 +116,8 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6eefe2cc-c835-4ce1-89be-6cbc24c0602a/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045942Z&X-Amz-Expires=86400&X-Amz-Signature=6493c8c46acd82321ed7565dc6d7116e0b211061f632fd8e692eae2fddf3ac16&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/9a019220-218d-4778-91f0-c70f2963a603/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045946Z&X-Amz-Expires=86400&X-Amz-Signature=61c21d19aa379bd508e15bf8219437f784dae20adcd6c0c3783732a9e2cf05ed&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="register" src="https://ifh.cc/g/RCGyaY.jpg">
+<img width="600" alt="login" src="https://ifh.cc/g/cbQ4lX.jpg">
 
     2.1 아이디, 비밀번호, 전화번호 유효성 검증
 
@@ -132,7 +131,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/bdbfa09c-1b3b-4d2f-8bd6-9ba561c9c75b/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045949Z&X-Amz-Expires=86400&X-Amz-Signature=7972ddd845e4d7e708522d3f4ee0c08a0dff6abd0a21ce94b7eb5089c8650bbf&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="myPage" src="https://ifh.cc/g/GslYq2.png">
 
     3.1 회원정보 수정 유효성 검증
 
@@ -148,7 +147,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/1e867431-6f1d-4c68-982f-3413dbe7905f/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045954Z&X-Amz-Expires=86400&X-Amz-Signature=553fc794459615027f0b2c34d07693e9b5724e8e7041e087b1676b0963a28f92&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="before1" src="https://ifh.cc/g/oq1Wmw.png">
 
     3.1 모든 회원정보 확인 가능
 
@@ -160,7 +159,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/497ef6af-7d8b-4ca0-9ff0-3d48f288eb94/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T045957Z&X-Amz-Expires=86400&X-Amz-Signature=a58c04d277136b8434514872d85c02384b6c1862c324775cca745df8dca7dce0&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="posting lost" src="https://ifh.cc/g/kpQCZp.jpg">
 
     4.1 카카오 지도를 이용하여 분실 위치 받기
 
@@ -178,7 +177,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/20da20ac-035f-4527-9600-9e05b786194e/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050001Z&X-Amz-Expires=86400&X-Amz-Signature=87e0b75e74373029eca192afe9db66383117a7b7cead3289cf5b51daed2b3679&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="lost list" src="https://ifh.cc/g/xsjVhn.jpg">
 
 <br/>
 
@@ -186,40 +185,58 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/65ee0cf6-bc30-414b-92f3-84b49366a497/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050004Z&X-Amz-Expires=86400&X-Amz-Signature=63f0f970e8f1acb7dc7ba25851d4bbb38a1e5049954b073e556789910b36607d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="before1" src="https://ifh.cc/g/lqr7BG.jpg">
 
     7.1 현재 위치 기준으로 주변의 구조된 동물 발견 위치 맵핑(카카오 map api 사용)
 
     7.2 info window로 구조 사진 및 간단한 정보 표시
 
-<br/>
+    7.3 핀 위에 마우스 오버 시 포커스 이동
 
-#### 8. 기타
-
-<br/>
-
-    8.1 localStorage에 token 저장하여 로그인 시 nav바 메뉴 변경
-
-    8.2 sticky header와 hamburger menu 적용
-
-    8.2 근처에 구조된 새로운 내역이 있다면 SMS으로 알림 표시 (twilio 사용)
-
-    8.3 데이터 파이프라인 실시간 현황 페이지
-
-    8.4 문자 알림
+    7.4 핀 클릭 시 해당 구조 상세페이지로 이동
 
 <br/>
+
+#### 8. 보호소별 구조 목록
+
+<br/>
+
+<img width="600" alt="shelter list" src="https://ifh.cc/g/fkJnZM.png">
+<img width="600" alt="shelter rescued list" src="https://ifh.cc/g/Vwnqg6.jpg">
+
+    8.1 보호소 목록을 통해 보호소별 구조 동물 탐색 가능
+
+<br/>
+
+#### 9. 기타
+
+<br/>
+
+    9.1 localStorage에 token 저장하여 로그인 시 nav바 메뉴 변경
+
+    9.2 sticky header와 hamburger menu 적용
+
+    9.2 근처에 구조된 새로운 내역이 있다면 SMS으로 알림 표시 (twilio 사용)
+
+    9.3 데이터 파이프라인 실시간 현황 페이지
+
+<br/>
+
+#### 햄버거 메뉴
+
+<img width="600" alt="data pipeline" src="https://ifh.cc/g/A6tYCC.jpg">
 
 ##### 데이터 파이프라인 실시간 현황 웹페이지
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/7a5a4a29-b07e-4acc-a0cc-e111003ff78d/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T050008Z&X-Amz-Expires=86400&X-Amz-Signature=230fbf96ef512ad9cc88643ff13d9eb0553542a0638ef773e1c388c61b0eccbe&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="data pipeline" src="https://ifh.cc/g/Otkfa8.png">
 
-#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.15.156/)
+#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.101.18/)
+
 <br/>
 
 ##### 문자알림
 
-<img width="600" alt="before1" src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/394fb85c-bfc6-4870-aec3-725fbdf4f3c1/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220722%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220722T023953Z&X-Amz-Expires=86400&X-Amz-Signature=2c7d981ca7a4d2ba70c5db243404031071fed5cf24fcdebafe531a27a52b9292&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject">
+<img width="600" alt="text message" src="https://ifh.cc/g/r1g097.png">
 <br/>
 
 <br/>

@@ -113,7 +113,7 @@ export default function InputData() {
         navigate('/lost/list');
       });
     } catch (error) {
-      console.log(error);
+      alert('분실 등록에 문제가 생겼습니다: ', error);
     }
   };
 
@@ -137,6 +137,12 @@ export default function InputData() {
   return (
     <div className="flex flex-row justify-center z-0">
       <form className="mt-8">
+        <div className="px-4 py-5 sm:px-6">
+          <div className="text-3xl font-bold text-gray-800">분실 등록</div>
+          <p className="mt-3 max-w-2xl text-sm text-gray-500 ">
+            근처에서 구조된 동물이 있을 때 알림을 받으려면 분실 등록을 해주세요.
+          </p>
+        </div>
         <div className="flex flex-col mb-2">
           <div className="flex relative">
             <span className="w-1/3 rounded-l-md inline-flex  items-center px-5 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
@@ -256,8 +262,9 @@ export default function InputData() {
             <div className="flex relative justify-center">
               <p className="mx-2 my-1 text-sm text-gray-400 text-start">
                 반경은 최소 0에서 최대 400까지 입력 가능합니다. <br />
-                서울 ~ 부산의 거리는 약 400km입니다. <br />
-                신중하게 반경을 작성해주세요.
+                반경이 너무 클 경우 알림이 과도하게 갈 수 있으니 신중하게
+                입력해주세요.
+                <br />
               </p>
             </div>
           </div>

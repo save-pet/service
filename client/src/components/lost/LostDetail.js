@@ -1,4 +1,5 @@
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
+
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -59,7 +60,7 @@ function LostDetail() {
         },
       );
 
-      await setUserInfo(data);
+      setUserInfo(data);
     } catch (error) {
       console.error(error);
     } finally {

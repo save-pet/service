@@ -1,15 +1,16 @@
-/* eslint-disable react/prop-types */
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
+import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
   const { happenDate } = data;
+  // 몇일 전 발견인지 계산
   const latestDate = new Date(
     `${happenDate.substring(0, 4)}-${happenDate.substring(
       4,
@@ -23,7 +24,7 @@ function InfoWindowContent({ data }) {
 
   return (
     <div className="px-[20px] py-[15px] w-[220px] text-left">
-      <div style={{ color: '#000' }}>
+      <div className="text-black">
         <span className="notranslate">
           <ul>
             <img
@@ -159,7 +160,7 @@ function MapView() {
         클릭하면 구조 동물 상세로 이동합니다.
       </p>
       <div className="relative">
-        <div className=" h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
+        <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
           <Map2ListToggle />
         </div>
 
@@ -170,7 +171,7 @@ function MapView() {
         >
           {!state.isLoading && (
             <MapMarker position={state.center}>
-              <div style={{ padding: '5px', color: '#000' }}>
+              <div className="p-[5px] text-black">
                 {state.errMsg ? state.errMsg : '현재 위치'}
               </div>
             </MapMarker>
@@ -192,3 +193,12 @@ function MapView() {
 }
 
 export default MapView;
+
+InfoWindowContent.propTypes = {
+  data: PropTypes.shape().isRequired,
+};
+EventMarkerContainer.propTypes = {
+  position: PropTypes.shape().isRequired,
+  content: PropTypes.element.isRequired,
+  id: PropTypes.number.isRequired,
+};

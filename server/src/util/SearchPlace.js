@@ -44,5 +44,3 @@ async function SearchPlace(place) {
   const [lat, lng] = getCenterPlace(dataArr);
   return [lat, lng];
 }
-
-// await SearchPlace('상주')

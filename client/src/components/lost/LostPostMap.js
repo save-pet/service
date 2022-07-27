@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 
-function FindLocation({ address, setAddress, setAddressName }) {
+
+function FindLocation({ address, setAddress, addressName, setAddressName }) {
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
@@ -20,7 +20,6 @@ function FindLocation({ address, setAddress, setAddressName }) {
 
     setAddress(position);
     alert('위치 등록이 완료되었습니다. 지도를 닫아주세요.');
-    console.log(address);
   };
   useEffect(() => {
     if (navigator.geolocation) {
@@ -30,8 +29,8 @@ function FindLocation({ address, setAddress, setAddressName }) {
           setState((prev) => ({
             ...prev,
             center: {
-              lat: pos.coords.latitude, // 위도
-              lng: pos.coords.longitude, // 경도
+              lat: posit.coords.latitude, // 위도
+              lng: posit.coords.longitude, // 경도
             },
             isLoading: false,
           }));
@@ -58,11 +57,7 @@ function FindLocation({ address, setAddress, setAddressName }) {
     <>
       <Map // 지도를 표시할 Container
         center={state.center}
-        style={{
-          // 지도의 크기
-          width: '100%',
-          height: '450px',
-        }}
+        className="w-full h-[450px]" // 지도의 크기
         level={3} // 지도의 확대 레벨
         onClick={(_t, mouseEvent) =>
           setPosition({
@@ -106,7 +101,7 @@ function FindLocation({ address, setAddress, setAddressName }) {
               },
             }}
           >
-            <div style={{ padding: '5px', color: '#000' }}>
+            <div className="p-[5px] text-black">
               {state.errMsg ? state.errMsg : '현재 위치'}
             </div>
           </MapMarker>
@@ -126,7 +121,8 @@ function FindLocation({ address, setAddress, setAddressName }) {
 }
 FindLocation.propTypes = {
   address: PropTypes.string.isRequired,
-  setAddress: PropTypes.string.isRequired,
-  setAddressName: PropTypes.string.isRequired,
+  setAddress: PropTypes.func.isRequired,
+  addressName: PropTypes.string.isRequired,
+  setAddressName: PropTypes.func.isRequired,
 };
 export default FindLocation;
