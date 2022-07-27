@@ -52,6 +52,6 @@ function PostImg({ setImage }) {
   );
 }
 PostImg.propTypes = {
-  setImage: PropTypes.string.isRequired,
+  setImage: PropTypes.func.isRequired,
 };
 export default PostImg;
