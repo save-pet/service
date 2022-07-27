@@ -17,7 +17,7 @@ function UserLostList() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}/user`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_LOST}/user`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -36,7 +36,7 @@ function UserLostList() {
   const deleteLostItem = async (shortId) => {
     try {
       await axios.delete(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_DELETE}/${shortId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_DELETE}/${shortId}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -53,7 +53,7 @@ function UserLostList() {
 
   const changeState = async (processState, shortId) => {
     await axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_EDIT}/${shortId}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_EDIT}/${shortId}`,
       {
         processState: processState === 'lost' ? 'done' : 'lost',
       },
@@ -99,9 +99,7 @@ function UserLostList() {
           <li className="flex flex-row">
             <div className="select-none flex flex-1 items-center p-4">
               <div className="font-medium w-full">이름</div>
-              <div className="font-medium w-full">
-                실종 날짜
-              </div>
+              <div className="font-medium w-full">실종 날짜</div>
               <div className="font-medium w-full">상태</div>
               <div className="font-medium w-full">-</div>
               <div className="font-medium w-full">상세보기</div>
@@ -115,12 +113,8 @@ function UserLostList() {
               <div key={shortId}>
                 <li className="flex flex-row">
                   <div className="select-none flex flex-1 items-center p-4 text-center">
-                    <div className="font-medium w-full">
-                      {animalName}
-                    </div>
-                    <div className="font-medium w-full">
-                      {lostDate}
-                    </div>
+                    <div className="font-medium w-full">{animalName}</div>
+                    <div className="font-medium w-full">{lostDate}</div>
                     <div className="font-medium w-full">
                       {processState === 'lost' ? '분실' : '완료'}
                     </div>

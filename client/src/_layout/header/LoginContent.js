@@ -17,7 +17,7 @@ function LoginContent({ locationPath }) {
   const onClickLogin = async () => {
     try {
       const { data } = await axios.post(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOGIN}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_LOGIN}`,
         {
           id: inputId,
           password: inputPassword,

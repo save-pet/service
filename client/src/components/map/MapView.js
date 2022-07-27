@@ -98,7 +98,7 @@ function MapView() {
   const getRescueData = async () => {
     setIsLoading(true);
     await axios({
-      url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue`,
+      url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue`,
       method: 'GET',
     }).then((res) => {
       setMakeRescueList(res.data);

@@ -23,7 +23,7 @@ function EditInfo() {
 
   const editUserInfo = () =>
     axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}/${userInfo._id}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_USER}/${userInfo._id}`,
       {
         userId: userInfo.userId,
         id: userInfo.id,
@@ -46,7 +46,7 @@ function EditInfo() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',

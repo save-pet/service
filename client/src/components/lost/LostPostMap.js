@@ -29,8 +29,8 @@ function FindLocation({ address, setAddress, addressName, setAddressName }) {
           setState((prev) => ({
             ...prev,
             center: {
-              lat: posit.coords.latitude, // 위도
-              lng: posit.coords.longitude, // 경도
+              lat: pos.coords.latitude, // 위도
+              lng: pos.coords.longitude, // 경도
             },
             isLoading: false,
           }));

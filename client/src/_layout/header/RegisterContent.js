@@ -37,8 +37,8 @@ function RegisterContent() {
       alert('빈칸을 작성해주세요.');
       return;
     }
-    if(inputPhoneNumber.length !== 11){
-      alert('번호를 양식에 맞추어 작성해주세요.')
+    if (inputPhoneNumber.length !== 11) {
+      alert('번호를 양식에 맞추어 작성해주세요.');
       return;
     }
     if (inputPassword !== confirmPassword) {
@@ -46,7 +46,7 @@ function RegisterContent() {
     }
     try {
       await axios({
-        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_REGISTER}`,
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_REGISTER}`,
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

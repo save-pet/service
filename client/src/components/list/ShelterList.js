@@ -12,7 +12,7 @@ function ShelterList() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/shelter/shelters?page=${page}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter/shelters?page=${page}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',

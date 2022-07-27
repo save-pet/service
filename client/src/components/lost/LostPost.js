@@ -41,7 +41,7 @@ export default function InputData() {
 
     try {
       await axios({
-        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/upload`,
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/lost/upload`,
         method: 'POST',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -57,7 +57,7 @@ export default function InputData() {
   const getUserInfo = async () => {
     axios
       .get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USER}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_USER}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -91,7 +91,7 @@ export default function InputData() {
     saveImage();
     try {
       axios({
-        url: `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/post`,
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/lost/post`,
         method: 'post',
         headers: {
           'Content-Type': 'application/json',

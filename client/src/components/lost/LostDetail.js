@@ -25,7 +25,7 @@ function LostDetail() {
         window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
       ) {
         await axios(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/delete/${locationId}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/api/lost/delete/${locationId}`,
           {
             method: 'DELETE',
             headers: {
@@ -51,7 +51,7 @@ function LostDetail() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/user/`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/user/`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -69,7 +69,7 @@ function LostDetail() {
   };
   const getLost = async () => {
     const { data } = await axios(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/${locationId}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/api/lost/${locationId}`,
       {
         method: 'GET',
         headers: {
@@ -108,7 +108,7 @@ function LostDetail() {
       </div>
       <div className="flex justify-center pt-10">
         <img
-          src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
+          src={`${process.env.REACT_APP_SERVER_DOMAIN}/static/${image}`}
           alt="rescued animal"
           className="w-96 h-auto"
         />

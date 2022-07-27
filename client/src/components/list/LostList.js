@@ -9,7 +9,7 @@ export default function LostList() {
     useEffect(() => {
       const asyncGetData = async () => {
         const { data } = await axios(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_LOST}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_LOST}`,
         );
         setLostList(data);
       };
@@ -38,7 +38,7 @@ export default function LostList() {
               >
                 <Link to={`/lost/${shortId}`} className="w-full block h-full">
                   <img
-                    src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${image}`}
+                    src={`${process.env.REACT_APP_SERVER_DOMAIN}/static/${image}`}
                     alt="lost animal"
                     className="max-h-64 w-full object-cover"
                   />

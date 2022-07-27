@@ -18,7 +18,7 @@ function RescueList() {
   const getRescue = useCallback(
     ({ dog, cat, etc }) => {
       axios(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues/kind/${dog}/${cat}/${etc}?page=${pageNum}&perPage=${perPage}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_RESCUE}/rescues/kind/${dog}/${cat}/${etc}?page=${pageNum}&perPage=${perPage}`,
       ).then(({ data }) => {
         setRescueList(data.posts);
         setTotalPage(data.totalPage);
