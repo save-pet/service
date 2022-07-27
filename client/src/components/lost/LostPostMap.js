@@ -1,12 +1,8 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 
-const { kakao } = window;
-
-const REST_API_KEY = '9af9de6fad57bca234b42bb02bcc14a2';
 
 function FindLocation({ address, setAddress, addressName, setAddressName }) {
   const [position, setPosition] = useState();
@@ -29,7 +25,7 @@ function FindLocation({ address, setAddress, addressName, setAddressName }) {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
-        (posit) => {
+        (pos) => {
           setState((prev) => ({
             ...prev,
             center: {
