@@ -10,6 +10,7 @@ import Map2ListToggle from './Map2ListToggle';
 
 function InfoWindowContent({ data }) {
   const { happenDate } = data;
+  // 몇일 전 발견인지 계산
   const latestDate = new Date(
     `${happenDate.substring(0, 4)}-${happenDate.substring(
       4,
@@ -194,10 +195,10 @@ function MapView() {
 export default MapView;
 
 InfoWindowContent.propTypes = {
-  data: PropTypes.shape.isRequired,
+  data: PropTypes.shape().isRequired,
 };
 EventMarkerContainer.propTypes = {
-  position: PropTypes.shape.isRequired,
+  position: PropTypes.shape().isRequired,
   content: PropTypes.element.isRequired,
   id: PropTypes.number.isRequired,
 };
