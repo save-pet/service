@@ -17,7 +17,7 @@ function LostEdit() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/lost/${locationId}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/api/lost/${locationId}`,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function LostEdit() {
 
   const onSubmit = () => {
     axios.patch(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_EDIT}/${locationId}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_EDIT}/${locationId}`,
       {
         address: addressName,
         animalName: lostDetail.animalName,
@@ -85,7 +85,7 @@ function LostEdit() {
           </div>
           <form className="flex justify-center pt-10">
             <img
-              src={`${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/static/${lostDetail.image}`}
+              src={`${process.env.REACT_APP_SERVER_DOMAIN}/static/${lostDetail.image}`}
               alt="rescued animal"
               className="w-96 h-auto"
             />

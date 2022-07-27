@@ -11,7 +11,7 @@ function LostList() {
     setIsLoading(true);
     try {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_USERS}`,
+        `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_USERS}`,
         {
           headers: {
             'Content-Type': 'application/json; charset=utf-8',

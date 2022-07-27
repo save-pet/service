@@ -12,7 +12,7 @@ export default function ShelterCodeList() {
     useEffect(() => {
       const asyncGetRescue = async () => {
         const { data } = await axios(
-          `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/${process.env.REACT_APP_ROUTER_RESCUE}/care-code/${careCode}`,
+          `${process.env.REACT_APP_SERVER_DOMAIN}/${process.env.REACT_APP_ROUTER_RESCUE}/care-code/${careCode}`,
         );
         setShelterList(data);
       };

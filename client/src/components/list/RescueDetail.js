@@ -9,7 +9,7 @@ function LostDetail() {
 
   async function getLost() {
     const { data } = await axios(
-      `${process.env.REACT_APP_DOMAIN}:${process.env.REACT_APP_SERVER_PORT}/api/rescue/${locationId}`,
+      `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/${locationId}`,
       {
         method: 'GET',
         headers: {
