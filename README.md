@@ -226,12 +226,12 @@
 
 <img width="600" alt="data pipeline" src="https://ifh.cc/g/A6tYCC.jpg">
 
-
 ##### 데이터 파이프라인 실시간 현황 웹페이지
 
 <img width="600" alt="data pipeline" src="https://ifh.cc/g/Otkfa8.png">
 
-#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.15.156/)
+#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.101.18/)
+
 <br/>
 
 ##### 문자알림
