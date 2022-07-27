@@ -1,8 +1,7 @@
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +20,6 @@ function LostDetail() {
     return false;
   };
   async function handleClickDelete() {
-    // const navigate = useNavigate;
     if (checkId()) {
       if (
         window.confirm('삭제하시겠습니까? 삭제된 데이터는 복구할 수 없습니다.')
@@ -35,7 +33,6 @@ function LostDetail() {
             },
           },
         ).then((window.location.href = '/lost/list'));
-        // navigate('/lost/list');
       }
     } else {
       alert('본인이 작성한 게시물만 삭제할 수 있습니다.');
@@ -44,9 +41,7 @@ function LostDetail() {
     return false;
   }
   const handleClickEdit = () => {
-    // const navigate = useNavigate();
     if (checkId()) {
-      // navigate('edit');
       window.location.href = `${locationId}/edit`;
     } else {
       alert('본인이 작성한 게시물만 수정할 수 있습니다.');

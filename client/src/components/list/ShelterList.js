@@ -23,7 +23,6 @@ function ShelterList() {
       setShelterList(data.posts);
       if (page !== 1) return;
       setPage(data.page);
-      // setPerPage(data.perPage);
       setTotalPage(data.totalPage);
     } catch (error) {
       alert(error.response.data.reason);

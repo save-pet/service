@@ -1,8 +1,5 @@
-/* eslint-disable prefer-const */
 /* eslint-disable no-await-in-loop */
-/* eslint-disable no-plusplus */
 import { Router } from 'express';
-// import is from '@sindresorhus/is';
 import { loginRequired, checkEmpty } from '../middlewares/index.js';
 import {
   lostService,
@@ -117,12 +114,12 @@ lostRouter.post('/post', loginRequired, checkEmpty, async (req, res, next) => {
     let shelterCode;
     let distance;
 
-    for (let cnt = 0; cnt < shelters.length; cnt++) {
+    for (let cnt = 0; cnt < shelters.length; cnt += 1) {
       shelterId = shelters[cnt]._id;
       shelterCode = shelters[cnt].careCode;
       distance = await lostShelterService.getDistance(lostId, shelterId);
       if (distance < radius) {
-        let newLostShelterPost = await lostShelterService.addLostShelter({
+        const newLostShelterPost = await lostShelterService.addLostShelter({
           lostId,
           shelterId,
           careCode: shelterCode,

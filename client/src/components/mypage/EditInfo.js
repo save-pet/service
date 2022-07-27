@@ -1,4 +1,4 @@
-/* eslint no-underscore-dangle: "warn" */
+/* eslint-disable no-underscore-dangle */
 import { React, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser, faPhone } from '@fortawesome/free-solid-svg-icons';
@@ -195,10 +195,7 @@ function EditInfo() {
                   />
                 </div>
               </div>
-              <button
-                type="submit"
-                className="float-right btn-submit"
-              >
+              <button type="submit" className="float-right btn-submit">
                 수정하기
               </button>
             </form>

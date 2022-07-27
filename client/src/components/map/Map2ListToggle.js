@@ -9,7 +9,7 @@ export default function Map2ListToggle() {
   return (
     <button
       type="button"
-      className="btn-orange"
+      className="btn-orange w-32"
       onClick={() => {
         if (toggleState === '/') {
           navigate('/lostMap');

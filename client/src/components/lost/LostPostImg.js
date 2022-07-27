@@ -20,14 +20,8 @@ function PostImg({ setImage }) {
       <div className="items-center">
         <div className="shrink-5 w-40 h-40 bg-slate-200">
           {fileImage && (
-            <img
-              alt="animal"
-              src={fileImage}
-              // style={{ width: '100%' }}
-              className="object-cover"
-            />
+            <img alt="animal" src={fileImage} className="object-cover" />
           )}
-          {/* <div style={{ alignItems: 'center', justifyContent: 'center' }}></div> */}
         </div>
         <label htmlFor="imgFile" className="block">
           <input
