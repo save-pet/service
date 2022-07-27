@@ -29,12 +29,12 @@ function FindLocation({ address, setAddress, addressName, setAddressName }) {
     if (navigator.geolocation) {
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(
-        (posit) => {
+        (pos) => {
           setState((prev) => ({
             ...prev,
             center: {
-              lat: posit.coords.latitude, // 위도
-              lng: posit.coords.longitude, // 경도
+              lat: pos.coords.latitude, // 위도
+              lng: pos.coords.longitude, // 경도
             },
             isLoading: false,
           }));
