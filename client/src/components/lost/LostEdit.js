@@ -112,9 +112,7 @@ function LostEdit() {
                       title="지도"
                       content={
                         <LostPostMap
-                          address={address}
                           setAddress={setAddress}
-                          addressName={lostDetail.address}
                           setAddressName={setAddressName}
                         />
                       }

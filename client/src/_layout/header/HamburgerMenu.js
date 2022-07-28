@@ -86,7 +86,7 @@ export default function HamburgerMenu() {
           to="/"
           onClick={closeMenu}
         >
-          구조 목록
+          전체 구조 목록
         </Link>
         <Link
           className="menu-item block pl-3 hover:text-brown leading-relaxed"
@@ -100,7 +100,7 @@ export default function HamburgerMenu() {
           to="/shelter"
           onClick={closeMenu}
         >
-          보호소 리스트
+          보호소별 구조 목록
         </Link>
       </div>
     </Menu>
