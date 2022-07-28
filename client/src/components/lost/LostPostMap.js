@@ -3,8 +3,7 @@ import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 
-
-function FindLocation({ address, setAddress, addressName, setAddressName }) {
+function FindLocation({ setAddress, setAddressName }) {
   const [position, setPosition] = useState();
   const [state, setState] = useState({
     center: {
@@ -120,9 +119,7 @@ function FindLocation({ address, setAddress, addressName, setAddressName }) {
   );
 }
 FindLocation.propTypes = {
-  address: PropTypes.string.isRequired,
   setAddress: PropTypes.func.isRequired,
-  addressName: PropTypes.string.isRequired,
   setAddressName: PropTypes.func.isRequired,
 };
 export default FindLocation;
