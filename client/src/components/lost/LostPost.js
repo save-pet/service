@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PostImg from './LostPostImg';
 import ModalButton from '../modal/ModalButton';
 import LostPostMap from './LostPostMap';
-import LoginContent from '../../_layout/header/LoginContent';
+import LoginContent from '../../_layout/LoginContent';
 import ModalWindow from '../modal/ModalWindow';
 
 export default function InputData() {
@@ -185,9 +185,7 @@ export default function InputData() {
                 title="지도"
                 content={
                   <LostPostMap
-                    address={address}
                     setAddress={setAddress}
-                    addressName={addressName}
                     setAddressName={setAddressName}
                   />
                 }

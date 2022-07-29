@@ -26,12 +26,12 @@ export default function LostList() {
           회원들이 등록한 분실 신고 목록입니다.
         </p>
       </div>
-      <div className="grid grid-cols-3 mx-4">
+      <div className="flex flex-wrap mx-4">
         {lostList.map((rescue) => {
           const { shortId, animalName, detail, lostDate, address, image } =
             rescue;
           return (
-            <div className="inline-flex flex-wrap justify-center p-4 gap-5">
+            <div className="inline-flex justify-center p-4 gap-5">
               <div
                 key={shortId}
                 className="content-start overflow-hidden shadow-lg rounded-lg h-90 w-80 md:w-96 min-w-full cursor-pointer m-auto"
@@ -40,7 +40,7 @@ export default function LostList() {
                   <img
                     src={`${process.env.REACT_APP_SERVER_DOMAIN}/static/${image}`}
                     alt="lost animal"
-                    className="max-h-64 w-full object-cover"
+                    className="h-64 w-full object-cover"
                   />
                   <div className="m-4">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">

@@ -27,7 +27,7 @@ code {
     @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange focus:border-orange block p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange dark:focus:border-orange;
   }
   .btn-tab {
-    @apply inline-block px-4 h-10 rounded-t-lg hover:text-brown hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700;
+    @apply inline-block whitespace-nowrap px-4 w-fit h-10 rounded-t-lg hover:text-brown hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300 border border-gray-200 dark:border-gray-700;
   }
   .btn-submit {
     @apply py-2 px-4 mt-1 bg-[#ffa000]  hover:font-extrabold text-white transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none rounded-lg;

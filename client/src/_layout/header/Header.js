@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import LOGO from './MainLogo.png';
 import ModalButton from '../../components/modal/ModalButton';
-import LoginContent from './LoginContent';
-import RegisterContent from './RegisterContent';
+import LoginContent from '../LoginContent';
+import RegisterContent from '../RegisterContent';
 
 function Header() {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ function Header() {
           alt="Main LOGO that has a cat and a dog in a box"
         />
       </Link>
-      <div className="flex justify-end">
+      <div className="flex flex-wrap justify-end">
         <div className="px-2 font-bold text-[#c67100] hover:font-black">
           {didLogin ? (
             <button type="button" onClick={handleLogout}>
