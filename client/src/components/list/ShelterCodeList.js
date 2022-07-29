@@ -33,7 +33,7 @@ export default function ShelterCodeList() {
           </p>
         </div>
       )}
-      <main className="inline-flex flex-wrap justify-center p-5">
+      <main className="lg:w-11/12 mx-auto my-0 p-5 text-[0px]">
         <RenderList list={shelterList} />
       </main>
     </>
