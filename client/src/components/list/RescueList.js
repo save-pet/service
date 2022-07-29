@@ -46,15 +46,15 @@ function RescueList() {
   }
   return (
     <>
-      <div className="px-4 py-5 sm:px-6">
+      <div className="px-5 py-7 md:py-9 md:px-9">
         <div className="text-3xl font-bold text-gray-800">구조 목록</div>
         <p className="mt-3 max-w-2xl text-sm text-gray-500 ">
           구조되어 보호소에 있는 동물 목록입니다.
         </p>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex w-screen justify-between h-12">
-          <div className="flex flex-wrap self-end basis-1/3 text-sm ml-8 font-medium text-center text-gray-800 dark:text-gray-400">
+        <div className="flex flex-wrap px-8 md:px-10 w-screen justify-between h-min-12 gap-4">
+          <div className="flex self-end basis-1/3 text-sm font-medium text-center text-gray-800 dark:text-gray-400">
             <button type="button" className="btn-tab " onClick={selectHandler}>
               전체
             </button>
@@ -84,7 +84,7 @@ function RescueList() {
             </button>
           </div>
           <Map2ListToggle className="basis-1/3" />
-          <div className="flex justify-end self-end pr-10 basis-1/3">
+          <div className="flex justify-end self-end basis-1/3">
             <select className="dropdown" onChange={handleDropdown}>
               <option className="hover:bg-yellow" value="15">
                 15개씩 보기
@@ -99,7 +99,7 @@ function RescueList() {
           </div>
         </div>
 
-        <main className="inline-flex flex-wrap justify-center p-5">
+        <main className="lg:w-11/12 mx-auto my-0 p-5 text-[0px]">
           <RenderList list={rescueList} />
         </main>
         <Pagination
