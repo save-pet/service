@@ -158,6 +158,10 @@ function MapView() {
       <p className="mx-2 my-1 text-sm text-gray-400">
         *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며, 핀을
         클릭하면 구조 동물 상세로 이동합니다.
+        <br />
+        **현재 버전은 배포 상 보안의 문제로 지도에서 현재 위치를 사용할 수
+        없습니다. 기본 위치는 제주도이니 스크롤 및 줌인/줌아웃으로 지도를 움직여
+        주세요.
       </p>
       <div className="relative">
         <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
