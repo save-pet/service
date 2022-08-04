@@ -48,21 +48,21 @@ function LostDetail() {
   } = lostList;
 
   return (
-    <div>
-      <div className="px-4 py-5 sm:px-6 flex items-end">
+    <div className="flex flex-col">
+      <div className="inline-flex flex-wrap px-4 py-5 sm:px-6 gap-3 items-end">
         <div className="text-3xl font-bold text-gray-800">구조 상세</div>
         <p className="ml-2 max-w-2xl text-sm text-gray-500 ">
           구조된 동물의 세부사항을 확인할 수 있습니다.
         </p>
       </div>
-      <div className="flex justify-center pt-10">
+      <div className="inline-flex flex-wrap justify-center mx-auto my-0 p-7">
         <img
           src={imgUrl}
           alt="rescued animal"
           className="w-96 h-full object-cover"
         />
-        <div className="grid gap-2 content-between w-1/2 ml-4 mr-4 ">
-          <div className="border-y w-full mb-40">
+        <div className="grid content-between p-[2vw] w-full md:w-[50vw]">
+          <div className="border-y w-full mb-[5vh]">
             <div className="divide divide-y divide-gray-200">
               <div className="grid-head">
                 <div className="grid-content">나이</div>
