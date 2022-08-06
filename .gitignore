@@ -2,3 +2,7 @@
 /node_modules
 # Local Netlify folder
 .netlify
+# dotenv environment variables file
+.env
+.env.development
+.env.production
