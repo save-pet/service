@@ -3,13 +3,20 @@ import { Link } from 'react-router-dom';
 
 export default function RenderList({ list }) {
   const lists = list.map((rescue) => {
-    const { happenDate, happenPlace, kindCode, imgUrl, sexCd, neuterYn, _id } =
-      rescue;
+    const {
+      happenDate,
+      happenPlace,
+      kindCode,
+      imgUrl,
+      sexCode,
+      neuterYn,
+      _id,
+    } = rescue;
 
     let sex;
-    if (sexCd === 'M') {
+    if (sexCode === 'M') {
       sex = '수컷';
-    } else if (sexCd === 'F') {
+    } else if (sexCode === 'F') {
       sex = '암컷';
     } else {
       sex = '미상';
