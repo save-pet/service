@@ -1,0 +1,21 @@
+name: service CI
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          cd /home/realjamdev/saveme
+          git pull 
+          cd /home/realjamdev/saveme/client
+          yarn build
+          sudo systemctl reload nginx
+          cd /home/realjamdev/saveme/server
+          pm2 delete 0
+          pm2 --name back-server start yarn -- start
