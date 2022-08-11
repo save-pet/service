@@ -15,4 +15,3 @@ jobs:
           git pull
           cd /home/realjamdev/saveme/client
           yarn build
-          sudo systemctl reload nginx
