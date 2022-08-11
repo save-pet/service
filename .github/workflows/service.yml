@@ -1,0 +1,17 @@
+name: service CI
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - run: |
+          cd /home/realjamdev/saveme
+          git pull
+          cd /home/realjamdev/saveme/client
+          yarn build
