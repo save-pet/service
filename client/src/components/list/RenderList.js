@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function RenderList({ list }) {
   const lists = list.map((rescue) => {
-    const { happenDate, happenPlace, kindCode, imgUrl, sex, neuterYn, _id } =
+    const { happenDate, happenPlace, kindCode, imgUrl, sex, neutering, _id } =
       rescue;
 
-    let neutralization;
-    if (neuterYn === 'Y') {
-      neutralization = '완료';
-    } else if (neuterYn === 'N') {
-      neutralization = '미완료';
-    } else {
-      neutralization = '미상';
-    }
     return (
       <article
         key={_id}
@@ -33,7 +25,7 @@ export default function RenderList({ list }) {
             <div>발견장소: {happenPlace}</div>
             <div>품종: {kindCode}</div>
             <div>성별: {sex}</div>
-            <div>중성화 여부: {neutralization}</div>
+            <div>중성화 여부: {neutering}</div>
           </section>
         </Link>
       </article>

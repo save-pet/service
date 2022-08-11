@@ -33,7 +33,7 @@ const RescueSchema = new mongoose.Schema(
     sex: {
       type: String,
     },
-    neuterYN: {
+    neutering: {
       type: String,
     },
     noticeStartDate: {
