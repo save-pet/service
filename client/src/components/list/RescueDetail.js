@@ -42,7 +42,7 @@ function LostDetail() {
     noticeStartDate,
     officeTel,
     processState,
-    sexCode,
+    sex,
     specialMark,
     weight,
   } = lostList;
@@ -74,7 +74,7 @@ function LostDetail() {
                 <div className="grid-content">종</div>
                 <div className="col-span-3"> {kindCode}</div>
                 <div className="grid-content">성별</div>
-                <div className="col-span-3"> {sexCode}</div>
+                <div className="col-span-3"> {sex}</div>
               </div>
               <div className="grid-head">
                 <div className="grid-content">몸무게</div>

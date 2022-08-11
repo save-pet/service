@@ -3,24 +3,9 @@ import { Link } from 'react-router-dom';
 
 export default function RenderList({ list }) {
   const lists = list.map((rescue) => {
-    const {
-      happenDate,
-      happenPlace,
-      kindCode,
-      imgUrl,
-      sexCode,
-      neuterYn,
-      _id,
-    } = rescue;
+    const { happenDate, happenPlace, kindCode, imgUrl, sex, neuterYn, _id } =
+      rescue;
 
-    let sex;
-    if (sexCode === 'M') {
-      sex = '수컷';
-    } else if (sexCode === 'F') {
-      sex = '암컷';
-    } else {
-      sex = '미상';
-    }
     let neutralization;
     if (neuterYn === 'Y') {
       neutralization = '완료';
