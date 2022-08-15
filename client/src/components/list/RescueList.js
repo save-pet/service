@@ -99,7 +99,7 @@ function RescueList() {
           </div>
         </div>
 
-        <main className="w-screen mx-auto my-0 text-[0px]">
+        <main className="inline-flex flex-wrap justify-center p-5 w-screen mx-auto my-0 text-[0px]">
           <RenderList list={rescueList} />
         </main>
         <Pagination
