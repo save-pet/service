@@ -154,45 +154,64 @@ function MapView() {
       </div>
     );
   return (
-    <>
-      <p className="mx-2 my-1 text-sm text-gray-400">
-        *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며, 핀을
-        클릭하면 구조 동물 상세로 이동합니다.
-        <br />
-        **현재 버전은 배포 상 보안의 문제로 지도에서 현재 위치를 사용할 수
-        없습니다. 기본 위치는 제주도이니 스크롤 및 줌인/줌아웃으로 지도를 움직여
-        주세요.
-      </p>
-      <div className="relative">
-        <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
-          <Map2ListToggle />
-        </div>
+    <div id="map_wrap" className="relative w-full h-96 m-0 p-0">
+      <div id="map" className="relative w-full h-full">
+        <p className="mx-2 my-1 text-sm text-gray-400">
+          *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며,
+          핀을 클릭하면 구조 동물 상세로 이동합니다.
+          <br />
+          **현재 버전은 배포 상 보안의 문제로 지도에서 현재 위치를 사용할 수
+          없습니다. 기본 위치는 제주도이니 스크롤 및 줌인/줌아웃으로 지도를
+          움직여 주세요.
+        </p>
+        <div className="relative">
+          <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
+            <Map2ListToggle />
+          </div>
 
-        <Map // 지도를 표시할 Container
-          center={state.center}
-          className="w-full h-[80vh]"
-          level={3} // 지도의 확대 레벨
-        >
-          {!state.isLoading && (
-            <MapMarker position={state.center}>
-              <div className="p-[5px] text-black">
-                {state.errMsg ? state.errMsg : '현재 위치'}
+          <Map // 지도를 표시할 Container
+            center={state.center}
+            className="w-full h-[80vh]"
+            level={3} // 지도의 확대 레벨
+          >
+            {!state.isLoading && (
+              <MapMarker position={state.center}>
+                <div className="p-[5px] text-black">
+                  {state.errMsg ? state.errMsg : '현재 위치'}
+                </div>
+              </MapMarker>
+            )}
+            {rescueList.map((rescue) => (
+              <div key={rescueList.desertionNo}>
+                <EventMarkerContainer
+                  key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
+                  position={rescue.latlng}
+                  content={rescue.content}
+                  id={rescue.id}
+                />
               </div>
-            </MapMarker>
-          )}
-          {rescueList.map((rescue) => (
-            <div key={rescueList.desertionNo}>
-              <EventMarkerContainer
-                key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-                position={rescue.latlng}
-                content={rescue.content}
-                id={rescue.id}
-              />
-            </div>
-          ))}
-        </Map>
+            ))}
+          </Map>
+        </div>
       </div>
-    </>
+      <div
+        id="menu_wrap"
+        className="absolute w-64 h-[100vh] top-0 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
+      >
+        <ul id="placesList">
+          <li className="relative border-b-2 cursor-pointer min-h-65">
+            <span className="block mt-4" />
+            <div className="pt-10 pr-0 pb-10 pl-55">
+              <h5 className="">places.place_name</h5>
+              <span>places.road_address_name </span>
+              <span className="jibun gray">places.address_name </span>
+              <span> places.address_name </span>
+              <span className="tel"> places.phone </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
   );
 }
 
