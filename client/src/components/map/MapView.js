@@ -171,7 +171,7 @@ function MapView() {
 
           <Map // 지도를 표시할 Container
             center={state.center}
-            className="w-full h-[80vh]"
+            className="w-full h-[77vh]"
             level={3} // 지도의 확대 레벨
           >
             {!state.isLoading && (
@@ -196,7 +196,7 @@ function MapView() {
       </div>
       <div
         id="menu_wrap"
-        className="absolute w-64 h-[100vh] top-0 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
+        className="absolute w-64 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
       >
         <ul id="placesList">
           <li className="relative border-b-2 cursor-pointer min-h-65">
