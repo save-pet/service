@@ -8,45 +8,67 @@ import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 
-function InfoWindowContent({ data }) {
-  const { happenDate } = data;
-  // 몇일 전 발견인지 계산
-  const latestDate = new Date(
-    `${happenDate.substring(0, 4)}-${happenDate.substring(
-      4,
-      6,
-    )}-${happenDate.substring(6)}`,
-  );
-  const today = new Date();
-  const diffDate = Math.abs(
-    Math.ceil((latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)),
-  );
+// function InfoWindowContent({ data }) {
+//   const { happenDate } = data;
+//   // 몇일 전 발견인지 계산
+//   const latestDate = new Date(
+//     `${happenDate.substring(0, 4)}-${happenDate.substring(
+//       4,
+//       6,
+//     )}-${happenDate.substring(6)}`,
+//   );
+//   const today = new Date();
+//   const diffDate = Math.abs(
+//     Math.ceil((latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)),
+//   );
 
+//   return (
+//     <div className="px-[20px] py-[15px] w-[220px] text-left">
+//       <div className="text-black">
+//         <span className="notranslate">
+//           <ul>
+//             <img
+//               src={data.imgUrl}
+//               className="w-[200px]"
+//               alt="latest update in this shelter"
+//             />
+//             <li className="text-xs text-gray-400">
+//               이 위치에서 {diffDate}일 전 발견
+//             </li>
+//             <li className="text-sm">{data.careName}에서 보호 중</li>
+//           </ul>
+//         </span>
+//       </div>
+//     </div>
+//   );
+// }
+
+function InfoWindowContent({ data }) {
   return (
     <div className="px-[20px] py-[15px] w-[220px] text-left">
       <div className="text-black">
         <span className="notranslate">
           <ul>
-            <img
-              src={data.imgUrl}
-              className="w-[200px]"
-              alt="latest update in this shelter"
-            />
-            <li className="text-xs text-gray-400">
-              이 위치에서 {diffDate}일 전 발견
-            </li>
-            <li className="text-sm">{data.careName}에서 보호 중</li>
+            <li className="text-sm">{data.careName}</li>
           </ul>
         </span>
       </div>
     </div>
-  );
+  )
 }
+
+// function getInfoWindowData(data) {
+//   return data.map((obj) => ({
+//     content: <InfoWindowContent data={obj} />,
+//     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
+//     id: obj._id,
+//   }));
+// }
 
 function getInfoWindowData(data) {
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
-    latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
+    latlng: { lat: obj.latitude, lng: obj.longitude },
     id: obj._id,
   }));
 }
@@ -84,7 +106,8 @@ function EventMarkerContainer({ position, content, id }) {
 }
 
 function MapView() {
-  const [makeRescueList, setMakeRescueList] = useState([]);
+  // const [makeRescueList, setMakeRescueList] = useState([]);
+  const [shelterList, setShelterList] = useState([]);
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -95,15 +118,31 @@ function MapView() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const getRescueData = async () => {
+  // const getRescueData = async () => {
+  //   setIsLoading(true);
+  //   await axios({
+  //     url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue`,
+  //     method: 'GET',
+  //   }).then((res) => {
+  //     setMakeRescueList(res.data);
+  //     setIsLoading(false);
+  //   });
+  // };
+
+  const getShelterData = async () => {
     setIsLoading(true);
-    await axios({
-      url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue`,
-      method: 'GET',
-    }).then((res) => {
-      setMakeRescueList(res.data);
+    try {
+      const { data } = await axios({
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
+        method: 'GET',
+      });
+      console.log(data);
+      setShelterList(data);
+    } catch (error) {
+      alert(error.response.data.reason);
+    } finally {
       setIsLoading(false);
-    });
+    }
   };
 
   const findMyLocation = () => {
@@ -140,13 +179,14 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      await getRescueData();
+      // await getRescueData();
+      await getShelterData();
     };
     findMyLocation();
     asyncGetData().then();
   }, []);
 
-  const rescueList = getInfoWindowData(makeRescueList);
+  const rescueList = getInfoWindowData(shelterList);
   if (isLoading)
     return (
       <div className="flex justify-center items-center	 w-100 h-screen">
