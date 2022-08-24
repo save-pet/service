@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { React, useEffect, useState } from 'react';
-import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
-import { useNavigate } from 'react-router-dom';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
@@ -54,7 +53,7 @@ function InfoWindowContent({ data }) {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
 // function getInfoWindowData(data) {
@@ -70,19 +69,44 @@ function getInfoWindowData(data) {
     content: <InfoWindowContent data={obj} />,
     latlng: { lat: obj.latitude, lng: obj.longitude },
     id: obj._id,
+    careCode: obj.careCode,
   }));
 }
 
-function EventMarkerContainer({ position, content, id }) {
-  const map = useMap();
+function Aside({ rescueList }) {
+  return (
+    <div
+      id="menu_wrap"
+      className="absolute w-128 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
+    >
+      <ul id="rescueList">
+        {rescueList.map((rescue) => (
+          <li className="relative border-b-2 cursor-pointer min-h-65">
+            <span className="block mt-4" />
+            <div className="pt-10 pr-0 pb-10 pl-55">
+              <h5>{rescue.imgUrl}</h5>
+
+              {/* <h5 className="">places.place_name</h5>
+              <span>places.road_address_name </span>
+              <span className="jibun gray">places.address_name </span>
+              <span> places.address_name </span>
+              <span className="tel"> places.phone </span> */}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
+  // const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <MapMarker
       position={position}
-      onClick={(marker) => {
-        map.panTo(marker.getPosition());
-        navigate(`/rescue/${id}`);
+      onClick={() => {
+        onMarkerClick(careCode);
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -106,8 +130,8 @@ function EventMarkerContainer({ position, content, id }) {
 }
 
 function MapView() {
-  // const [makeRescueList, setMakeRescueList] = useState([]);
-  const [shelterList, setShelterList] = useState([]);
+  const [makeShelterList, setShelterList] = useState([]);
+  const [rescueList, setRescueList] = useState([]);
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -117,17 +141,6 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  // const getRescueData = async () => {
-  //   setIsLoading(true);
-  //   await axios({
-  //     url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue`,
-  //     method: 'GET',
-  //   }).then((res) => {
-  //     setMakeRescueList(res.data);
-  //     setIsLoading(false);
-  //   });
-  // };
 
   const getShelterData = async () => {
     setIsLoading(true);
@@ -142,6 +155,18 @@ function MapView() {
       alert(error.response.data.reason);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const getRescueDataByShelter = async (careCode) => {
+    try {
+      const { data } = await axios({
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/care-code/${careCode}`,
+        method: 'GET',
+      });
+      setRescueList(data);
+    } catch (error) {
+      alert(error.response.data.reason);
     }
   };
 
@@ -179,14 +204,13 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      // await getRescueData();
       await getShelterData();
     };
     findMyLocation();
     asyncGetData().then();
   }, []);
 
-  const rescueList = getInfoWindowData(shelterList);
+  const shelterList = getInfoWindowData(makeShelterList);
   if (isLoading)
     return (
       <div className="flex justify-center items-center	 w-100 h-screen">
@@ -221,36 +245,21 @@ function MapView() {
                 </div>
               </MapMarker>
             )}
-            {rescueList.map((rescue) => (
-              <div key={rescueList.desertionNo}>
+            {shelterList.map((shelter) => (
+              <div key={shelterList.careCode}>
                 <EventMarkerContainer
-                  key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-                  position={rescue.latlng}
-                  content={rescue.content}
-                  id={rescue.id}
+                  key={`EventMarkerContainer-${shelter.latlng.lat}-${shelter.latlng.lng}`}
+                  position={shelter.latlng}
+                  content={shelter.content}
+                  careCode={shelter.careCode}
+                  onMarkerClick={getRescueDataByShelter}
                 />
               </div>
             ))}
           </Map>
         </div>
       </div>
-      <div
-        id="menu_wrap"
-        className="absolute w-64 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
-      >
-        <ul id="placesList">
-          <li className="relative border-b-2 cursor-pointer min-h-65">
-            <span className="block mt-4" />
-            <div className="pt-10 pr-0 pb-10 pl-55">
-              <h5 className="">places.place_name</h5>
-              <span>places.road_address_name </span>
-              <span className="jibun gray">places.address_name </span>
-              <span> places.address_name </span>
-              <span className="tel"> places.phone </span>
-            </div>
-          </li>
-        </ul>
-      </div>
+      <Aside rescueList={rescueList} />
     </div>
   );
 }
@@ -263,5 +272,10 @@ InfoWindowContent.propTypes = {
 EventMarkerContainer.propTypes = {
   position: PropTypes.shape().isRequired,
   content: PropTypes.element.isRequired,
-  id: PropTypes.number.isRequired,
+  careCode: PropTypes.string.isRequired,
+  onMarkerClick: PropTypes.func.isRequired,
+};
+
+Aside.propTypes = {
+  rescueList: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
