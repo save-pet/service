@@ -6,6 +6,7 @@ import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
+import MapRenderList from '../list/MapRenderList';
 
 // function InfoWindowContent({ data }) {
 //   const { happenDate } = data;
@@ -77,23 +78,10 @@ function Aside({ rescueList }) {
   return (
     <div
       id="menu_wrap"
-      className="absolute w-128 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-5 overflow-y-auto z-10 bg-white text-center"
+      className="absolute w-96 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-2 overflow-y-auto z-10 bg-white text-center"
     >
       <ul id="rescueList">
-        {rescueList.map((rescue) => (
-          <li className="relative border-b-2 cursor-pointer min-h-65">
-            <span className="block mt-4" />
-            <div className="pt-10 pr-0 pb-10 pl-55">
-              <h5>{rescue.imgUrl}</h5>
-
-              {/* <h5 className="">places.place_name</h5>
-              <span>places.road_address_name </span>
-              <span className="jibun gray">places.address_name </span>
-              <span> places.address_name </span>
-              <span className="tel"> places.phone </span> */}
-            </div>
-          </li>
-        ))}
+        <MapRenderList list={rescueList} />
       </ul>
     </div>
   );
