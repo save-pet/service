@@ -8,41 +8,6 @@ import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import MapRenderList from '../list/MapRenderList';
 
-// function InfoWindowContent({ data }) {
-//   const { happenDate } = data;
-//   // 몇일 전 발견인지 계산
-//   const latestDate = new Date(
-//     `${happenDate.substring(0, 4)}-${happenDate.substring(
-//       4,
-//       6,
-//     )}-${happenDate.substring(6)}`,
-//   );
-//   const today = new Date();
-//   const diffDate = Math.abs(
-//     Math.ceil((latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)),
-//   );
-
-//   return (
-//     <div className="px-[20px] py-[15px] w-[220px] text-left">
-//       <div className="text-black">
-//         <span className="notranslate">
-//           <ul>
-//             <img
-//               src={data.imgUrl}
-//               className="w-[200px]"
-//               alt="latest update in this shelter"
-//             />
-//             <li className="text-xs text-gray-400">
-//               이 위치에서 {diffDate}일 전 발견
-//             </li>
-//             <li className="text-sm">{data.careName}에서 보호 중</li>
-//           </ul>
-//         </span>
-//       </div>
-//     </div>
-//   );
-// }
-
 function InfoWindowContent({ data }) {
   return (
     <div className="px-[20px] py-[15px] w-[220px] text-left">
@@ -56,14 +21,6 @@ function InfoWindowContent({ data }) {
     </div>
   );
 }
-
-// function getInfoWindowData(data) {
-//   return data.map((obj) => ({
-//     content: <InfoWindowContent data={obj} />,
-//     latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
-//     id: obj._id,
-//   }));
-// }
 
 function getInfoWindowData(data) {
   return data.map((obj) => ({
@@ -87,9 +44,7 @@ function Aside({ rescueList }) {
   );
 }
 function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
-  // const map = useMap();
   const [isVisible, setIsVisible] = useState(false);
-  // const navigate = useNavigate();
   return (
     <MapMarker
       position={position}
@@ -137,7 +92,6 @@ function MapView() {
         url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
         method: 'GET',
       });
-      console.log(data);
       setShelterList(data);
     } catch (error) {
       alert(error.response.data.reason);
