@@ -188,7 +188,7 @@ function MapView() {
               </MapMarker>
             )}
             {shelterList.map((shelter) => (
-              <div key={shelterList.careCode}>
+              <div key={shelter.careCode}>
                 <EventMarkerContainer
                   key={`EventMarkerContainer-${shelter.latlng.lat}-${shelter.latlng.lng}`}
                   position={shelter.latlng}
