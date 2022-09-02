@@ -1,10 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import React, { useEffect, useState, useRef } from 'react';
+import { Map, MapMarker, Circle, Polyline } from 'react-kakao-maps-sdk';
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 
 function FindLocation({ setAddress, setAddressName }) {
-  const [position, setPosition] = useState();
+  const [position, setPosition] = useState({
+    center: {
+      lat: null,
+      lng: null,
+    },
+  });
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -13,11 +18,50 @@ function FindLocation({ setAddress, setAddressName }) {
     errMsg: null,
     isLoading: true,
   });
+  const [isDrawing, setIsDrawing] = useState(false);
+  const drawingLineRef = useRef();
+  const [mousePosition, setMousePosition] = useState({
+    lat: 0,
+    lng: 0,
+  });
+  const handleClick = (_map, mouseEvent) => {
+    if (!isDrawing) {
+      setPosition({
+        center: {
+          lat: mouseEvent.latLng.getLat(),
+          lng: mouseEvent.latLng.getLng(),
+        },
+        radius: 0,
+      });
+      setIsDrawing(true);
+    }
+  };
+
+  const handleMouseMove = (_map, mouseEvent) => {
+    setMousePosition({
+      lat: mouseEvent.latLng.getLat(),
+      lng: mouseEvent.latLng.getLng(),
+    });
+    if (isDrawing) {
+      const drawingLine = drawingLineRef.current;
+      setPosition((prev) => ({
+        ...prev,
+        radius: drawingLine.getLength(),
+      }));
+    }
+  };
+
+  // const handleRightClick = (_map, _mouseEvent) => {
+  //   if (isDrawing) {
+  //     setIsDrawing(false)
+  //     setCircles((prev) => [...prev, { ...position, mousePosition }])
+  //   }
+  // }
 
   const handleClickSubmit = (event) => {
     event.preventDefault();
 
-    setAddress(position);
+    setAddress(position.center);
     alert('위치 등록이 완료되었습니다. 지도를 닫아주세요.');
   };
   useEffect(() => {
@@ -58,16 +102,35 @@ function FindLocation({ setAddress, setAddressName }) {
         center={state.center}
         className="w-full h-[450px]" // 지도의 크기
         level={3} // 지도의 확대 레벨
-        onClick={(_t, mouseEvent) =>
-          setPosition({
-            lat: mouseEvent.latLng.getLat(),
-            lng: mouseEvent.latLng.getLng(),
-          })
-        }
+        onClick={handleClick}
+        // onRightClick={handleRightClick}
+        onMouseMove={handleMouseMove}
       >
-        {position && (
+        {isDrawing && (
+          <>
+            <Circle
+              center={position.center}
+              radius={position.radius}
+              strokeWeight={1} // 선의 두께입니다
+              strokeColor="#00a0e9" // 선의 색깔입니다
+              strokeOpacity={0.1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle="solid" // 선의 스타일입니다
+              fillColor="#00a0e9" // 채우기 색깔입니다
+              fillOpacity={0.2} // 채우기 불투명도입니다
+            />
+            <Polyline
+              path={[position.center, mousePosition]}
+              ref={drawingLineRef}
+              strokeWeight={3} // 선의 두께 입니다
+              strokeColor="#00a0e9" // 선의 색깔입니다
+              strokeOpacity={1} // 선의 불투명도입니다 0에서 1 사이값이며 0에 가까울수록 투명합니다
+              strokeStyle="solid" // 선의 스타일입니다
+            />
+          </>
+        )}
+        {position.center && (
           <MapMarker
-            position={position}
+            position={position.center}
             image={{
               src: 'https://i.ibb.co/MsqtRCN/pin.png',
               size: {
@@ -107,7 +170,10 @@ function FindLocation({ setAddress, setAddressName }) {
         )}
       </Map>
 
-      <FindPlaceName position={position} setAddressName={setAddressName} />
+      <FindPlaceName
+        position={position.center}
+        setAddressName={setAddressName}
+      />
       <button
         className="btn-light border-1 border-gray-200"
         type="submit"
