@@ -50,13 +50,11 @@ function FindLocation({ setAddress, setAddressName }) {
         radius: 0,
       });
       setIsDrawing(true);
-    }
-    else if (isDrawing) {
+    } else if (isDrawing) {
       setIsDrawing(false);
       setCircle({ ...position, mousePosition });
-    }
-    else{
-      console.log("분실 지도 반경 이벤트 에러")
+    } else {
+      console.log('분실 지도 반경 이벤트 에러');
     }
   };
 
@@ -189,7 +187,7 @@ function FindLocation({ setAddress, setAddressName }) {
               size: {
                 width: 64,
                 height: 64,
-              }
+              },
             }}
           />
         )}
@@ -197,17 +195,13 @@ function FindLocation({ setAddress, setAddressName }) {
           <MapMarker
             position={state.center}
             image={{
-              src: 'https://i.ibb.co/zmQjZVT/favicon.png',
+              src: 'https://i.ibb.co/F4q5WKP/image.png',
               size: {
-                width: 64,
-                height: 64,
-              }
+                width: 40,
+                height: 40,
+              },
             }}
-          >
-            <div className="p-[5px] text-black">
-              {state.errMsg ? state.errMsg : '현재 위치'}
-            </div>
-          </MapMarker>
+          />
         )}
       </Map>
 
