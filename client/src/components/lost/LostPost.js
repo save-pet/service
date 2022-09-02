@@ -187,6 +187,7 @@ export default function InputData() {
                   <LostPostMap
                     setAddress={setAddress}
                     setAddressName={setAddressName}
+                    setRadius={setRadius}
                   />
                 }
               />
