@@ -51,6 +51,13 @@ function FindLocation({ setAddress, setAddressName }) {
       });
       setIsDrawing(true);
     }
+    else if (isDrawing) {
+      setIsDrawing(false);
+      setCircle({ ...position, mousePosition });
+    }
+    else{
+      console.log("분실 지도 반경 이벤트 에러")
+    }
   };
 
   const handleMouseMove = (_map, mouseEvent) => {
@@ -64,13 +71,6 @@ function FindLocation({ setAddress, setAddressName }) {
         ...prev,
         radius: drawingLine.getLength(),
       }));
-    }
-  };
-
-  const handleRightClick = () => {
-    if (isDrawing) {
-      setIsDrawing(false);
-      setCircle({ ...position, mousePosition });
     }
   };
 
@@ -120,7 +120,6 @@ function FindLocation({ setAddress, setAddressName }) {
         level={3} // 지도의 확대 레벨
         onClick={handleClick}
         onMouseMove={handleMouseMove}
-        onRightClick={handleRightClick}
       >
         {isDrawing && (
           <>
@@ -189,14 +188,8 @@ function FindLocation({ setAddress, setAddressName }) {
               src: 'https://i.ibb.co/MsqtRCN/pin.png',
               size: {
                 width: 64,
-                height: 69,
-              },
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                },
-              },
+                height: 64,
+              }
             }}
           />
         )}
@@ -207,14 +200,8 @@ function FindLocation({ setAddress, setAddressName }) {
               src: 'https://i.ibb.co/zmQjZVT/favicon.png',
               size: {
                 width: 64,
-                height: 69,
-              },
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                },
-              },
+                height: 64,
+              }
             }}
           >
             <div className="p-[5px] text-black">
