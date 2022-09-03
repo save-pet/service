@@ -16,10 +16,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
   });
   const [isDrawing, setIsDrawing] = useState(false);
   const drawingLineRef = useRef();
-  const [mousePosition, setMousePosition] = useState({
-    lat: 0,
-    lng: 0,
-  });
   const handleClick = (_map, mouseEvent) => {
     if (!isDrawing) {
       setPosition({
@@ -27,7 +23,10 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         },
-        mousePosition,
+        mousePosition: {
+          lat: mouseEvent.latLng.getLat(),
+          lng: mouseEvent.latLng.getLng(),
+        },
         radius: 0,
       });
       setIsDrawing(true);
@@ -40,15 +39,14 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
   };
 
   const handleMouseMove = (_map, mouseEvent) => {
-    setMousePosition({
-      lat: mouseEvent.latLng.getLat(),
-      lng: mouseEvent.latLng.getLng(),
-    });
     if (isDrawing) {
       const drawingLine = drawingLineRef.current;
       setPosition((prev) => ({
         ...prev,
-        mousePosition,
+        mousePosition: {
+          lat: mouseEvent.latLng.getLat(),
+          lng: mouseEvent.latLng.getLng(),
+        },
         radius: drawingLine.getLength(),
       }));
     }
@@ -102,9 +100,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         onClick={handleClick}
         onMouseMove={handleMouseMove}
       >
-        {isDrawing && (
-          <DrawCircle position={position} drawingLineRef={drawingLineRef} />
-        )}
         {position && (
           <DrawCircle position={position} drawingLineRef={drawingLineRef} />
         )}
@@ -122,11 +117,12 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
           />
         )}
       </Map>
-
-      <FindPlaceName
-        position={position.center}
-        setAddressName={setAddressName}
-      />
+      {position && (
+        <FindPlaceName
+          position={position.center}
+          setAddressName={setAddressName}
+        />
+      )}
       <button
         className="btn-light border-1 border-gray-200"
         type="submit"
