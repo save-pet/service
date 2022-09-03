@@ -12,7 +12,7 @@ function FindPlaceName({ position, setAddressName }) {
         method: 'GET',
         headers: {
           Host: 'dapi.kakao.com',
-          Authorization: 'KakaoAK 9af9de6fad57bca234b42bb02bcc14a2',
+          Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_REST_KEY}`,
         },
       },
     ).then((res) => {
