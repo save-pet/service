@@ -5,12 +5,7 @@ import FindPlaceName from './FindPlaceName';
 import DrawCircle from './DrawCircle';
 
 function FindLocation({ setAddress, setAddressName, setRadius }) {
-  const [position, setPosition] = useState({
-    center: {
-      lat: null,
-      lng: null,
-    },
-  });
+  const [position, setPosition] = useState(false);
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -21,7 +16,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
   });
   const [isDrawing, setIsDrawing] = useState(false);
   const drawingLineRef = useRef();
-  const [circle, setCircle] = useState();
   const [mousePosition, setMousePosition] = useState({
     lat: 0,
     lng: 0,
@@ -39,7 +33,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
       setIsDrawing(true);
     } else if (isDrawing) {
       setIsDrawing(false);
-      setCircle({ ...position, mousePosition });
       setRadius((position.radius / 1000).toFixed(1));
     } else {
       console.log('분실 지도 반경 이벤트 에러');
@@ -112,8 +105,8 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         {isDrawing && (
           <DrawCircle position={position} drawingLineRef={drawingLineRef} />
         )}
-        {circle && (
-          <DrawCircle position={circle} drawingLineRef={drawingLineRef} />
+        {position && (
+          <DrawCircle position={position} drawingLineRef={drawingLineRef} />
         )}
 
         {!state.isLoading && (
