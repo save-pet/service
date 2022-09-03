@@ -122,18 +122,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
           />
         )}
 
-        {position.center && (
-          <MapMarker
-            position={position.center}
-            image={{
-              src: 'https://i.ibb.co/MsqtRCN/pin.png',
-              size: {
-                width: 64,
-                height: 64,
-              },
-            }}
-          />
-        )}
         {!state.isLoading && (
           <MapMarker
             position={state.center}
