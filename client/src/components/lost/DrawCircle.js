@@ -12,8 +12,7 @@ function DistanceInfo({ distance }) {
   );
 }
 
-function DrawCircle({ position, mousePosition, drawingLineRef }) {
-  //   const drawingLineRef = useRef();
+function DrawCircle({ position, drawingLineRef }) {
   return (
     <>
       <Circle
@@ -27,7 +26,7 @@ function DrawCircle({ position, mousePosition, drawingLineRef }) {
         fillOpacity={0.2} // 채우기 불투명도입니다
       />
       <Polyline
-        path={[position.center, mousePosition]}
+        path={[position.center, position.mousePosition]}
         ref={drawingLineRef}
         strokeWeight={3} // 선의 두께 입니다
         strokeColor="#00a0e9" // 선의 색깔입니다
@@ -35,7 +34,7 @@ function DrawCircle({ position, mousePosition, drawingLineRef }) {
         strokeStyle="solid" // 선의 스타일입니다
       />
       <CustomOverlayMap
-        position={mousePosition}
+        position={position.mousePosition}
         xAnchor={0}
         yAnchor={0}
         zIndex={1}

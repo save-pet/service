@@ -33,6 +33,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
           lat: mouseEvent.latLng.getLat(),
           lng: mouseEvent.latLng.getLng(),
         },
+        mousePosition,
         radius: 0,
       });
       setIsDrawing(true);
@@ -54,6 +55,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
       const drawingLine = drawingLineRef.current;
       setPosition((prev) => ({
         ...prev,
+        mousePosition,
         radius: drawingLine.getLength(),
       }));
     }
@@ -108,18 +110,10 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         onMouseMove={handleMouseMove}
       >
         {isDrawing && (
-          <DrawCircle
-            position={position}
-            mousePosition={mousePosition}
-            drawingLineRef={drawingLineRef}
-          />
+          <DrawCircle position={position} drawingLineRef={drawingLineRef} />
         )}
         {circle && (
-          <DrawCircle
-            position={circle}
-            mousePosition={circle.mousePosition}
-            drawingLineRef={drawingLineRef}
-          />
+          <DrawCircle position={circle} drawingLineRef={drawingLineRef} />
         )}
 
         {!state.isLoading && (
