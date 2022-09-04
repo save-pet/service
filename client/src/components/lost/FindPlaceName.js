@@ -21,8 +21,9 @@ function FindPlaceName({ position, setAddressName }) {
 
   useEffect(() => {
     findLocationName(position);
+    setAddressName(data);
   }, [position]);
-  setAddressName(data);
+  
   return (
     data && (
       <p className="mx-2 my-1 text-sm text-[#ffa000]">
