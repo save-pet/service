@@ -8,16 +8,8 @@ import {
 } from 'react-kakao-maps-sdk';
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
+import DistanceInfo from './DistanceInfo';
 
-function DistanceInfo({ distance }) {
-  const totalRadius =
-    distance >= 1000 ? `${(distance / 1000).toFixed(1)}km` : `${distance}m`;
-  return (
-    <ul className="relative bg-white top-1 left-1 p-2 m-0 text-xs border-1 border-solid shadow rounded">
-      <li>총반경 {totalRadius}</li>
-    </ul>
-  );
-}
 function FindLocation({ setAddress, setAddressName, setRadius }) {
   const [position, setPosition] = useState(false);
   const [state, setState] = useState({
@@ -31,7 +23,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
   const [isDrawing, setIsDrawing] = useState(false);
   const drawingLineRef = useRef();
   const handleClick = (_map, mouseEvent) => {
-    if (!isDrawing) {
+    const startDrawing = () => {
       setPosition({
         center: {
           lat: mouseEvent.latLng.getLat(),
@@ -43,17 +35,20 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         },
         radius: 0,
       });
-      setIsDrawing(true);
-    } else if (isDrawing) {
-      setIsDrawing(false);
+      setIsDrawing(!isDrawing);
+    };
+
+    const endDrawing = () => {
       setRadius((position.radius / 1000).toFixed(1));
-    } else {
-      console.log('분실 지도 반경 이벤트 에러');
-    }
+      setIsDrawing(!isDrawing);
+    };
+
+    if (!isDrawing) startDrawing();
+    else endDrawing();
   };
 
   const handleMouseMove = (_map, mouseEvent) => {
-    if (isDrawing) {
+    const drawing = () => {
       const drawingLine = drawingLineRef.current;
       setPosition((prev) => ({
         ...prev,
@@ -63,7 +58,8 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         },
         radius: drawingLine.getLength(),
       }));
-    }
+    };
+    if (isDrawing) drawing();
   };
 
   const handleClickSubmit = (event) => {
@@ -110,7 +106,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
       <Map // 지도를 표시할 Container
         center={state.center}
         className="w-full h-[450px]" // 지도의 크기
-        level={3} // 지도의 확대 레벨
+        level={9} // 지도의 확대 레벨
         onClick={handleClick}
         onMouseMove={handleMouseMove}
       >
@@ -179,10 +175,6 @@ FindLocation.propTypes = {
   setAddress: PropTypes.func.isRequired,
   setAddressName: PropTypes.func.isRequired,
   setRadius: PropTypes.func.isRequired,
-};
-
-DistanceInfo.propTypes = {
-  distance: PropTypes.number.isRequired,
 };
 
 export default FindLocation;
