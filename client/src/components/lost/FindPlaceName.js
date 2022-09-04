@@ -11,7 +11,6 @@ function FindPlaceName({ position, setAddressName }) {
       {
         method: 'GET',
         headers: {
-          Host: 'dapi.kakao.com',
           Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_REST_KEY}`,
         },
       },
@@ -35,15 +34,8 @@ function FindPlaceName({ position, setAddressName }) {
 
 FindPlaceName.propTypes = {
   position: PropTypes.shape({
-    center: {
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
-    },
-    mousePosition: {
-      lat: PropTypes.number.isRequired,
-      lng: PropTypes.number.isRequired,
-    },
-    radius: PropTypes.number.isRequired,
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
   }).isRequired,
   setAddressName: PropTypes.func.isRequired,
 };
