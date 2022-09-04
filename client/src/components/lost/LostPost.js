@@ -80,7 +80,7 @@ export default function InputData() {
       alert('빈칸을 작성해주세요.');
       return;
     }
-    if (radius > 400 || radius < 1) {
+    if (radius > 400 || radius === 0) {
       alert('0부터 400까지의 숫자 중에 입력해주세요.');
       return;
     }
