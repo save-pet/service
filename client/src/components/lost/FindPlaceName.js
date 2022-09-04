@@ -34,8 +34,18 @@ function FindPlaceName({ position, setAddressName }) {
 }
 
 FindPlaceName.propTypes = {
-  position: PropTypes.string.isRequired,
-  setAddressName: PropTypes.string.isRequired,
+  position: PropTypes.shape({
+    center: {
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+    },
+    mousePosition: {
+      lat: PropTypes.number.isRequired,
+      lng: PropTypes.number.isRequired,
+    },
+    radius: PropTypes.number.isRequired,
+  }).isRequired,
+  setAddressName: PropTypes.func.isRequired,
 };
 
 export default FindPlaceName;

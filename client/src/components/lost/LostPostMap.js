@@ -137,7 +137,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
 FindLocation.propTypes = {
   setAddress: PropTypes.func.isRequired,
   setAddressName: PropTypes.func.isRequired,
-  setRadius: PropTypes.number.isRequired,
+  setRadius: PropTypes.func.isRequired,
 };
 
 export default FindLocation;
