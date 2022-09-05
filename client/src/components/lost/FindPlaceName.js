@@ -11,19 +11,20 @@ function FindPlaceName({ position, setAddressName }) {
       {
         method: 'GET',
         headers: {
-          Host: 'dapi.kakao.com',
           Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_API_REST_KEY}`,
         },
       },
     ).then((res) => {
       setData(res.data.documents[0].address.address_name);
+      setAddressName(res.data.documents[0].address.address_name);
     });
   };
 
   useEffect(() => {
     findLocationName(position);
+    
   }, [position]);
-  setAddressName(data);
+  
   return (
     data && (
       <p className="mx-2 my-1 text-sm text-[#ffa000]">
@@ -34,8 +35,11 @@ function FindPlaceName({ position, setAddressName }) {
 }
 
 FindPlaceName.propTypes = {
-  position: PropTypes.string.isRequired,
-  setAddressName: PropTypes.string.isRequired,
+  position: PropTypes.shape({
+    lat: PropTypes.number.isRequired,
+    lng: PropTypes.number.isRequired,
+  }).isRequired,
+  setAddressName: PropTypes.func.isRequired,
 };
 
 export default FindPlaceName;

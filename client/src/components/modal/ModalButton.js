@@ -13,8 +13,8 @@ function ModalButton({ buttonName, title, content }) {
   };
 
   return (
-    <div>
-      <button type="button" onClick={openModal}>
+    <div className="w-full h-full">
+      <button type="button" onClick={openModal} className="w-full h-full">
         {buttonName}
       </button>
       <ModalWindow

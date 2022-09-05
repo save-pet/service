@@ -80,7 +80,7 @@ export default function InputData() {
       alert('빈칸을 작성해주세요.');
       return;
     }
-    if (radius > 400 || radius < 1) {
+    if (radius > 400 || radius === 0) {
       alert('0부터 400까지의 숫자 중에 입력해주세요.');
       return;
     }
@@ -178,7 +178,7 @@ export default function InputData() {
             </span>
             <button
               type="button"
-              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-3 px-20 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
+              className="text-center rounded-r-lg flex-1 appearance-none border border-gray-300 w-full h-12 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-1 focus:ring-[#ffa000]   focus:border-transparent"
             >
               <ModalButton
                 buttonName="지도 열기"
@@ -187,6 +187,7 @@ export default function InputData() {
                   <LostPostMap
                     setAddress={setAddress}
                     setAddressName={setAddressName}
+                    setRadius={setRadius}
                   />
                 }
               />
