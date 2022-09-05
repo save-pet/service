@@ -16,12 +16,13 @@ function FindPlaceName({ position, setAddressName }) {
       },
     ).then((res) => {
       setData(res.data.documents[0].address.address_name);
+      setAddressName(res.data.documents[0].address.address_name);
     });
   };
 
   useEffect(() => {
     findLocationName(position);
-    setAddressName(data);
+    
   }, [position]);
   
   return (
