@@ -47,7 +47,7 @@ function Aside({ rescueList }) {
   return (
     <div
       id="menu_wrap"
-      className="absolute w-96 h-[78vh] top-10 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-2 overflow-y-auto z-10 bg-white text-center"
+      className="absolute w-96 h-[85vh] top-0 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-2 overflow-y-auto z-10 bg-white text-center"
     >
       <div className="text-center font-bold m-3">
         {getAsideTitle(rescueList)}
@@ -177,14 +177,6 @@ function MapView() {
   return (
     <div id="map_wrap" className="relative w-full h-96 m-0 p-0">
       <div id="map" className="relative w-full h-full">
-        <p className="mx-2 my-1 text-sm text-gray-400">
-          *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며,
-          핀을 클릭하면 구조 동물 상세로 이동합니다.
-          <br />
-          **현재 버전은 배포 상 보안의 문제로 지도에서 현재 위치를 사용할 수
-          없습니다. 기본 위치는 제주도이니 스크롤 및 줌인/줌아웃으로 지도를
-          움직여 주세요.
-        </p>
         <div className="relative">
           <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
             <Map2ListToggle />
@@ -192,7 +184,7 @@ function MapView() {
 
           <Map // 지도를 표시할 Container
             center={state.center}
-            className="w-full h-[77vh]"
+            className="w-full h-[85vh]"
             level={3} // 지도의 확대 레벨
           >
             {!state.isLoading && (
