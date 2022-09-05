@@ -234,5 +234,34 @@ EventMarkerContainer.propTypes = {
 };
 
 Aside.propTypes = {
-  rescueList: PropTypes.arrayOf(PropTypes.element).isRequired,
+  rescueList: PropTypes.arrayOf(
+    PropTypes.shape({
+      age: PropTypes.string,
+      careAddress: PropTypes.string,
+      careCode: PropTypes.string,
+      careName: PropTypes.string,
+      careTel: PropTypes.string,
+      colorCode: PropTypes.string,
+      coords: PropTypes.arrayOf(
+        PropTypes.shape([PropTypes.number, PropTypes.number]),
+      ),
+      desertionNo: PropTypes.string,
+      happenDate: PropTypes.string,
+      happenLatitude: PropTypes.string,
+      happenLongitude: PropTypes.string,
+      happenPlace: PropTypes.string,
+      imgUrl: PropTypes.string,
+      kindCode: PropTypes.string,
+      kindCodeByNum: PropTypes.number,
+      neutering: PropTypes.string,
+      noticeEndDate: PropTypes.string,
+      noticeStartDate: PropTypes.string,
+      officeTel: PropTypes.string,
+      processState: PropTypes.string,
+      sex: PropTypes.string,
+      specialMark: PropTypes.string,
+      weight: PropTypes.string,
+      _id: PropTypes.string,
+    }),
+  ).isRequired,
 };
