@@ -1,41 +1,20 @@
 /* eslint-disable no-underscore-dangle */
 
 import { React, useEffect, useState } from 'react';
-import { Map, MapMarker, useMap } from 'react-kakao-maps-sdk';
-import { useNavigate } from 'react-router-dom';
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
+import MapRenderList from '../list/MapRenderList';
 
 function InfoWindowContent({ data }) {
-  const { happenDate } = data;
-  // 몇일 전 발견인지 계산
-  const latestDate = new Date(
-    `${happenDate.substring(0, 4)}-${happenDate.substring(
-      4,
-      6,
-    )}-${happenDate.substring(6)}`,
-  );
-  const today = new Date();
-  const diffDate = Math.abs(
-    Math.ceil((latestDate.getTime() - today.getTime()) / (1000 * 3600 * 24)),
-  );
-
   return (
     <div className="px-[20px] py-[15px] w-[220px] text-left">
       <div className="text-black">
         <span className="notranslate">
           <ul>
-            <img
-              src={data.imgUrl}
-              className="w-[200px]"
-              alt="latest update in this shelter"
-            />
-            <li className="text-xs text-gray-400">
-              이 위치에서 {diffDate}일 전 발견
-            </li>
-            <li className="text-sm">{data.careName}에서 보호 중</li>
+            <li className="text-sm">{data.careName}</li>
           </ul>
         </span>
       </div>
@@ -46,21 +25,46 @@ function InfoWindowContent({ data }) {
 function getInfoWindowData(data) {
   return data.map((obj) => ({
     content: <InfoWindowContent data={obj} />,
-    latlng: { lat: obj.happenLatitude, lng: obj.happenLongitude },
+    latlng: { lat: obj.latitude, lng: obj.longitude },
     id: obj._id,
+    careCode: obj.careCode,
   }));
 }
 
-function EventMarkerContainer({ position, content, id }) {
-  const map = useMap();
+function Aside({ rescueList }) {
+  const getAsideTitle = () => {
+    let result;
+    if (rescueList.length === 0) {
+      result = '해당 보호소에는 보호동물이 없습니다.';
+    } else {
+      const careNameList = rescueList.map((rescue) => rescue.careName);
+      const careNameSet = new Set(careNameList);
+      result = careNameSet;
+    }
+    return result;
+  };
+
+  return (
+    <div
+      id="menu_wrap"
+      className="absolute w-96 h-[85vh] top-0 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-2 overflow-y-auto z-10 bg-white text-center"
+    >
+      <div className="text-center font-bold m-3">
+        {getAsideTitle(rescueList)}
+      </div>
+      <ul id="rescueList">
+        <MapRenderList list={rescueList} />
+      </ul>
+    </div>
+  );
+}
+function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
   const [isVisible, setIsVisible] = useState(false);
-  const navigate = useNavigate();
   return (
     <MapMarker
       position={position}
-      onClick={(marker) => {
-        map.panTo(marker.getPosition());
-        navigate(`/rescue/${id}`);
+      onClick={() => {
+        onMarkerClick(careCode);
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -84,7 +88,8 @@ function EventMarkerContainer({ position, content, id }) {
 }
 
 function MapView() {
-  const [makeRescueList, setMakeRescueList] = useState([]);
+  const [makeShelterList, setShelterList] = useState([]);
+  const [rescueList, setRescueList] = useState([]);
   const [state, setState] = useState({
     center: {
       lat: 33.450701,
@@ -95,15 +100,31 @@ function MapView() {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const getRescueData = async () => {
+  const getShelterData = async () => {
     setIsLoading(true);
-    await axios({
-      url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue`,
-      method: 'GET',
-    }).then((res) => {
-      setMakeRescueList(res.data);
+    try {
+      const { data } = await axios({
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
+        method: 'GET',
+      });
+      setShelterList(data);
+    } catch (error) {
+      alert(error.response.data.reason);
+    } finally {
       setIsLoading(false);
-    });
+    }
+  };
+
+  const getRescueDataByShelter = async (careCode) => {
+    try {
+      const { data } = await axios({
+        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/care-code/${careCode}`,
+        method: 'GET',
+      });
+      setRescueList(data);
+    } catch (error) {
+      alert(error.response.data.reason);
+    }
   };
 
   const findMyLocation = () => {
@@ -140,13 +161,13 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      await getRescueData();
+      await getShelterData();
     };
     findMyLocation();
     asyncGetData().then();
   }, []);
 
-  const rescueList = getInfoWindowData(makeRescueList);
+  const shelterList = getInfoWindowData(makeShelterList);
   if (isLoading)
     return (
       <div className="flex justify-center items-center	 w-100 h-screen">
@@ -154,29 +175,22 @@ function MapView() {
       </div>
     );
   return (
-    <>
-      <p className="mx-2 my-1 text-sm text-gray-400">
-        *핀 위에 마우스를 올리면 해당 위치에서 구조된 동물을 볼 수 있으며, 핀을
-        클릭하면 구조 동물 상세로 이동합니다.
-        <br />
-        **현재 버전은 배포 상 보안의 문제로 지도에서 현재 위치를 사용할 수
-        없습니다. 기본 위치는 제주도이니 스크롤 및 줌인/줌아웃으로 지도를 움직여
-        주세요.
-      </p>
-      <div className="relative">
-        <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
-          <Map2ListToggle />
-        </div>
+    <div id="map_wrap" className="relative w-full h-96 m-0 p-0">
+      <div id="map" className="relative w-full h-full">
+        <div className="relative">
+          <div className="h-12 z-10 absolute top-[3vh] mx-auto inset-x-0 text-center opacity-80">
+            <Map2ListToggle />
+          </div>
 
-        <Map // 지도를 표시할 Container
-          center={state.center}
-          className="w-full h-[80vh]"
-          level={3} // 지도의 확대 레벨
-        >
-          {!state.isLoading && (
-            <MapMarker
-              position={state.center}
-              image={{
+          <Map // 지도를 표시할 Container
+            center={state.center}
+            className="w-full h-[85vh]"
+            level={3} // 지도의 확대 레벨
+          >
+            {!state.isLoading && (
+              <MapMarker 
+                position={state.center}
+                image={{
                 src: 'https://i.ibb.co/F4q5WKP/image.png',
                 size: {
                   width: 50,
@@ -184,20 +198,23 @@ function MapView() {
                 },
               }}
             />
-          )}
-          {rescueList.map((rescue) => (
-            <div key={rescueList.desertionNo}>
-              <EventMarkerContainer
-                key={`EventMarkerContainer-${rescue.latlng.lat}-${rescue.latlng.lng}`}
-                position={rescue.latlng}
-                content={rescue.content}
-                id={rescue.id}
-              />
-            </div>
-          ))}
-        </Map>
+            )}
+            {shelterList.map((shelter) => (
+              <div key={shelter.careCode}>
+                <EventMarkerContainer
+                  key={`EventMarkerContainer-${shelter.latlng.lat}-${shelter.latlng.lng}`}
+                  position={shelter.latlng}
+                  content={shelter.content}
+                  careCode={shelter.careCode}
+                  onMarkerClick={getRescueDataByShelter}
+                />
+              </div>
+            ))}
+          </Map>
+        </div>
       </div>
-    </>
+      <Aside rescueList={rescueList} />
+    </div>
   );
 }
 
@@ -209,5 +226,39 @@ InfoWindowContent.propTypes = {
 EventMarkerContainer.propTypes = {
   position: PropTypes.shape().isRequired,
   content: PropTypes.element.isRequired,
-  id: PropTypes.number.isRequired,
+  careCode: PropTypes.string.isRequired,
+  onMarkerClick: PropTypes.func.isRequired,
+};
+
+Aside.propTypes = {
+  rescueList: PropTypes.arrayOf(
+    PropTypes.shape({
+      age: PropTypes.string,
+      careAddress: PropTypes.string,
+      careCode: PropTypes.string,
+      careName: PropTypes.string,
+      careTel: PropTypes.string,
+      colorCode: PropTypes.string,
+      coords: PropTypes.arrayOf(
+        PropTypes.shape([PropTypes.number, PropTypes.number]),
+      ),
+      desertionNo: PropTypes.string,
+      happenDate: PropTypes.string,
+      happenLatitude: PropTypes.string,
+      happenLongitude: PropTypes.string,
+      happenPlace: PropTypes.string,
+      imgUrl: PropTypes.string,
+      kindCode: PropTypes.string,
+      kindCodeByNum: PropTypes.number,
+      neutering: PropTypes.string,
+      noticeEndDate: PropTypes.string,
+      noticeStartDate: PropTypes.string,
+      officeTel: PropTypes.string,
+      processState: PropTypes.string,
+      sex: PropTypes.string,
+      specialMark: PropTypes.string,
+      weight: PropTypes.string,
+      _id: PropTypes.string,
+    }),
+  ).isRequired,
 };
