@@ -151,6 +151,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
                 height: 40,
               },
             }}
+            clickable={false}
           />
         )}
       </Map>

@@ -188,16 +188,17 @@ function MapView() {
             level={3} // 지도의 확대 레벨
           >
             {!state.isLoading && (
-              <MapMarker 
+              <MapMarker
                 position={state.center}
                 image={{
-                src: 'https://i.ibb.co/F4q5WKP/image.png',
-                size: {
-                  width: 50,
-                  height: 50,
-                },
-              }}
-            />
+                  src: 'https://i.ibb.co/F4q5WKP/image.png',
+                  size: {
+                    width: 50,
+                    height: 50,
+                  },
+                }}
+                clickable={false}
+              />
             )}
             {shelterList.map((shelter) => (
               <div key={shelter.careCode}>
