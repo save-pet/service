@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 
 import { React, useEffect, useState } from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Map, MapMarker, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
@@ -10,14 +10,8 @@ import MapRenderList from '../list/MapRenderList';
 
 function InfoWindowContent({ data }) {
   return (
-    <div className="px-[20px] py-[15px] w-[220px] text-left">
-      <div className="text-black">
-        <span className="notranslate">
-          <ul>
-            <li className="text-sm">{data.careName}</li>
-          </ul>
-        </span>
-      </div>
+    <div className="relative bg-white top-1 left-1 p-2 m-0 text-sm border-1 border-solid shadow rounded">
+      <span className="notranslate">{data.careName}</span>
     </div>
   );
 }
@@ -82,7 +76,17 @@ function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
         },
       }}
     >
-      {isVisible && content}
+      {isVisible && (
+        <CustomOverlayMap
+          position={position}
+          xAnchor={0}
+          yAnchor={0}
+          zIndex={1}
+        >
+          {content}
+        </CustomOverlayMap>
+      )}
+      {/* <div>test</div> */}
     </MapMarker>
   );
 }
