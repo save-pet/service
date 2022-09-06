@@ -71,14 +71,8 @@ function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
       image={{
         src: 'https://i.ibb.co/MsqtRCN/pin.png',
         size: {
-          width: 64,
-          height: 69,
-        },
-        options: {
-          offset: {
-            x: 27,
-            y: 69,
-          },
+          width: 50,
+          height: 50,
         },
       }}
     >
