@@ -71,14 +71,8 @@ function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
       image={{
         src: 'https://i.ibb.co/MsqtRCN/pin.png',
         size: {
-          width: 64,
-          height: 69,
-        },
-        options: {
-          offset: {
-            x: 27,
-            y: 69,
-          },
+          width: 50,
+          height: 50,
         },
       }}
     >
@@ -185,19 +179,20 @@ function MapView() {
           <Map // 지도를 표시할 Container
             center={state.center}
             className="w-full h-[85vh]"
-            level={3} // 지도의 확대 레벨
+            level={9} // 지도의 확대 레벨
           >
             {!state.isLoading && (
-              <MapMarker 
+              <MapMarker
                 position={state.center}
                 image={{
-                src: 'https://i.ibb.co/F4q5WKP/image.png',
-                size: {
-                  width: 50,
-                  height: 50,
-                },
-              }}
-            />
+                  src: 'https://i.ibb.co/F4q5WKP/image.png',
+                  size: {
+                    width: 50,
+                    height: 50,
+                  },
+                }}
+                clickable={false}
+              />
             )}
             {shelterList.map((shelter) => (
               <div key={shelter.careCode}>
