@@ -179,7 +179,7 @@ function MapView() {
           <Map // 지도를 표시할 Container
             center={state.center}
             className="w-full h-[85vh]"
-            level={3} // 지도의 확대 레벨
+            level={9} // 지도의 확대 레벨
           >
             {!state.isLoading && (
               <MapMarker
