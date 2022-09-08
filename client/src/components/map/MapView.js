@@ -8,26 +8,20 @@ import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import MapRenderList from '../list/MapRenderList';
 
-function InfoWindowContent({ data }) {
-  return (
-    <div className="px-[20px] py-[15px] w-[220px] text-left">
-      <div className="text-black">
-        <span className="notranslate">
-          <ul>
-            <li className="text-sm">{data.careName}</li>
-          </ul>
-        </span>
+function getInfoWindowData(shelterList) {
+  return shelterList.map((prev) => ({
+    ...prev,
+    content: (
+      <div className="px-[20px] py-[15px] w-[220px] text-left">
+        <div className="text-black">
+          <span className="notranslate">
+            <ul>
+              <li className="text-sm">{prev.careName}</li>
+            </ul>
+          </span>
+        </div>
       </div>
-    </div>
-  );
-}
-
-function getInfoWindowData(data) {
-  return data.map((obj) => ({
-    content: <InfoWindowContent data={obj} />,
-    latlng: { lat: obj.latitude, lng: obj.longitude },
-    id: obj._id,
-    careCode: obj.careCode,
+    ),
   }));
 }
 
@@ -195,10 +189,10 @@ function MapView() {
               />
             )}
             {shelterList.map((shelter) => (
-              <div key={shelter.careCode}>
+              <div key={shelter._id}>
                 <EventMarkerContainer
-                  key={`EventMarkerContainer-${shelter.latlng.lat}-${shelter.latlng.lng}`}
-                  position={shelter.latlng}
+                  key={`EventMarkerContainer-${shelter._id}`}
+                  position={{ lat: shelter.latitude, lng: shelter.longitude }}
                   content={shelter.content}
                   careCode={shelter.careCode}
                   onMarkerClick={getRescueDataByShelter}
@@ -215,9 +209,6 @@ function MapView() {
 
 export default MapView;
 
-InfoWindowContent.propTypes = {
-  data: PropTypes.shape().isRequired,
-};
 EventMarkerContainer.propTypes = {
   position: PropTypes.shape().isRequired,
   content: PropTypes.element.isRequired,
