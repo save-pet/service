@@ -8,23 +8,6 @@ import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
 
-function getInfoWindowData(shelterList) {
-  return shelterList.map((prev) => ({
-    ...prev,
-    content: (
-      <div className="px-[20px] py-[15px] w-[220px] text-left">
-        <div className="text-black">
-          <span className="notranslate">
-            <ul>
-              <li className="text-sm">{prev.careName}</li>
-            </ul>
-          </span>
-        </div>
-      </div>
-    ),
-  }));
-}
-
 function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
   const [isVisible, setIsVisible] = useState(false);
   return (
@@ -49,7 +32,7 @@ function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
 }
 
 function MapView() {
-  const [makeShelterList, setShelterList] = useState([]);
+  const [shelterList, setShelterList] = useState([]);
   const [rescueList, setRescueList] = useState([]);
   const [state, setState] = useState({
     center: {
@@ -68,9 +51,9 @@ function MapView() {
         url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
         method: 'GET',
       });
-      setShelterList(data);
+      return data;
     } catch (error) {
-      alert(error.response.data.reason);
+      return error.response.data.reason;
     } finally {
       setIsLoading(false);
     }
@@ -122,13 +105,12 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      await getShelterData();
+      setShelterList(await getShelterData());
     };
     findMyLocation();
-    asyncGetData().then();
+    asyncGetData();
   }, []);
 
-  const shelterList = getInfoWindowData(makeShelterList);
   if (isLoading)
     return (
       <div className="flex justify-center items-center	 w-100 h-screen">
@@ -166,7 +148,17 @@ function MapView() {
                 <EventMarkerContainer
                   key={`EventMarkerContainer-${shelter._id}`}
                   position={{ lat: shelter.latitude, lng: shelter.longitude }}
-                  content={shelter.content}
+                  content={
+                    <div className="px-[20px] py-[15px] w-[220px] text-left">
+                      <div className="text-black">
+                        <span className="notranslate">
+                          <ul>
+                            <li className="text-sm">{shelter.careName}</li>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  }
                   careCode={shelter.careCode}
                   onMarkerClick={getRescueDataByShelter}
                 />
