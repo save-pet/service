@@ -8,19 +8,13 @@ import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
 
-function EventMarkerContainer({
-  position,
-  content,
-  careCode,
-  onMarkerClick,
-  setRescueList,
-}) {
+function EventMarkerContainer({ shelter, onMarkerClick, setRescueList }) {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <MapMarker
-      position={position}
+      position={{ lat: shelter.latitude, lng: shelter.longitude }}
       onClick={async () => {
-        setRescueList(await onMarkerClick(careCode));
+        setRescueList(await onMarkerClick(shelter.careCode));
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -32,7 +26,17 @@ function EventMarkerContainer({
         },
       }}
     >
-      {isVisible && content}
+      {isVisible && (
+        <div className="px-[20px] py-[15px] w-[220px] text-left">
+          <div className="text-black">
+            <span className="notranslate">
+              <ul>
+                <li className="text-sm">{shelter.careName}</li>
+              </ul>
+            </span>
+          </div>
+        </div>
+      )}
     </MapMarker>
   );
 }
@@ -153,19 +157,7 @@ function MapView() {
               <div key={shelter._id}>
                 <EventMarkerContainer
                   key={`EventMarkerContainer-${shelter._id}`}
-                  position={{ lat: shelter.latitude, lng: shelter.longitude }}
-                  content={
-                    <div className="px-[20px] py-[15px] w-[220px] text-left">
-                      <div className="text-black">
-                        <span className="notranslate">
-                          <ul>
-                            <li className="text-sm">{shelter.careName}</li>
-                          </ul>
-                        </span>
-                      </div>
-                    </div>
-                  }
-                  careCode={shelter.careCode}
+                  shelter={shelter}
                   onMarkerClick={getRescueDataByShelter}
                   setRescueList={setRescueList}
                 />
@@ -182,9 +174,16 @@ function MapView() {
 export default MapView;
 
 EventMarkerContainer.propTypes = {
-  position: PropTypes.shape().isRequired,
-  content: PropTypes.element.isRequired,
-  careCode: PropTypes.string.isRequired,
+  shelter: PropTypes.shape({
+    _id: PropTypes.string,
+    careCode: PropTypes.string,
+    careAddress: PropTypes.string,
+    careName: PropTypes.string,
+    careTel: PropTypes.string,
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
+    lngLat: PropTypes.arrayOf(PropTypes.number),
+  }).isRequired,
   onMarkerClick: PropTypes.func.isRequired,
   setRescueList: PropTypes.func.isRequired,
 };
