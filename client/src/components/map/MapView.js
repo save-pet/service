@@ -8,13 +8,19 @@ import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
 
-function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
+function EventMarkerContainer({
+  position,
+  content,
+  careCode,
+  onMarkerClick,
+  setRescueList,
+}) {
   const [isVisible, setIsVisible] = useState(false);
   return (
     <MapMarker
       position={position}
-      onClick={() => {
-        onMarkerClick(careCode);
+      onClick={async () => {
+        setRescueList(await onMarkerClick(careCode));
       }}
       onMouseOver={() => setIsVisible(true)}
       onMouseOut={() => setIsVisible(false)}
@@ -65,9 +71,9 @@ function MapView() {
         url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/care-code/${careCode}`,
         method: 'GET',
       });
-      setRescueList(data);
+      return data;
     } catch (error) {
-      alert(error.response.data.reason);
+      return error.response.data.reason;
     }
   };
 
@@ -161,6 +167,7 @@ function MapView() {
                   }
                   careCode={shelter.careCode}
                   onMarkerClick={getRescueDataByShelter}
+                  setRescueList={setRescueList}
                 />
               </div>
             ))}
@@ -179,4 +186,5 @@ EventMarkerContainer.propTypes = {
   content: PropTypes.element.isRequired,
   careCode: PropTypes.string.isRequired,
   onMarkerClick: PropTypes.func.isRequired,
+  setRescueList: PropTypes.func.isRequired,
 };
