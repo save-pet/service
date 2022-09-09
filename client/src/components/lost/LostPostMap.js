@@ -9,6 +9,8 @@ import {
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 import DistanceInfo from './DistanceInfo';
+import ShelterMarker from '../map/ShelterMarker';
+import getShelterData from '../../api/getShelterData';
 
 function FindLocation({ setAddress, setAddressName, setRadius }) {
   const [position, setPosition] = useState(false);
@@ -20,6 +22,7 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
     errMsg: null,
     isLoading: true,
   });
+  const [shelterList, setShelterList] = useState([]);
   const [isDrawing, setIsDrawing] = useState(false);
   const drawingLineRef = useRef();
   const handleClick = (_map, mouseEvent) => {
@@ -99,6 +102,10 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
         isLoading: false,
       }));
     }
+    const asyncGetData = async () => {
+      setShelterList(await getShelterData());
+    };
+    asyncGetData();
   }, []);
 
   return (
@@ -154,6 +161,12 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
             clickable={false}
           />
         )}
+        {shelterList.map((shelter) => (
+          <ShelterMarker
+            key={`EventMarkerContainer-${shelter._id}`}
+            shelter={shelter}
+          />
+        ))}
       </Map>
       {position && (
         <FindPlaceName
