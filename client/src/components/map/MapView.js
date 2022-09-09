@@ -2,11 +2,11 @@
 
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
 import getRescueDataByShelter from '../../api/getRescueDataByShelter';
+import getShelterData from '../../api/getShelterData';
 import ShelterMarker from './ShelterMarker';
 
 function MapView() {
@@ -21,21 +21,6 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  const getShelterData = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios({
-        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
-        method: 'GET',
-      });
-      return data;
-    } catch (error) {
-      return error.response.data.reason;
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const findMyLocation = () => {
     if (navigator.geolocation) {
@@ -71,7 +56,7 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      setShelterList(await getShelterData());
+      setShelterList(await getShelterData(setIsLoading));
     };
     findMyLocation();
     asyncGetData();
