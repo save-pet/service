@@ -7,39 +7,8 @@ import { SpinningCircles } from 'react-loading-icons';
 import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
-
-function EventMarkerContainer({ shelter, onMarkerClick, setRescueList }) {
-  const [isVisible, setIsVisible] = useState(false);
-  return (
-    <MapMarker
-      position={{ lat: shelter.latitude, lng: shelter.longitude }}
-      onClick={async () => {
-        setRescueList(await onMarkerClick(shelter.careCode));
-      }}
-      onMouseOver={() => setIsVisible(true)}
-      onMouseOut={() => setIsVisible(false)}
-      image={{
-        src: 'https://i.ibb.co/MsqtRCN/pin.png',
-        size: {
-          width: 50,
-          height: 50,
-        },
-      }}
-    >
-      {isVisible && (
-        <div className="px-[20px] py-[15px] w-[220px] text-left">
-          <div className="text-black">
-            <span className="notranslate">
-              <ul>
-                <li className="text-sm">{shelter.careName}</li>
-              </ul>
-            </span>
-          </div>
-        </div>
-      )}
-    </MapMarker>
-  );
-}
+import getRescueDataByShelter from '../../api/getRescueDataByShelter';
+import ShelterMarker from './ShelterMarker';
 
 function MapView() {
   const [shelterList, setShelterList] = useState([]);
@@ -66,18 +35,6 @@ function MapView() {
       return error.response.data.reason;
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const getRescueDataByShelter = async (careCode) => {
-    try {
-      const { data } = await axios({
-        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/care-code/${careCode}`,
-        method: 'GET',
-      });
-      return data;
-    } catch (error) {
-      return error.response.data.reason;
     }
   };
 
@@ -153,16 +110,18 @@ function MapView() {
                 clickable={false}
               />
             )}
-            {shelterList.map((shelter) => (
-              <div key={shelter._id}>
-                <EventMarkerContainer
+            {shelterList.map((shelter) => {
+              const handleMarkerClick = async () => {
+                setRescueList(await getRescueDataByShelter(shelter.careCode));
+              };
+              return (
+                <ShelterMarker
                   key={`EventMarkerContainer-${shelter._id}`}
                   shelter={shelter}
-                  onMarkerClick={getRescueDataByShelter}
-                  setRescueList={setRescueList}
+                  onMarkerClick={handleMarkerClick}
                 />
-              </div>
-            ))}
+              );
+            })}
           </Map>
         </div>
       </div>
@@ -173,7 +132,7 @@ function MapView() {
 
 export default MapView;
 
-EventMarkerContainer.propTypes = {
+ShelterMarker.propTypes = {
   shelter: PropTypes.shape({
     _id: PropTypes.string,
     careCode: PropTypes.string,
@@ -185,5 +144,4 @@ EventMarkerContainer.propTypes = {
     lngLat: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
   onMarkerClick: PropTypes.func.isRequired,
-  setRescueList: PropTypes.func.isRequired,
 };
