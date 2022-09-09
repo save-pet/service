@@ -4,7 +4,6 @@ import { React, useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
-import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
 import Aside from './Aside';
 import getRescueDataByShelter from '../../api/getRescueDataByShelter';
@@ -131,17 +130,3 @@ function MapView() {
 }
 
 export default MapView;
-
-ShelterMarker.propTypes = {
-  shelter: PropTypes.shape({
-    _id: PropTypes.string,
-    careCode: PropTypes.string,
-    careAddress: PropTypes.string,
-    careName: PropTypes.string,
-    careTel: PropTypes.string,
-    longitude: PropTypes.number,
-    latitude: PropTypes.number,
-    lngLat: PropTypes.arrayOf(PropTypes.number),
-  }).isRequired,
-  onMarkerClick: PropTypes.func.isRequired,
-};

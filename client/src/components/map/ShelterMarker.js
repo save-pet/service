@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import { MapMarker } from 'react-kakao-maps-sdk';
+import PropTypes from 'prop-types';
 
 function ShelterMarker({ shelter, onMarkerClick }) {
   const [isVisible, setIsVisible] = useState(false);
@@ -33,3 +34,17 @@ function ShelterMarker({ shelter, onMarkerClick }) {
 }
 
 export default ShelterMarker;
+
+ShelterMarker.propTypes = {
+  shelter: PropTypes.shape({
+    _id: PropTypes.string,
+    careCode: PropTypes.string,
+    careAddress: PropTypes.string,
+    careName: PropTypes.string,
+    careTel: PropTypes.string,
+    longitude: PropTypes.number,
+    latitude: PropTypes.number,
+    lngLat: PropTypes.arrayOf(PropTypes.number),
+  }).isRequired,
+  onMarkerClick: PropTypes.func.isRequired,
+};
