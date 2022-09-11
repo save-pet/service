@@ -1,16 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
-import {
-  Map,
-  MapMarker,
-  Circle,
-  Polyline,
-  CustomOverlayMap,
-} from 'react-kakao-maps-sdk';
+import { Map, Circle, Polyline, CustomOverlayMap } from 'react-kakao-maps-sdk';
 import PropTypes from 'prop-types';
 import FindPlaceName from './FindPlaceName';
 import DistanceInfo from './DistanceInfo';
 import ShelterMarker from '../map/ShelterMarker';
 import getShelterData from '../../api/getShelterData';
+import CurrentPositionMarker from '../map/CurrentPositionMarker';
 
 function FindLocation({ setAddress, setAddressName, setRadius }) {
   const [position, setPosition] = useState(false);
@@ -73,35 +68,6 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
   };
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          setState((prev) => ({
-            ...prev,
-            center: {
-              lat: pos.coords.latitude, // 위도
-              lng: pos.coords.longitude, // 경도
-            },
-            isLoading: false,
-          }));
-        },
-        (err) => {
-          setState((prev) => ({
-            ...prev,
-            errMsg: err.message,
-            isLoading: false,
-          }));
-        },
-      );
-    } else {
-      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-      setState((prev) => ({
-        ...prev,
-        errMsg: 'geolocation을 사용할수 없어요..',
-        isLoading: false,
-      }));
-    }
     const asyncGetData = async () => {
       setShelterList(await getShelterData());
     };
@@ -148,19 +114,13 @@ function FindLocation({ setAddress, setAddressName, setRadius }) {
           </>
         )}
 
-        {!state.isLoading && (
-          <MapMarker
-            position={state.center}
-            image={{
-              src: 'https://i.ibb.co/F4q5WKP/image.png',
-              size: {
-                width: 40,
-                height: 40,
-              },
-            }}
-            clickable={false}
-          />
-        )}
+        <CurrentPositionMarker
+          state={state}
+          setState={setState}
+          iconHeight={40}
+          iconWidth={40}
+        />
+
         {shelterList.map((shelter) => (
           <ShelterMarker
             key={`EventMarkerContainer-${shelter._id}`}
