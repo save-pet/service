@@ -35,6 +35,9 @@ function ShelterMarker({ shelter, onMarkerClick }) {
 
 export default ShelterMarker;
 
+ShelterMarker.defaultProps = {
+  onMarkerClick: () => 1,
+};
 ShelterMarker.propTypes = {
   shelter: PropTypes.shape({
     _id: PropTypes.string,
@@ -46,5 +49,5 @@ ShelterMarker.propTypes = {
     latitude: PropTypes.number,
     lngLat: PropTypes.arrayOf(PropTypes.number),
   }).isRequired,
-  onMarkerClick: PropTypes.func.isRequired,
+  onMarkerClick: PropTypes.func,
 };
