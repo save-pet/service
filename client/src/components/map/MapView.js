@@ -2,87 +2,15 @@
 
 import { React, useEffect, useState } from 'react';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import axios from 'axios';
 import { SpinningCircles } from 'react-loading-icons';
-import PropTypes from 'prop-types';
 import Map2ListToggle from './Map2ListToggle';
-import MapRenderList from '../list/MapRenderList';
-
-function InfoWindowContent({ data }) {
-  return (
-    <div className="px-[20px] py-[15px] w-[220px] text-left">
-      <div className="text-black">
-        <span className="notranslate">
-          <ul>
-            <li className="text-sm">{data.careName}</li>
-          </ul>
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function getInfoWindowData(data) {
-  return data.map((obj) => ({
-    content: <InfoWindowContent data={obj} />,
-    latlng: { lat: obj.latitude, lng: obj.longitude },
-    id: obj._id,
-    careCode: obj.careCode,
-  }));
-}
-
-function Aside({ rescueList }) {
-  const getAsideTitle = () => {
-    let result;
-    if (rescueList.length === 0) {
-      result = '해당 보호소에는 보호동물이 없습니다.';
-    } else {
-      const careNameList = rescueList.map((rescue) => rescue.careName);
-      const careNameSet = new Set(careNameList);
-      result = careNameSet;
-    }
-    return result;
-  };
-
-  return (
-    <div
-      id="menu_wrap"
-      className="absolute w-96 h-[85vh] top-0 left-0 bottom-0 mt-0 mr-0 mb-30 ml-30 p-2 overflow-y-auto z-10 bg-white text-center"
-    >
-      <div className="text-center font-bold m-3">
-        {getAsideTitle(rescueList)}
-      </div>
-      <ul id="rescueList">
-        <MapRenderList list={rescueList} />
-      </ul>
-    </div>
-  );
-}
-function EventMarkerContainer({ position, content, careCode, onMarkerClick }) {
-  const [isVisible, setIsVisible] = useState(false);
-  return (
-    <MapMarker
-      position={position}
-      onClick={() => {
-        onMarkerClick(careCode);
-      }}
-      onMouseOver={() => setIsVisible(true)}
-      onMouseOut={() => setIsVisible(false)}
-      image={{
-        src: 'https://i.ibb.co/MsqtRCN/pin.png',
-        size: {
-          width: 50,
-          height: 50,
-        },
-      }}
-    >
-      {isVisible && content}
-    </MapMarker>
-  );
-}
+import Aside from './Aside';
+import getRescueDataByShelter from '../../api/getRescueDataByShelter';
+import getShelterData from '../../api/getShelterData';
+import ShelterMarker from './ShelterMarker';
 
 function MapView() {
-  const [makeShelterList, setShelterList] = useState([]);
+  const [shelterList, setShelterList] = useState([]);
   const [rescueList, setRescueList] = useState([]);
   const [state, setState] = useState({
     center: {
@@ -93,33 +21,6 @@ function MapView() {
     isLoading: true,
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  const getShelterData = async () => {
-    setIsLoading(true);
-    try {
-      const { data } = await axios({
-        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/shelter`,
-        method: 'GET',
-      });
-      setShelterList(data);
-    } catch (error) {
-      alert(error.response.data.reason);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getRescueDataByShelter = async (careCode) => {
-    try {
-      const { data } = await axios({
-        url: `${process.env.REACT_APP_SERVER_DOMAIN}/api/rescue/care-code/${careCode}`,
-        method: 'GET',
-      });
-      setRescueList(data);
-    } catch (error) {
-      alert(error.response.data.reason);
-    }
-  };
 
   const findMyLocation = () => {
     if (navigator.geolocation) {
@@ -155,13 +56,12 @@ function MapView() {
 
   useEffect(() => {
     const asyncGetData = async () => {
-      await getShelterData();
+      setShelterList(await getShelterData(setIsLoading));
     };
     findMyLocation();
-    asyncGetData().then();
+    asyncGetData();
   }, []);
 
-  const shelterList = getInfoWindowData(makeShelterList);
   if (isLoading)
     return (
       <div className="flex justify-center items-center	 w-100 h-screen">
@@ -194,17 +94,18 @@ function MapView() {
                 clickable={false}
               />
             )}
-            {shelterList.map((shelter) => (
-              <div key={shelter.careCode}>
-                <EventMarkerContainer
-                  key={`EventMarkerContainer-${shelter.latlng.lat}-${shelter.latlng.lng}`}
-                  position={shelter.latlng}
-                  content={shelter.content}
-                  careCode={shelter.careCode}
-                  onMarkerClick={getRescueDataByShelter}
+            {shelterList.map((shelter) => {
+              const handleMarkerClick = async () => {
+                setRescueList(await getRescueDataByShelter(shelter.careCode));
+              };
+              return (
+                <ShelterMarker
+                  key={`EventMarkerContainer-${shelter._id}`}
+                  shelter={shelter}
+                  onMarkerClick={handleMarkerClick}
                 />
-              </div>
-            ))}
+              );
+            })}
           </Map>
         </div>
       </div>
@@ -214,46 +115,3 @@ function MapView() {
 }
 
 export default MapView;
-
-InfoWindowContent.propTypes = {
-  data: PropTypes.shape().isRequired,
-};
-EventMarkerContainer.propTypes = {
-  position: PropTypes.shape().isRequired,
-  content: PropTypes.element.isRequired,
-  careCode: PropTypes.string.isRequired,
-  onMarkerClick: PropTypes.func.isRequired,
-};
-
-Aside.propTypes = {
-  rescueList: PropTypes.arrayOf(
-    PropTypes.shape({
-      age: PropTypes.string,
-      careAddress: PropTypes.string,
-      careCode: PropTypes.string,
-      careName: PropTypes.string,
-      careTel: PropTypes.string,
-      colorCode: PropTypes.string,
-      coords: PropTypes.arrayOf(
-        PropTypes.shape([PropTypes.number, PropTypes.number]),
-      ),
-      desertionNo: PropTypes.string,
-      happenDate: PropTypes.string,
-      happenLatitude: PropTypes.string,
-      happenLongitude: PropTypes.string,
-      happenPlace: PropTypes.string,
-      imgUrl: PropTypes.string,
-      kindCode: PropTypes.string,
-      kindCodeByNum: PropTypes.number,
-      neutering: PropTypes.string,
-      noticeEndDate: PropTypes.string,
-      noticeStartDate: PropTypes.string,
-      officeTel: PropTypes.string,
-      processState: PropTypes.string,
-      sex: PropTypes.string,
-      specialMark: PropTypes.string,
-      weight: PropTypes.string,
-      _id: PropTypes.string,
-    }),
-  ).isRequired,
-};
