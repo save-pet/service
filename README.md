@@ -62,18 +62,16 @@
   - 필터 기능
     <br/>
 
-### [구해줘 댕냥쓰 보러 가실까요!](http://saveus.ga/)
-
 <br/>
 
 > ## Figma
->
-> <br/>
-> <img width="600" alt="before1" src="https://i.ibb.co/bLKMnLq/image.png">
-
 [Figma Link](https://www.figma.com/file/8QNY0Il76dIr7fUDNXhkjz/2nd-Project-Rescue-Puppy-Kitten?node-id=0%3A1)
+<br/><br/>
+<img width="600" alt="before1" src="https://i.ibb.co/bLKMnLq/image.png">
 
 <!-- <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2F8QNY0Il76dIr7fUDNXhkjz%2F2nd-Project-Rescue-Puppy-Kitten%3Fnode-id%3D0%253A1" allowfullscreen></iframe> -->
+
+</br>
 
 > ## 스토리보드 및 유저 시나리오
 
@@ -92,8 +90,8 @@
 <br/>
 
 > ## 구현 기능 명세
->
-> <br/>
+
+<br/>
 
 #### 1. 메인페이지-구조 목록
 
@@ -222,15 +220,15 @@
 
 <br/>
 
-#### 햄버거 메뉴
+##### 햄버거 메뉴
 
 <img width="600" alt="data pipeline" src="https://ifh.cc/g/A6tYCC.jpg">
+
+<br/>
 
 ##### 데이터 파이프라인 실시간 현황 웹페이지
 
 <img width="600" alt="data pipeline" src="https://ifh.cc/g/Otkfa8.png">
-
-#### [데이터 파이프라인 실시간 현황 페이지](http://34.83.101.18/)
 
 <br/>
 
