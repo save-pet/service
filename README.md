@@ -9,13 +9,13 @@
 
 > ## 어떤 서비스인가요?
 
-- 유기동물보호소에 새로운 구조 여부 알림 서비스 ( 반려동물을 잃어버린 위치의 주변에 있는 보호소에서 새로운 구조가 있다면 주인에게 알림을 보내드립니다. )
+- 유기동물보호소에 새로운 구조 여부 알림 서비스 (반려동물을 잃어버린 위치의 주변에 있는 보호소에서 새로운 구조가 있다면 주인에게 알림을 보내드립니다.)
 
 <br/>
 
 > ## 누구를 위한 서비스인가요?
 
-- <b>반려동물을 잃어버린 주인</b>이 사용자 입니다.
+- <b>반려동물을 잃어버린 주인</b>이 사용자입니다.
 
 <br/>
 
@@ -96,7 +96,7 @@
 #### 1. 메인페이지-구조 목록
 
 <br/>
-<img width="600" alt="mainPage" src="https://ifh.cc/g/AATNmb.jpg">
+<img width="600" alt="mainPage" src="https://github.com/save-pet/service/assets/70076564/6ed2cbb0-8a89-4ad7-8a55-72001d809ac1">
 
     1.1 사용자가 선택한 개수씩 목록 보기
 
@@ -114,8 +114,8 @@
 
 <br/>
 
-<img width="600" alt="register" src="https://ifh.cc/g/RCGyaY.jpg">
-<img width="600" alt="login" src="https://ifh.cc/g/cbQ4lX.jpg">
+<img width="600" alt="register" src="https://github.com/save-pet/service/assets/70076564/13f8d1c3-0948-4468-a671-e24688377752">
+<img width="600" alt="login" src="https://github.com/save-pet/service/assets/70076564/9aa8e3a9-5ed8-4ff2-84e3-46e5d8b96812">
 
     2.1 아이디, 비밀번호, 전화번호 유효성 검증
 
@@ -129,7 +129,7 @@
 
 <br/>
 
-<img width="600" alt="myPage" src="https://ifh.cc/g/GslYq2.png">
+<img width="600" alt="myPage" src="https://github.com/save-pet/service/assets/70076564/a653a39a-8e6a-4058-9851-1ca572eaf892">
 
     3.1 회원정보 수정 유효성 검증
 
@@ -145,7 +145,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://ifh.cc/g/oq1Wmw.png">
+<img width="600" alt="before1" src="https://github.com/save-pet/service/assets/70076564/c2de87fe-5c3f-489c-be35-367e230a5840">
 
     3.1 모든 회원정보 확인 가능
 
@@ -157,7 +157,7 @@
 
 <br/>
 
-<img width="600" alt="posting lost" src="https://ifh.cc/g/kpQCZp.jpg">
+<img width="600" alt="posting lost" src="https://github.com/save-pet/service/assets/70076564/9c6c401b-becd-4f65-822d-f2ed78a793ef">
 
     4.1 카카오 지도를 이용하여 분실 위치 받기
 
@@ -175,7 +175,7 @@
 
 <br/>
 
-<img width="600" alt="lost list" src="https://ifh.cc/g/xsjVhn.jpg">
+<img width="600" alt="lost list" src="https://github.com/save-pet/service/assets/70076564/7ff919ca-e60b-405a-8629-60c4db6f932e">
 
 <br/>
 
@@ -183,7 +183,7 @@
 
 <br/>
 
-<img width="600" alt="before1" src="https://ifh.cc/g/lqr7BG.jpg">
+<img width="600" alt="before1" src="https://github.com/save-pet/service/assets/70076564/b25a7a3f-a3dc-48a8-9a8a-0fa5576c3f45">
 
     7.1 현재 위치 기준으로 주변의 구조된 동물 발견 위치 맵핑(카카오 map api 사용)
 
@@ -199,8 +199,8 @@
 
 <br/>
 
-<img width="600" alt="shelter list" src="https://ifh.cc/g/fkJnZM.png">
-<img width="600" alt="shelter rescued list" src="https://ifh.cc/g/Vwnqg6.jpg">
+<img width="600" alt="shelter list" src="https://github.com/save-pet/service/assets/70076564/92ea1f9e-c693-4a1a-af51-c3c7b30e3c4b">
+<img width="600" alt="shelter rescued list" src="https://github.com/save-pet/service/assets/70076564/0cf701f0-3ddd-40dc-b2da-4c1c6cd481a5">
 
     8.1 보호소 목록을 통해 보호소별 구조 동물 탐색 가능
 
@@ -222,19 +222,19 @@
 
 ##### 햄버거 메뉴
 
-<img width="600" alt="data pipeline" src="https://ifh.cc/g/A6tYCC.jpg">
+<img width="600" alt="data pipeline" src="https://github.com/save-pet/service/assets/70076564/b6b7d260-4f66-47e6-896a-38d12f75421b">
 
 <br/>
 
 ##### 데이터 파이프라인 실시간 현황 웹페이지
 
-<img width="600" alt="data pipeline" src="https://ifh.cc/g/Otkfa8.png">
+<img width="600" alt="data pipeline" src="https://github.com/save-pet/service/assets/70076564/c7ce35d9-e9ca-4706-acac-1ed9241d493e">
 
 <br/>
 
 ##### 문자알림
 
-<img width="600" alt="text message" src="https://ifh.cc/g/r1g097.png">
+<img width="600" alt="text message" src="https://github.com/save-pet/service/assets/70076564/eb524189-8573-4092-ba3d-0d4be7d576da">
 <br/>
 
 <br/>
@@ -268,7 +268,7 @@
 
 <br/>
 
-> ## 해당 스택들을 사용한 목적을 간단히 알려주세요
+> ## 해당 스택을 사용한 목적
 
 - React:
   - 다급한 사용자를 위해 한페이지에서 해결할 수 있도록 (UX)
